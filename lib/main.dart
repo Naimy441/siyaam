@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'chapter.dart';
-import 'constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   int storedChapter = await getStoredChapter();
-  // final prefs = await SharedPreferences.getInstance();
-  // await prefs.clear();
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.clear();
+  await dotenv.load(fileName: ".env"); 
+
   runApp(OdysseyApp(initialChapter: storedChapter));
 }
 

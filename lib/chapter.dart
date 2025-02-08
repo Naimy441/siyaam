@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:odyssey/levels.dart';
+import 'package:odyssey/constants.dart'; // Import structured data
 
 class ChapterScreen extends StatelessWidget {
   final int chapterNumber;
-  final String theme;
-  final String description;
 
   const ChapterScreen({
     super.key,
     required this.chapterNumber,
-    required this.theme,
-    required this.description,
   });
 
   @override
   Widget build(BuildContext context) {
+    // Retrieve the chapter details from the structured data
+    Map<String, String> chapterInfo = getChapterInfo(chapterNumber);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chapter $chapterNumber: $theme'),
+        title: Text('Chapter $chapterNumber: ${chapterInfo["theme"]}'),
         backgroundColor: Colors.orangeAccent,
       ),
       body: Padding(
@@ -28,7 +28,7 @@ class ChapterScreen extends StatelessWidget {
           children: [
             // Chapter Title
             Text(
-              "Chapter $chapterNumber: $theme",
+              "Chapter $chapterNumber: ${chapterInfo["theme"]}",
               style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
@@ -56,7 +56,7 @@ class ChapterScreen extends StatelessWidget {
 
             // Chapter Description
             Text(
-              description,
+              chapterInfo["description"]!,
               style: const TextStyle(
                 fontSize: 18,
                 color: Colors.black54,
@@ -66,30 +66,30 @@ class ChapterScreen extends StatelessWidget {
             const SizedBox(height: 40),
 
             // Continue Button
-           ElevatedButton(
-  onPressed: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const LevelsScreen(), // Now uses saved progress
-      ),
-    );
-  },
-  style: ElevatedButton.styleFrom(
-    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-    backgroundColor: Colors.orangeAccent,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(20),
-    ),
-  ),
-  child: const Text(
-    "Start Chapter",
-    style: TextStyle(
-      fontSize: 20,
-      color: Colors.white,
-    ),
-  ),
-),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LevelsScreen(chapterNumber: chapterNumber,), // Uses saved progress
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                backgroundColor: Colors.orangeAccent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              child: const Text(
+                "Start Chapter",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ],
         ),
       ),

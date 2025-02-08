@@ -37,8 +37,6 @@ class OdysseyApp extends StatelessWidget {
     } else {
       return ChapterScreen(
         chapterNumber: chapter,
-        theme: quests[chapter - 1][0],
-        description: quests[chapter - 1][1],
       );
     }
   }
@@ -158,7 +156,7 @@ class IntroductionScreenState extends State<IntroductionScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => ChapterScreen(chapterNumber: 1, theme: quests[0][0], description: quests[0][1],)),
+            builder: (context) => ChapterScreen(chapterNumber: 1,)),
       );
     }
   }

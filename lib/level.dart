@@ -4,12 +4,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
 class LevelScreen extends StatefulWidget {
+  final int chapterNumber;
   final int level;
   final String challenge;
   final bool twists;
 
   const LevelScreen({
     super.key,
+    required this.chapterNumber,
     required this.level,
     required this.challenge,
     this.twists = false,
@@ -41,7 +43,7 @@ class LevelScreenState extends State<LevelScreen> {
   Future<void> _loadTwistAndProgress() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _selectedTwist = prefs.getString('selectedTwist_Level${widget.level}');
+      _selectedTwist = prefs.getString('selectedTwist_Chapter${widget.chapterNumber}_Level${widget.level}');
       if (_selectedTwist != null) {
         _finalChallenge = "${twistOptions[_selectedTwist!]} ${widget.challenge}";
       }
@@ -56,7 +58,7 @@ class LevelScreenState extends State<LevelScreen> {
       _selectedTwist = twist;
       _finalChallenge = "${twistOptions[twist]} ${widget.challenge}";
     });
-    await prefs.setString('selectedTwist_Level${widget.level}', twist);
+    await prefs.setString('selectedTwist_Chapter${widget.chapterNumber}_Level${widget.level}', twist);
   }
 
   // Check if the quest has already been completed today
@@ -74,10 +76,10 @@ class LevelScreenState extends State<LevelScreen> {
     String today = DateTime.now().toIso8601String().substring(0, 10);
     await prefs.setString('lastQuestDate', today);
 
-    // Unlock next level
-    int unlockedLevel = prefs.getInt('unlockedLevel') ?? 1;
+    // Unlock next level in the same chapter
+    int unlockedLevel = prefs.getInt('unlockedLevel_${widget.chapterNumber}') ?? 1;
     if (widget.level == unlockedLevel) {
-      await prefs.setInt('unlockedLevel', widget.level + 1);
+      await prefs.setInt('unlockedLevel_${widget.chapterNumber}', widget.level + 1);
     }
 
     setState(() {
@@ -89,11 +91,13 @@ class LevelScreenState extends State<LevelScreen> {
       const SnackBar(content: Text("Quest completed! Next level unlocked.")),
     );
 
-    // Delay then return to levels screen
+    // Delay then return to LevelsScreen (Ensuring the correct chapter)
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const LevelsScreen()),
+        MaterialPageRoute(
+          builder: (context) => LevelsScreen(chapterNumber: widget.chapterNumber),
+        ),
       );
     });
   }
@@ -102,7 +106,7 @@ class LevelScreenState extends State<LevelScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Level ${widget.level}"),
+        title: Text("Chapter ${widget.chapterNumber} - Level ${widget.level}"),
         backgroundColor: Colors.orangeAccent,
       ),
       body: Center(

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'level.dart';
+import 'package:odyssey/constants.dart'; // Import structured chapter data
 
 class LevelsScreen extends StatefulWidget {
-  const LevelsScreen({super.key});
+  final int chapterNumber;
+
+  const LevelsScreen({super.key, required this.chapterNumber});
 
   @override
   _LevelsScreenState createState() => _LevelsScreenState();
@@ -12,14 +15,6 @@ class LevelsScreen extends StatefulWidget {
 class _LevelsScreenState extends State<LevelsScreen> {
   int _unlockedLevel = 1;
   bool _questCompletedToday = false;
-
-  final Map<int, String> levelChallenges = {
-    1: "Replace a plastic bottle with a reusable flask.",
-    2: "Go zero-waste for a day.",
-    3: "Try using only natural light for an entire day.",
-    4: "Pick up the most unusual litter you find.",
-    5: "Cook a meal with zero food waste!"
-  };
 
   @override
   void initState() {
@@ -30,7 +25,7 @@ class _LevelsScreenState extends State<LevelsScreen> {
   Future<void> _loadProgress() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _unlockedLevel = prefs.getInt('unlockedLevel') ?? 1;
+      _unlockedLevel = prefs.getInt('unlockedLevel_${widget.chapterNumber}') ?? 1;
       _questCompletedToday = _checkIfCompletedToday(prefs);
     });
   }
@@ -47,13 +42,15 @@ class _LevelsScreenState extends State<LevelsScreen> {
       if (!confirmOverride) return;
     }
 
+    String challenge = getChallenge(widget.chapterNumber, level);
+
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => LevelScreen(
           level: level,
-          challenge: levelChallenges[level]!,
-          twists: true,
+          challenge: challenge,
+          twists: true, chapterNumber: widget.chapterNumber,
         ),
       ),
     ).then((_) => _loadProgress()); // Refresh levels on return
@@ -86,7 +83,7 @@ class _LevelsScreenState extends State<LevelsScreen> {
       onWillPop: () async => false, // Disable back button
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Select a Level"),
+          title: Text("Chapter ${widget.chapterNumber} - Select a Level"),
           backgroundColor: Colors.orangeAccent,
           automaticallyImplyLeading: false, // Hide back button
         ),

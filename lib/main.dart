@@ -1,25 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'chapter.dart';
-
-List<List<dynamic>> quests = [
-  [
-    "Reduce Waste",
-    "Description",
-    [
-      "Think about replacing a single-use item with a reusable alternative. Plastic water bottle with an eco-friendly flask."
-    ]
-  ],
-  [],
-  [],
-  [],
-  [],
-  []
-];
+import 'constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   int storedChapter = await getStoredChapter();
+  // final prefs = await SharedPreferences.getInstance();
+  // await prefs.clear();
   runApp(OdysseyApp(initialChapter: storedChapter));
 }
 

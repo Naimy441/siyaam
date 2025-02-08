@@ -32,7 +32,7 @@ class ChapterScreen extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(221, 255, 255, 255),
+                color: Color.fromARGB(221, 17, 17, 17),
               ),
               textAlign: TextAlign.center,
             ),

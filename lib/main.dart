@@ -1,5 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'chapter.dart';
+
+List<List<dynamic>> quests = [
+  [
+    "Reduce Waste",
+    "Description",
+    [
+      "Think about replacing a single-use item with a reusable alternative. Plastic water bottle with an eco-friendly flask."
+    ]
+  ],
+  [],
+  [],
+  [],
+  [],
+  []
+];
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,18 +38,20 @@ class OdysseyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Odyssey',
-      theme: ThemeData.dark(),
+      theme: ThemeData.light(),
       home: getInitialScreen(initialChapter),
     );
   }
 
   Widget getInitialScreen(int chapter) {
-    switch (chapter) {
-      case 0:
-        return const HomeScreen(); // User starts at home
-      case 1:
-      default:
-        return const ChapterScreen(chapterNumber: 1); // Redirect to chapter screen
+    if (chapter == 0) {
+      return const HomeScreen();
+    } else {
+      return ChapterScreen(
+        chapterNumber: chapter,
+        theme: quests[chapter - 1][0],
+        description: quests[chapter - 1][1],
+      );
     }
   }
 }
@@ -94,8 +112,8 @@ class HomeScreen extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 15),
                     backgroundColor: Colors.orangeAccent,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -132,7 +150,7 @@ class IntroductionScreenState extends State<IntroductionScreen> {
   final List<String> _introTexts = [
     "Odyssey is a 30-Day App Challenge to foster sustainable and eco-friendly living.",
     "Each day is called a Quest, guiding you through impactful actions.",
-    "The challenge is divided into 6 Chapters, each focusing on different sustainability themes.",
+    "Odyssey is divided into 6 Chapters, each focusing on different sustainability themes.",
     "You'll start small, but each day’s quest builds upon the last.",
     "After Chapter 1, you'll unlock a special AI-powered twist!",
     "Get ready for a gamified, interactive journey towards sustainability!"
@@ -151,7 +169,8 @@ class IntroductionScreenState extends State<IntroductionScreen> {
       // Navigate to Chapter 1
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const ChapterScreen(chapterNumber: 1)),
+        MaterialPageRoute(
+            builder: (context) => ChapterScreen(chapterNumber: 1, theme: quests[0][0], description: quests[0][1],)),
       );
     }
   }
@@ -181,29 +200,6 @@ class IntroductionScreenState extends State<IntroductionScreen> {
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-// Placeholder for Chapter Screen
-class ChapterScreen extends StatelessWidget {
-  final int chapterNumber;
-
-  const ChapterScreen({super.key, required this.chapterNumber});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Chapter $chapterNumber'),
-        backgroundColor: Colors.orangeAccent,
-      ),
-      body: Center(
-        child: Text(
-          "Welcome to Chapter $chapterNumber!",
-          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
     );

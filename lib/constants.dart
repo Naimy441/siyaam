@@ -26,7 +26,7 @@ final Map<int, Chapter> chapters = {
     theme: "Reduce Waste",
     description: "Minimize Trash and Maximize Reuse",
     challenges: {
-      6: [
+      1: [
         "Give an old item new life – Turn an old sock into a sock puppet, repurpose a glass jar, or find another creative way to upcycle an item you would normally throw away.",
         "Shop secondhand – Visit a thrift store or a secondhand shop instead of buying something new.",
         "Declutter sustainably – Gather clothes, books, or items you no longer use and donate them to a local charity.",
@@ -39,7 +39,7 @@ final Map<int, Chapter> chapters = {
     theme: "Conserve Energy & Water",
     description: "Use Resources Wisely",
     challenges: {
-      11: [
+      1: [
         "Let the sun do the work – Use only natural light during daylight hours.",
         "Eliminate phantom energy waste – Unplug electronics and appliances when they’re not in use to prevent energy drain.",
         "Switch to cold water – Wash your clothes in cold water instead of hot to save energy.",
@@ -52,7 +52,7 @@ final Map<int, Chapter> chapters = {
     theme: "Conscious Consumption",
     description: "Make Thoughtful Choices",
     challenges: {
-      16: [
+      1: [
         "Swap a disposable item for a reusable one – Replace a single-use plastic item (water bottle, coffee cup, grocery bag, etc.) with a reusable alternative.",
         "Ditch plastic bags – Carry a reusable bag for shopping or errands instead of using plastic bags.",
         "Support local farmers – Shop at a farmer’s market instead of a supermarket and learn about where your food comes from.",
@@ -65,7 +65,7 @@ final Map<int, Chapter> chapters = {
     theme: "Sustainable Transportation",
     description: "Move Greener",
     challenges: {
-      21: [
+      1: [
         "Take a walking challenge – Walk to your destination for the day instead of driving or taking a bus.",
         "Replace a short car trip with walking – Choose one trip you’d normally drive and walk instead.",
         "Carpool to reduce emissions – Share a ride with a friend or coworker to cut down on carbon emissions.",
@@ -78,7 +78,7 @@ final Map<int, Chapter> chapters = {
     theme: "Advocacy and Volunteering",
     description: "Take Action for the Planet",
     challenges: {
-      26: [
+      1: [
         "Sign a climate action petition – Add your name to a petition supporting environmental policy changes.",
         "Write an eco-friendly encouragement note – Send a message to a friend encouraging them to adopt a sustainable habit.",
         "Participate in a local cleanup – Join or organize a community cleanup effort to remove litter from a park, beach, or neighborhood.",
@@ -90,27 +90,17 @@ final Map<int, Chapter> chapters = {
 };
 
 String getChallenge(int chapter, int level) {
+  if (level < 1 || level > 5) {
+    return "Invalid level. Please select a level between 1 and 5.";
+  }
+  
   if (chapters.containsKey(chapter)) {
     Chapter currentChapter = chapters[chapter]!;
-
-    // Find the nearest level that exists
-    int? foundLevel = currentChapter.challenges.keys.firstWhere(
-      (lvl) => lvl <= level,
-      orElse: () => -1, // If not found, return an invalid value
-    );
-
-    if (foundLevel == -1) {
-      return "Challenge not found.";
-    }
-
-    List<String>? levelChallenges = currentChapter.challenges[foundLevel];
-
-    // Validate that the challenge exists
-    if (levelChallenges != null && levelChallenges.isNotEmpty) {
-      int index = (level - foundLevel);
-      if (index >= 0 && index < levelChallenges.length) {
-        return levelChallenges[index];
-      }
+    
+    List<String>? levelChallenges = currentChapter.challenges[1];
+    
+    if (levelChallenges != null && levelChallenges.length >= level) {
+      return levelChallenges[level - 1];
     }
   }
 

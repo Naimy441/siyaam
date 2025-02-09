@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:odyssey/end_screen.dart';
 import 'package:odyssey/levels.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:odyssey/gemini_service.dart';
@@ -111,6 +112,7 @@ class LevelScreenState extends State<LevelScreen> {
 
   // Save quest completion and update progress
   Future<void> _completeQuest() async {
+    int chapterNum = widget.chapterNumber;
     final prefs = await SharedPreferences.getInstance();
 
     // Save today's date as last completed quest date
@@ -124,6 +126,29 @@ class LevelScreenState extends State<LevelScreen> {
       await prefs.setInt(
           'unlockedLevel_${widget.chapterNumber}', widget.level + 1);
     }
+    if (widget.level == 5) {
+      chapterNum += 1;
+      await prefs.setInt('chapterNumber', widget.chapterNumber + 1);
+      await prefs.setInt(
+          'unlockedLevel_$chapterNum', 1);
+          // print(chapterNum);
+          // print(await prefs.getInt('unlockedLevel_$chapterNum'));
+    }
+    if (chapterNum == 7 && widget.level == 5) {
+      Future.delayed(const Duration(milliseconds: 500), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              EndScreen(),
+        ),
+      );
+    });
+    
+    } else {
+
+    // print(widget.chapterNumber);
+    // print(widget.level);
 
     setState(() {
       _questCompletedToday = true;
@@ -135,15 +160,16 @@ class LevelScreenState extends State<LevelScreen> {
     );
 
     // Delay then return to LevelsScreen
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) =>
-              LevelsScreen(chapterNumber: widget.chapterNumber),
+              LevelsScreen(chapterNumber: chapterNum),
         ),
       );
     });
+    }
   }
 
   @override

@@ -9,10 +9,10 @@ class LevelsScreen extends StatefulWidget {
   const LevelsScreen({super.key, required this.chapterNumber});
 
   @override
-  _LevelsScreenState createState() => _LevelsScreenState();
+  LevelsScreenState createState() => LevelsScreenState();
 }
 
-class _LevelsScreenState extends State<LevelsScreen> {
+class LevelsScreenState extends State<LevelsScreen> {
   int _unlockedLevel = 1;
   bool _questCompletedToday = false;
 
@@ -50,7 +50,7 @@ class _LevelsScreenState extends State<LevelsScreen> {
         builder: (context) => LevelScreen(
           level: level,
           challenge: challenge,
-          twists: true, chapterNumber: widget.chapterNumber,
+          twists: false, chapterNumber: widget.chapterNumber,
         ),
       ),
     ).then((_) => _loadProgress()); // Refresh levels on return

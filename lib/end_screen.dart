@@ -60,7 +60,7 @@ class EndScreenState extends State<EndScreen> {
 
                 // Congratulations Message 🎉
                 const Text(
-                  "🎉 Congratulations! 🎉",
+                  "Congratulations! 🎉",
                   style: TextStyle(
                     fontSize: 36,
                     fontWeight: FontWeight.bold,

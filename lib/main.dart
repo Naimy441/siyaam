@@ -6,8 +6,11 @@ import 'chapter.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   int storedChapter = await getStoredChapter();
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.clear();
+
+  // Uncomment to clear user local storage
+  // final prefs = await SharedPreferences.getInstance();
+  // await prefs.clear();
+
   await dotenv.load(fileName: ".env"); 
 
   runApp(OdysseyApp(initialChapter: storedChapter));

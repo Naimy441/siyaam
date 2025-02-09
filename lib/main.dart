@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'chapter.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,6 +13,11 @@ void main() async {
   await prefs.clear();
 
   await dotenv.load(fileName: ".env"); 
+
+  // Loops background music
+  final AudioPlayer audioPlayer = AudioPlayer();
+  audioPlayer.setReleaseMode(ReleaseMode.loop); 
+  audioPlayer.play(AssetSource('floating_cat.mp3'));
 
   runApp(OdysseyApp(initialChapter: storedChapter));
 }

@@ -1,11 +1,12 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:odyssey/end_screen.dart';
+import 'package:odyssey/gemini_service.dart';
 import 'package:odyssey/levels.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:odyssey/gemini_service.dart';
+import 'package:scratcher/scratcher.dart';
 import 'dart:async';
 import 'dart:convert';
-import 'package:scratcher/scratcher.dart';
 
 class LevelScreen extends StatefulWidget {
   final int chapterNumber;
@@ -30,8 +31,9 @@ class LevelScreenState extends State<LevelScreen> {
   String _finalChallenge = "";
   bool _questCompletedToday = false;
   bool _isLoading = true;
-  bool _isScratched = false; // Track scratch completion
-  Map<String, String> _twistsMap = {}; // Store AI-generated twists
+  bool _isScratched = false;
+  double _scratchProgress = 0; // Tracks how much is scratched
+  Map<String, String> _twistsMap = {};
 
   @override
   void initState() {
@@ -106,12 +108,9 @@ class LevelScreenState extends State<LevelScreen> {
   Future<void> _completeQuest() async {
     int chapterNum = widget.chapterNumber;
     final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('lastQuestDate', DateTime.now().toIso8601String().substring(0, 10));
 
-    String today = DateTime.now().toIso8601String().substring(0, 10);
-    await prefs.setString('lastQuestDate', today);
-
-    int unlockedLevel =
-        prefs.getInt('unlockedLevel_${widget.chapterNumber}') ?? 1;
+    int unlockedLevel = prefs.getInt('unlockedLevel_${widget.chapterNumber}') ?? 1;
     if (widget.level == unlockedLevel) {
       await prefs.setInt(
           'unlockedLevel_${widget.chapterNumber}', widget.level + 1);
@@ -139,142 +138,148 @@ class LevelScreenState extends State<LevelScreen> {
         const SnackBar(content: Text("🎉 Quest completed! Next level unlocked.")),
       );
 
-      Future.delayed(const Duration(milliseconds: 500), () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => LevelsScreen(chapterNumber: chapterNum),
-          ),
-        );
-      });
-    }
-  }
+    Future.delayed(const Duration(milliseconds: 500), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LevelsScreen(chapterNumber: chapterNum),
+        ),
+      );
+    });
+  }}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text("Chapter ${widget.chapterNumber} - Quest ${widget.level}"),
-        backgroundColor: Colors.orangeAccent,
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (_isLoading)
-                const CircularProgressIndicator()
-              else ...[
-                // Scratcher Challenge Card
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  color: Colors.orangeAccent.shade100,
-                  elevation: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          "🎯 Scratch to Reveal Challenge",
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 15),
-                        Scratcher(
-                          brushSize: 50,
-                          threshold: 50,
-                          color: Colors.orangeAccent.shade100,
-                          onChange: (value) {
-                            if (value > 50) {
-                              setState(() {
-                                _isScratched = true;
-                              });
-                            }
-                          },
-                          child: Container(
-                            width: 300,
-                            height: 200,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: _isScratched
-                                ? Text(
-                                    _finalChallenge,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.black54,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  )
-                                : const Text(
-                                    "🎭 Scratch Here",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black38,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 30),
-
-                if (widget.twists && _selectedTwist == null) ...[
-                  const Text(
-                    "🎭 Choose a Twist!",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  Wrap(
-                    spacing: 10,
-                    children: _twistsMap.keys.map((twist) {
-                      return ElevatedButton(
-                        onPressed: () => _selectTwist(twist),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.orangeAccent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                        ),
-                        child: Text(
-                          twist,
-                          style: const TextStyle(fontSize: 18, color: Colors.white),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ],
-
-                if (_selectedTwist != null || !widget.twists)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: ElevatedButton(
-                      onPressed: _completeQuest,
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                        backgroundColor: Colors.green,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                      ),
-                      child: const Text("✅ Complete Quest", style: TextStyle(fontSize: 20, color: Colors.white)),
-                    ),
-                  ),
-              ],
-            ],
-          ),
+        title: Text(
+          "Chapter ${widget.chapterNumber} - Quest ${widget.level}",
+          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
         ),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Stack(
+        children: [
+          // Background Gradient
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.blue.shade100,
+                  Colors.blue.shade50,
+                ],
+              ),
+            ),
+          ),
+
+          Center(
+            child: _isLoading
+                ? const CircularProgressIndicator()
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Scratch Card with Glassmorphism
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                          child: Container(
+                            width: 320,
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.3),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: Colors.white.withOpacity(0.2)),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Text(
+                                  "🎯 Scratch to Reveal Challenge",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black87,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 15),
+                                Scratcher(
+                                  brushSize: 50,
+                                  threshold: 50,
+                                  color: Colors.blue.shade200,
+                                  onChange: (value) {
+                                    setState(() {
+                                      _scratchProgress = value;
+                                      if (_scratchProgress >= 50) {
+                                        _isScratched = true;
+                                      }
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 300,
+                                    height: 200,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: _isScratched
+                                        ? Text(
+                                            _finalChallenge,
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.black54,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          )
+                                        : const Text(
+                                            "🎭 Scratch Here",
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.black38,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 30),
+
+                      // Complete Quest Button (Initially Grey, Fades to Blue)
+                      AnimatedOpacity(
+                        duration: const Duration(milliseconds: 500),
+                        opacity: _isScratched ? 1.0 : 0.5,
+                        child: ElevatedButton(
+                          onPressed: _isScratched ? _completeQuest : null,
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                            backgroundColor: _isScratched ? Colors.blue.shade600 : Colors.grey.shade400,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            elevation: _isScratched ? 10 : 0,
+                          ),
+                          child: const Text(
+                            "✅ Complete Quest",
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+          ),
+        ],
       ),
     );
   }

@@ -164,17 +164,11 @@ Widget build(BuildContext context) {
       ),
       body: Stack(
         children: [
-          // Background Gradient
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.blue.shade100,
-                  Colors.blue.shade50,
-                ],
-              ),
+
+          Positioned.fill(
+            child: Image.asset(
+              "assets/child_drawing.png",
+              fit: BoxFit.cover,
             ),
           ),
 

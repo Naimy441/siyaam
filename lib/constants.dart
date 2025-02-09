@@ -18,7 +18,7 @@ final Map<int, Chapter> chapters = {
         "Curate a nature-inspired playlist – Create a playlist with songs that remind you of nature, sustainability, or environmental activism.",
         "Explore your local recycling system – Research how recycling works in your city. What items are accepted? Where does your recycling go? Bonus: Visit a local recycling plant.",
         "Investigate and share your carbon footprint – Use an online carbon footprint calculator to estimate your impact on the planet. Share one surprising fact you learned.",
-        "Write a letter to Congress about climate action – Draft a persuasive letter to your representative about an environmental issue you care about. Even better, send it!"
+        "Remove invasive plants – Research and remove invasive species from your yard or a local green space."
       ],
     },
   ),
@@ -36,7 +36,7 @@ final Map<int, Chapter> chapters = {
     },
   ),
   3: Chapter(
-    theme: "Conserve Energy & Water",
+    theme: "Conserve Energy & Water", 
     description: "Use Resources Wisely",
     challenges: {
       1: [
@@ -82,8 +82,8 @@ final Map<int, Chapter> chapters = {
         "Sign a climate action petition – Add your name to a petition supporting environmental policy changes.",
         "Write an eco-friendly encouragement note – Send a message to a friend encouraging them to adopt a sustainable habit.",
         "Participate in a local cleanup – Join or organize a community cleanup effort to remove litter from a park, beach, or neighborhood.",
-        "Remove invasive plants – Research and remove invasive species from your yard or a local green space.",
-        "Plant a tree – Either plant one yourself or contribute to a tree-planting organization to help combat deforestation."
+        "Plant a tree – Either plant one yourself or contribute to a tree-planting organization to help combat deforestation.",
+        "Write a letter to Congress about climate action – Draft a persuasive letter to your representative about an environmental issue you care about. Even better, send it!"
       ],
     },
   ),

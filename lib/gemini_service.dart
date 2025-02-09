@@ -99,7 +99,7 @@ class TextProcessor {
       case "Masterful": formattedPrompt = "Rewrite \"${prompt}\" with a masterful twist that demands skill, precision, and elite performance while maintaining the essence."; break;
       default: formattedPrompt = "Rewrite \"${prompt}\" with a creative twist related to the phrase \"${twist}\", ensuring a meaningful transformation, not just rewording. Introduce a slight, engaging change that enhances the challenge without making it unfair or inappropriate."; break;
     }
-    formattedPrompt += "Ensure the twist meaningfully alters the challenge while keeping it fair, safe, and fun. The twist should be engaging, family-friendly, and easy to complete in one day. Avoid excessive difficulty or anything that could be seen as unfair or inappropriate. The generated challenge must fit on one line.";
+    formattedPrompt += "Ensure the twist meaningfully alters the challenge while keeping it fair, safe, and fun. The twist should be engaging, family-friendly, legal, and easy to complete in one day. Avoid excessive difficulty or anything that could be seen as unfair or inappropriate. The generated challenge must fit on one line.";
     print("Formatted prompt: ${formattedPrompt}");
     return formattedPrompt;
   }

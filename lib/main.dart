@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'chapter.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,29 +73,38 @@ class HomeScreen extends StatelessWidget {
           // Centered Content
           Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // App Title
-                const Text(
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1, // Adjust height dynamically
+                ),
+                Text(
                   "ODYSSEY",
-                  style: TextStyle(
+                  style: GoogleFonts.aBeeZee(  // Use camelCase for Google Fonts
                     fontSize: 50,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 3,
-                    color: Colors.white,
-                    shadows: [
-                      Shadow(blurRadius: 10, color: Colors.black),
-                    ],
+                    color: const Color.fromARGB(255, 0, 0, 0),
+
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01, // Adjust height dynamically
+                ),
 
                 // Subtitle
-                const Text(
+                Text(
                   "Your Journey to Sustainability",
-                  style: TextStyle(fontSize: 18, color: Color.fromARGB(179, 6, 6, 6)),
+                  style: GoogleFonts.aBeeZee(  // Use camelCase for Google Fonts
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 3,
+                    color: const Color.fromARGB(255, 0, 0, 0),
+   
+                  ),
                 ),
-                const SizedBox(height: 50),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.65, // Adjust height dynamically
+                ),
 
                 // Start Button
                 ElevatedButton(
@@ -108,7 +118,7 @@ class HomeScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 50, vertical: 15),
-                    backgroundColor: Colors.orangeAccent,
+                    backgroundColor: const Color.fromARGB(255, 216, 243, 255),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -118,7 +128,7 @@ class HomeScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Color.fromARGB(255, 1, 1, 1),
                     ),
                   ),
                 ),

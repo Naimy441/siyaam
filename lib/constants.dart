@@ -14,9 +14,11 @@ final Map<int, Chapter> chapters = {
     theme: "Education",
     description: "Learn and Spread Awareness",
     story: [
-      "The first spark was small—a shared fact, a passing conversation, a meme that made someone pause. But knowledge rippled outward, stretching beyond a single voice, beyond a single moment.",
-      "Like seeds carried by the wind, ideas took root in unexpected places—classrooms, coffee shops, quiet reflections. Awareness deepened, choices sharpened, and a shift began.",
-      "There were no grand gestures, just the quiet hum of understanding passing from one person to another. And before our eyes, a movement took shape. The world began to listen."
+      "Sustainability isn’t just about saving the environment, it’s about ensuring that future generations have access to clean air, water, and resources.",
+      "Did you know that if everyone lived like the average American, we would need five Earths to sustain us?", 
+      "Our current lifestyle is outpacing what the planet can handle, but small, mindful changes can help.",
+      "Over the next few days, you'll be challenged to rethink the impact of your daily habits.",
+      "From tracking your carbon footprint to identifying wasteful patterns, each task will bring you closer to a more sustainable lifestyle."
     ],
     challenges: {
       1: [
@@ -32,9 +34,10 @@ final Map<int, Chapter> chapters = {
     theme: "Reduce Waste",
     description: "Minimize Trash and Maximize Reuse",
     story: [
-      "It’s not always about tasks, but about a shift in perspective.",
-      "Waste was no longer waste—it was a resource. Light was no longer automatic—it was intentional. Every step became a conscious act of care.",
-      "One day, you paused before tossing something away. You questioned before buying. You noticed the world around you—truly noticed. And in that moment, you realized: Sustainability isn't a checklist. It's a way of seeing."
+      "Every year, the world produces over 2 billion tons of waste. In the U.S. alone, 30 to 40% of food goes to waste while millions face food insecurity.", 
+      "Single-use plastics, excessive packaging, and fast fashion only add to the problem.",
+      "Your challenge: Cut down on waste at home and on the go. You'll be tasked with eliminating single-use plastics, repurposing old items, and even finding creative ways to reduce food waste.", 
+      "Each action will help conserve resources, reduce pollution, and keep unnecessary waste out of landfills."
     ],
     challenges: {
       1: [
@@ -50,9 +53,11 @@ final Map<int, Chapter> chapters = {
     theme: "Conserve Energy & Water", 
     description: "Use Resources Wisely",
     story: [
-      "At first, the changes were small—a plastic bottle repurposed, a footprint lightened. The steady hum of wasted energy faded, replaced by mindful choices.",
-      "Like a river shaping the land, each decision made a difference. Shorter showers saved unseen gallons, unplugged devices silenced the silent drain, and sunlight replaced artificial glow.",
-      "Little by little, the world responded. Waste turned to intention, excess to balance. And in that quiet shift, the earth exhaled—lighter, freer, and more alive."
+      "Leaving a phone charger plugged in might not seem like a big deal, but phantom energy use (electricity consumed by plugged-in devices not in use) costs Americans nearly \$19 billion annually."
+      "Meanwhile, a single leaky faucet can waste a gallon of water a day.",
+      
+      "Your challenge: Reduce unnecessary energy and water consumption. You'll be tasked with unplugging unused electronics, adjusting your thermostat, taking shorter showers, and spotting energy-wasting habits at home.",
+      "By conserving these resources, you’ll help lower emissions, protect water supplies, and even save money on your utility bills."
     ],
     challenges: {
       1: [
@@ -68,9 +73,9 @@ final Map<int, Chapter> chapters = {
     theme: "Conscious Consumption",
     description: "Make Thoughtful Choices",
     story: [
-      "The earth noticed the shift—a plastic bag refused, a reusable bottle filled, a habit formed. Waste less, choose wisely—each act a quiet vow to the planet.",
-      "Like a river shaping the land, small choices shaped tomorrow. Sunlight replaced artificial glow, nourishing both space and spirit. A plant-based meal, a repurposed item—proof that new wasn’t always better.",
-      "Mindfulness took root, one decision at a time. And in that shift, abundance was redefined—not in excess, but in sustainability, in care, in lasting impact."
+      "The fast fashion industry produces 10% of the world's carbon emissions. That’s more than all international flights and maritime shipping combined. Meanwhile, an estimated 85% of textiles end up in landfills each year.", 
+      "Your challenge: Be intentional with your purchases. You'll be tasked with supporting ethical brands, choosing durable and eco-friendly alternatives, and resisting impulse buys.",
+      "By making smarter shopping decisions, you’ll reduce waste, cut down on pollution, and help shift industries toward more sustainable practices."
     ],
     challenges: {
       1: [
@@ -86,9 +91,11 @@ final Map<int, Chapter> chapters = {
     theme: "Sustainable Transportation",
     description: "Move Greener",
     story: [
-      "From the first step, the earth took notice. Engines idled less. Footsteps replaced exhaust. A journey once measured in miles became an opportunity to move with purpose.",
-      "Like a river carving a path, each decision—no matter how small—shaped the landscape of tomorrow. A walk that once seemed too far became a moment to breathe. A bus ride carried not just people, but the promise of fewer emissions. A shared trip meant less congestion, less pollution, more connection.",
-      "In these choices, movement became more than just getting from one place to another—it became a statement, a shift toward a cleaner, quieter world. And before our eyes, the roads cleared, the air lightened, and the journey itself became part of the solution."
+      "Transportation is responsible for nearly 1/4 of global CO₂ emissions, with cars contributing the most. A short one-mile car trip emits nearly 400 grams of CO₂, while walking or biking has zero emissions.",
+      "Even switching to public transit can cut your carbon footprint by half.",
+      "Your challenge: Reduce your transportation impact. You'll be tasked with walking or biking instead of driving, carpooling with friends, and exploring public transit options.",
+      "Every small shift adds up, lowering emissions, reducing traffic congestion, and improving air quality in your community."
+
     ],
     challenges: {
       1: [
@@ -104,9 +111,11 @@ final Map<int, Chapter> chapters = {
     theme: "Advocacy and Volunteering",
     description: "Take Action for the Planet",
     story: [
-      "It started with a single act—a petition signed, a cleanup joined, a voice raised. One action became many, momentum building with every hand willing to help.",
-      "A park restored, a law challenged, a conversation that sparked change. Letters reached leaders, demanding a future where nature thrived. Small efforts wove together, forming something greater than any one person.",
-      "And before our eyes, the world listened—because we refused to stay silent."
+      "Only about 100 companies are responsible for over 70% of global emissions. Change happens when individuals advocate for better policies and corporate accountability.", 
+      "Studies show that community cleanups, petitions, and sustainability initiatives can significantly reduce pollution and encourage greener practices.",
+      "Your challenge: Take sustainability beyond your personal habits. You’ll be tasked with joining or organizing a cleanup, spreading awareness about sustainability issues, and contacting local leaders about environmental initiatives.",
+      "The most impactful change happens when people work together—your voice and actions matter."
+
     ],
     challenges: {
       1: [

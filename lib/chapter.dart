@@ -1,132 +1,184 @@
-import 'dart:ui';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:odyssey/levels.dart';
-import 'package:odyssey/constants.dart'; // Import structured data
+import 'package:odyssey/constants.dart';
+import 'package:audioplayers/audioplayers.dart';
 
-class ChapterScreen extends StatelessWidget {
+class ChapterScreen extends StatefulWidget {
   final int chapterNumber;
 
-  const ChapterScreen({
-    super.key,
-    required this.chapterNumber,
-  });
+  const ChapterScreen({super.key, required this.chapterNumber});
+
+  @override
+  _ChapterScreenState createState() => _ChapterScreenState();
+}
+
+class _ChapterScreenState extends State<ChapterScreen> with SingleTickerProviderStateMixin {
+  late Map<String, String> chapterInfo;
+  late ScrollController _scrollController;
+  late AnimationController _animationController;
+  late Animation<Offset> _animation;
+  bool _showSkipButton = true;
+  Timer? _fadeTimer;
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+@override
+void initState() {
+  super.initState();
+  chapterInfo = getChapterInfo(widget.chapterNumber);
+  _scrollController = ScrollController();
+  
+  // Initialize the animation controller
+  _animationController = AnimationController(
+    vsync: this,
+    duration: const Duration(seconds: 13),
+  );
+
+  // Initialize the animation after the controller
+  _animation = Tween<Offset>(
+    begin: const Offset(0, 0.9), // Start off-screen (bottom)
+    end: Offset.zero,
+  ).animate(CurvedAnimation(parent: _animationController, curve: Curves.linear));
+
+  // Start animation
+  _animationController.forward();
+
+  // Play the voiceover
+  _playVoiceOver();
+
+  // Start fading timer for the skip button
+  _startFadeTimer();
+}
+
+  void _playVoiceOver() async {
+    // await _audioPlayer.play(AssetSource('audio/chapter_${widget.chapterNumber}.mp3'));
+  }
+
+  void _startFadeTimer() {
+    _fadeTimer = Timer(const Duration(seconds: 3), () {
+      if (mounted) {
+        setState(() => _showSkipButton = false);
+      }
+    });
+  }
+
+  void _resetFadeTimer() {
+    setState(() => _showSkipButton = true);
+    _fadeTimer?.cancel();
+    _startFadeTimer();
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    _fadeTimer?.cancel();
+    _scrollController.dispose();
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Retrieve the chapter details from the structured data
-    Map<String, String> chapterInfo = getChapterInfo(chapterNumber);
-
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        title: Text(
-          'Chapter $chapterNumber: ${chapterInfo["theme"]}',
-          style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: Stack(
-        children: [
-          // Background Gradient (Soft Blue)
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.blue.shade100,
-                  Colors.blue.shade50,
-                ],
+    return GestureDetector(
+      onTap: _resetFadeTimer,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Stack(
+          children: [
+            // Background Gradient
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.lightBlue.shade50,
+                    Colors.lightBlue.shade200,
+                  ],
+                ),
               ),
             ),
-          ),
-
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // Chapter Title
-                  Text(
-                    "Chapter $chapterNumber: ${chapterInfo["theme"]}",
-                    style: const TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Chapter Illustration (Glassmorphic Effect)
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(75),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                      child: Container(
-                        height: 150,
-                        width: 150,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white.withOpacity(0.3)),
+            
+            // Scrolling Text Animation
+            Positioned.fill(
+              child: SlideTransition(
+                position: _animation,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 100),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "Chapter ${widget.chapterNumber}: ${chapterInfo["theme"]}",
+                        style: const TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blueGrey,
                         ),
-                        child: const Icon(
-                          Icons.eco_rounded,
-                          size: 80,
-                          color: Colors.blueAccent,
-                        ),
+                        textAlign: TextAlign.center,
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Chapter Description
-                  Text(
-                    chapterInfo["description"]!,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.black54,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 40),
-
-                  // Continue Button
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LevelsScreen(chapterNumber: chapterNumber),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                      backgroundColor: Colors.blue.shade600,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                      const SizedBox(height: 30),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          "This is the first point of the chapter.",
+                          "It provides an introduction to the theme.",
+                          "Key concepts will be explored in detail.",
+                          "Each concept builds upon the previous one.",
+                          "A summary will reinforce learning outcomes."
+                        ].map((line) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5.0),
+                          child: Text(
+                            line,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.black87,
+                            ),
+                            textAlign: TextAlign.start,
+                          ),
+                        )).toList(),
                       ),
-                      elevation: 10,
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            
+            // Skip Button
+            Positioned(
+              top: 40,
+              right: 20,
+              child: AnimatedOpacity(
+                opacity: _showSkipButton ? 1.0 : 0.0,
+                duration: const Duration(seconds: 1),
+                child: GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LevelsScreen(chapterNumber: widget.chapterNumber),
+                    ),
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.white70,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.blueGrey, width: 1.5),
                     ),
                     child: const Text(
-                      "Start Chapter",
+                      '>>>',
                       style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blueGrey,
                       ),
                     ),
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

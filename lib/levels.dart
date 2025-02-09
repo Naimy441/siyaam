@@ -192,20 +192,6 @@ Widget _buildDialogButton({
         ),
         body: Stack(
           children: [
-            // Background Gradient (Soft Light Blue)
-            // Container(
-            //   decoration: BoxDecoration(
-            //     gradient: LinearGradient(
-            //       begin: Alignment.topCenter,
-            //       end: Alignment.bottomCenter,
-            //       colors: [
-            //         Colors.blue.shade100, // Soft sky blue
-            //         Colors.blue.shade50, // Lightest blue near white
-            //       ],
-            //     ),
-            //   ),
-            // ),
-
           Positioned.fill(
             child: Image.asset(
               "assets/level_selector_background.png",

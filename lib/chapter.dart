@@ -41,7 +41,9 @@ class _ChapterScreenState extends State<ChapterScreen> with SingleTickerProvider
     _startFadeTimer();
   }
 
-  void _playVoiceOver() async {}
+  void _playVoiceOver() async {
+    // _audioPlayer.play(AssetSource("voiceover${widget.chapterNumber}"));
+  }
 
   void _startFadeTimer() {
     _fadeTimer = Timer(const Duration(seconds: 3), () {

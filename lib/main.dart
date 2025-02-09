@@ -19,7 +19,7 @@ void main() async {
   final AudioPlayer audioPlayer = AudioPlayer();
   await audioPlayer.stop();
   audioPlayer.setReleaseMode(ReleaseMode.loop); 
-  audioPlayer.play(AssetSource('floating_cat.mp3'));
+  audioPlayer.play(AssetSource('tranquility.mp3'));
 
   runApp(OdysseyApp(initialChapter: storedChapter));
 }

@@ -44,13 +44,17 @@ class LevelsScreenState extends State<LevelsScreen> {
 
     String challenge = getChallenge(widget.chapterNumber, level);
 
+    bool isTwist = false;
+    if (widget.chapterNumber != 1) {
+      isTwist = true;
+    }
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => LevelScreen(
           level: level,
           challenge: challenge,
-          twists: false, chapterNumber: widget.chapterNumber,
+          twists: isTwist, chapterNumber: widget.chapterNumber,
         ),
       ),
     ).then((_) => _loadProgress()); // Refresh levels on return
@@ -83,7 +87,7 @@ class LevelsScreenState extends State<LevelsScreen> {
       onWillPop: () async => false, // Disable back button
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Chapter ${widget.chapterNumber} - Select a Level"),
+          title: Text("Chapter ${widget.chapterNumber} - Select a Quest"),
           backgroundColor: Colors.orangeAccent,
           automaticallyImplyLeading: false, // Hide back button
         ),
@@ -93,7 +97,7 @@ class LevelsScreenState extends State<LevelsScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                "Complete each level to unlock the next!",
+                "Complete each Quest to unlock the next!",
                 style: TextStyle(fontSize: 18, color: Colors.white70),
                 textAlign: TextAlign.center,
               ),
@@ -124,7 +128,7 @@ class LevelsScreenState extends State<LevelsScreen> {
                       child: Center(
                         child: isUnlocked
                             ? Text(
-                                "Level $level",
+                                "Quest $level",
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,

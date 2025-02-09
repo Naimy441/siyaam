@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:odyssey/gemini_service.dart';
 import 'dart:async';
 import 'dart:convert';
+import 'package:scratcher/scratcher.dart';
 
 class LevelScreen extends StatefulWidget {
   final int chapterNumber;
@@ -29,6 +30,7 @@ class LevelScreenState extends State<LevelScreen> {
   String _finalChallenge = "";
   bool _questCompletedToday = false;
   bool _isLoading = true;
+  bool _isScratched = false; // Track scratch completion
   Map<String, String> _twistsMap = {}; // Store AI-generated twists
 
   @override
@@ -37,7 +39,6 @@ class LevelScreenState extends State<LevelScreen> {
     _loadTwistAndProgress();
   }
 
-  // Load saved twist, challenge, and daily completion status
   Future<void> _loadTwistAndProgress() async {
     final prefs = await SharedPreferences.getInstance();
 
@@ -50,18 +51,16 @@ class LevelScreenState extends State<LevelScreen> {
       _questCompletedToday = _checkIfCompletedToday(prefs);
     });
 
-    // Load stored twists from SharedPreferences
     String? savedTwists = prefs.getString(
         'twistsMap_Chapter${widget.chapterNumber}_Level${widget.level}');
 
     if (savedTwists != null) {
       _twistsMap = Map<String, String>.from(jsonDecode(savedTwists));
-      print("✅ Loaded twists from storage: $_twistsMap");
       setState(() {
         _isLoading = false;
       });
     } else if (widget.twists) {
-      await _fetchTwists(); // No stored twists, fetch new ones
+      await _fetchTwists();
     } else {
       setState(() {
         _isLoading = false;
@@ -69,12 +68,8 @@ class LevelScreenState extends State<LevelScreen> {
     }
   }
 
-  // Fetch twisted challenges from AI and store them
   Future<void> _fetchTwists() async {
     _twistsMap = await TextProcessor.twistIt(widget.challenge);
-    print("🎭 Generated new twists: $_twistsMap");
-
-    // Save twists in SharedPreferences
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(
         'twistsMap_Chapter${widget.chapterNumber}_Level${widget.level}',
@@ -85,7 +80,6 @@ class LevelScreenState extends State<LevelScreen> {
     });
   }
 
-  // Save selected twist and final challenge
   Future<void> _selectTwist(String twist) async {
     final prefs = await SharedPreferences.getInstance();
     String selectedChallenge = _twistsMap[twist] ?? widget.challenge;
@@ -103,23 +97,19 @@ class LevelScreenState extends State<LevelScreen> {
         selectedChallenge);
   }
 
-  // Check if the quest has already been completed today
   bool _checkIfCompletedToday(SharedPreferences prefs) {
     String? lastCompletedDate = prefs.getString('lastQuestDate');
     String today = DateTime.now().toIso8601String().substring(0, 10);
     return lastCompletedDate == today;
   }
 
-  // Save quest completion and update progress
   Future<void> _completeQuest() async {
     int chapterNum = widget.chapterNumber;
     final prefs = await SharedPreferences.getInstance();
 
-    // Save today's date as last completed quest date
     String today = DateTime.now().toIso8601String().substring(0, 10);
     await prefs.setString('lastQuestDate', today);
 
-    // Unlock next level in the same chapter
     int unlockedLevel =
         prefs.getInt('unlockedLevel_${widget.chapterNumber}') ?? 1;
     if (widget.level == unlockedLevel) {
@@ -129,46 +119,34 @@ class LevelScreenState extends State<LevelScreen> {
     if (widget.level == 5) {
       chapterNum += 1;
       await prefs.setInt('chapterNumber', widget.chapterNumber + 1);
-      await prefs.setInt(
-          'unlockedLevel_$chapterNum', 1);
-          // print(chapterNum);
-          // print(await prefs.getInt('unlockedLevel_$chapterNum'));
+      await prefs.setInt('unlockedLevel_$chapterNum', 1);
     }
     if (chapterNum == 7 && widget.level == 5) {
       Future.delayed(const Duration(milliseconds: 500), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              EndScreen(),
-        ),
-      );
-    });
-    
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EndScreen(),
+          ),
+        );
+      });
     } else {
+      setState(() {
+        _questCompletedToday = true;
+      });
 
-    // print(widget.chapterNumber);
-    // print(widget.level);
-
-    setState(() {
-      _questCompletedToday = true;
-    });
-
-    // Show success message
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("🎉 Quest completed! Next level unlocked.")),
-    );
-
-    // Delay then return to LevelsScreen
-    Future.delayed(const Duration(milliseconds: 500), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              LevelsScreen(chapterNumber: chapterNum),
-        ),
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("🎉 Quest completed! Next level unlocked.")),
       );
-    });
+
+      Future.delayed(const Duration(milliseconds: 500), () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LevelsScreen(chapterNumber: chapterNum),
+          ),
+        );
+      });
     }
   }
 
@@ -176,7 +154,7 @@ class LevelScreenState extends State<LevelScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Chapter ${widget.chapterNumber} - Level ${widget.level}"),
+        title: Text("Chapter ${widget.chapterNumber} - Quest ${widget.level}"),
         backgroundColor: Colors.orangeAccent,
       ),
       body: Center(
@@ -188,7 +166,7 @@ class LevelScreenState extends State<LevelScreen> {
               if (_isLoading)
                 const CircularProgressIndicator()
               else ...[
-                // Challenge Card
+                // Scratcher Challenge Card
                 Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -200,7 +178,7 @@ class LevelScreenState extends State<LevelScreen> {
                     child: Column(
                       children: [
                         Text(
-                          "🎯 Challenge for Level ${widget.level}",
+                          "🎯 Scratch to Reveal Challenge",
                           style: const TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -209,13 +187,43 @@ class LevelScreenState extends State<LevelScreen> {
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 15),
-                        Text(
-                          _finalChallenge, // ✅ Ensures it displays the correct challenge
-                          style: const TextStyle(
-                            fontSize: 18,
-                            color: Colors.black54,
+                        Scratcher(
+                          brushSize: 50,
+                          threshold: 50,
+                          color: Colors.orangeAccent.shade100,
+                          onChange: (value) {
+                            if (value > 50) {
+                              setState(() {
+                                _isScratched = true;
+                              });
+                            }
+                          },
+                          child: Container(
+                            width: 300,
+                            height: 200,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: _isScratched
+                                ? Text(
+                                    _finalChallenge,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black54,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  )
+                                : const Text(
+                                    "🎭 Scratch Here",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black38,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),
@@ -224,7 +232,6 @@ class LevelScreenState extends State<LevelScreen> {
 
                 const SizedBox(height: 30),
 
-                // If twists are enabled, let user pick one
                 if (widget.twists && _selectedTwist == null) ...[
                   const Text(
                     "🎭 Choose a Twist!",
@@ -244,35 +251,24 @@ class LevelScreenState extends State<LevelScreen> {
                         ),
                         child: Text(
                           twist,
-                          style: const TextStyle(
-                              fontSize: 18, color: Colors.white),
+                          style: const TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       );
                     }).toList(),
                   ),
                 ],
 
-                // Show "Complete Quest" button
                 if (_selectedTwist != null || !widget.twists)
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
                     child: ElevatedButton(
-                      onPressed: _completeQuest, // ✅ Button now works properly
+                      onPressed: _completeQuest,
                       style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 40, vertical: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                         backgroundColor: Colors.green,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                       ),
-                      child: const Text(
-                        "✅ Complete Quest",
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                        ),
-                      ),
+                      child: const Text("✅ Complete Quest", style: TextStyle(fontSize: 20, color: Colors.white)),
                     ),
                   ),
               ],

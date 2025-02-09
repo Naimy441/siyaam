@@ -149,13 +149,14 @@ class LevelScreenState extends State<LevelScreen> {
   }}
 
   @override
-  Widget build(BuildContext context) {
+
+Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text(
           "Chapter ${widget.chapterNumber} - Quest ${widget.level}",
-          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
+          style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
@@ -180,107 +181,118 @@ class LevelScreenState extends State<LevelScreen> {
           Center(
             child: _isLoading
                 ? const CircularProgressIndicator()
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Scratch Card with Glassmorphism
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                          child: Container(
-                            width: 320,
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.3),
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.white.withOpacity(0.2)),
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Text(
-                                  "🎯 Scratch to Reveal Challenge",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black87,
+                : _selectedTwist == null && widget.twists
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "🎭 Choose a Twist!",
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 10),
+                          Wrap(
+                            spacing: 10,
+                            children: _twistsMap.keys.map((twist) {
+                              return ElevatedButton(
+                                onPressed: () => _selectTwist(twist),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue.shade200,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
                                   ),
-                                  textAlign: TextAlign.center,
                                 ),
-                                const SizedBox(height: 15),
-                                Scratcher(
-                                  brushSize: 50,
-                                  threshold: 50,
-                                  color: Colors.blue.shade200,
-                                  onChange: (value) {
-                                    setState(() {
-                                      _scratchProgress = value;
-                                      if (_scratchProgress >= 50) {
-                                        _isScratched = true;
-                                      }
-                                    });
-                                  },
-                                  child: Container(
-                                    width: 300,
-                                    height: 200,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(15),
+                                child: Text(
+                                  twist,
+                                  style: const TextStyle(fontSize: 18, color: Colors.white),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      )
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // "Scratch Below" Label (Disappears after 50% Scratch)
+                          AnimatedOpacity(
+                            duration: const Duration(milliseconds: 500),
+                            opacity: _isScratched ? 0.0 : 1.0,
+                            child: const Text(
+                              "🔽 Scratch Below 🔽",
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black54),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+
+                          // Scratch Card with Challenge Text
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              child: Scratcher(
+                                brushSize: 50,
+                                threshold: 50,
+                                color: Colors.blue.shade200,
+                                onChange: (value) {
+                                  setState(() {
+                                    _scratchProgress = value;
+                                    if (_scratchProgress >= 50) {
+                                      _isScratched = true;
+                                    }
+                                  });
+                                },
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 500),
+                                  width: 350, // Bigger initial size
+                                  height: 250, // Bigger initial size
+                                  padding: const EdgeInsets.all(20),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(color: Colors.white.withOpacity(0.2)),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      _finalChallenge,
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black87,
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
-                                    child: _isScratched
-                                        ? Text(
-                                            _finalChallenge,
-                                            style: const TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.black54,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          )
-                                        : const Text(
-                                            "🎭 Scratch Here",
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black38,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                      ),
 
-                      const SizedBox(height: 30),
+                          const SizedBox(height: 30),
 
-                      // Complete Quest Button (Initially Grey, Fades to Blue)
-                      AnimatedOpacity(
-                        duration: const Duration(milliseconds: 500),
-                        opacity: _isScratched ? 1.0 : 0.5,
-                        child: ElevatedButton(
-                          onPressed: _isScratched ? _completeQuest : null,
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                            backgroundColor: _isScratched ? Colors.blue.shade600 : Colors.grey.shade400,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                          // Complete Quest Button (Initially Hidden, Appears after 50% Scratch)
+                          AnimatedOpacity(
+                            duration: const Duration(milliseconds: 500),
+                            opacity: _isScratched ? 1.0 : 0.0, // Only appears after scratching
+                            child: ElevatedButton(
+                              onPressed: _isScratched ? _completeQuest : null,
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                                backgroundColor: Colors.blue.shade600,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                elevation: 10,
+                              ),
+                              child: const Text(
+                                "✅ Complete Quest",
+                                style: TextStyle(fontSize: 20, color: Colors.white),
+                              ),
                             ),
-                            elevation: _isScratched ? 10 : 0,
                           ),
-                          child: const Text(
-                            "✅ Complete Quest",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
-                          ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
           ),
         ],
       ),
     );
-  }
-}
+  }}

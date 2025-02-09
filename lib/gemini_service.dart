@@ -83,22 +83,23 @@ class TextProcessor {
   static String promptify(String twist, String prompt) {
     String formattedPrompt = "";
     switch(twist) {
-      case "Shakespere": formattedPrompt = "Modify \"${prompt}\" by adding an old English or Shakespearean theme that affects the way the challenge must be completed. Do not just reword it. Keep the generated challenge to fit on one line."; break;
-      case "Community": formattedPrompt = "Modify \"${prompt}\" by adding a cooperative element that requires players to work together in an interesting way while maintaining the challenge’s original intent. Do not just reword it. Keep the generated challenge to fit on one line."; break;
-      case "Creative": formattedPrompt = "Modify \"${prompt}\" by adding a creative requirement that forces players to use their imagination or customization options in a fun way. Do not just reword it. Keep the generated challenge to fit on one line."; break;
-      case "Devious": formattedPrompt = "Modify \"${prompt}\" by adding a deceptive element, hidden rule, or misleading clue that makes players second-guess their approach while keeping the challenge fair. Do not just reword it. Keep the generated challenge to fit on one line."; break;
-      case "Genius": formattedPrompt =  "Modify \"${prompt}\" by adding a layer of complexity or a multi-step puzzle that requires strategic thinking to solve. Do not just reword it. Keep the generated challenge to fit on one line."; break;
-      case "Roleplay": formattedPrompt = "Modify \"${prompt}\" by adding a character-driven rule or immersive element that forces players to act within a role while completing the challenge. Do not just reword it. Keep the generated challenge to fit on one line."; break;
-      case "Speedrun": formattedPrompt = "Modify \"${prompt}\" by introducing a randomized element that slightly alters how the challenge plays out each time without making it unfair or frustrating. Do not just reword it. Keep the generated challenge to fit on one line."; break;
-      case "Randomized": formattedPrompt = "Rewrite \"${prompt}\" with a randomized twist that introduces unpredictable elements while maintaining the essence. Keep the generated challenge to fit on one line."; break;
-      case "Gamified": formattedPrompt = "Modify \"${prompt}\" by gamifying it, whether that be adding collectables, obstacles, or other game elements to the challenge. Do not just reword it. Keep the generated challenge to fit on one line."; break;
-      case "Duke University": formattedPrompt = "Modify \"${prompt}\" by incorporating an academic, sports, or campus-related element from Duke University that adds a fun layer to the challenge. Do not just reword it. Keep the generated challenge to fit on one line."; break;
-      case "Sabotage": formattedPrompt = "Modify \"${prompt}\" by adding a fair sabotage mechanic that allows competitors or AI to interfere with progress in an interesting way. Do not just reword it. Keep the generated challenge to fit on one line."; break;
-      case "Artificial": formattedPrompt = "Rewrite \"${prompt}\" with an AI-driven twist that incorporates machine learning, adaptive opponents, or smart mechanics while maintaining the essence. Do not just reword it. Keep the generated challenge to fit on one line."; break;
-      case "Courage": formattedPrompt = "Modify \"${prompt}\" by adding an element that forces players to take a risk, make a bold choice, or push past fear in a controlled way. Do not just reword it. Keep the generated challenge to fit on one line."; break;
-      case "Masterful": formattedPrompt = "Rewrite \"${prompt}\" with a masterful twist that demands skill, precision, and elite performance while maintaining the essence. Do not just reword it. Keep the generated challenge to fit on one line."; break;
-      default: formattedPrompt = "Rewrite \"${prompt}\" with a creative twist related to the phrase \"${twist}\", ensuring a meaningful transformation, not just rewording. Maintain logic while adding a fresh, unexpected angle in one line."; break;
+      case "Shakespere": formattedPrompt = "Modify \"${prompt}\" by adding an old English or Shakespearean theme that affects the way the challenge must be completed."; break;
+      case "Community": formattedPrompt = "Modify \"${prompt}\" by adding a cooperative element that requires players to work together in an interesting way while maintaining the challenge’s original intent."; break;
+      case "Creative": formattedPrompt = "Modify \"${prompt}\" by adding a creative requirement that forces players to use their imagination or customization options in a fun way."; break;
+      case "Devious": formattedPrompt = "Modify \"${prompt}\" by adding a deceptive element, hidden rule, or misleading clue that makes players second-guess their approach while keeping the challenge fair."; break;
+      case "Genius": formattedPrompt =  "Modify \"${prompt}\" by adding a layer of complexity or a multi-step puzzle that requires strategic thinking to solve."; break;
+      case "Roleplay": formattedPrompt = "Modify \"${prompt}\" by adding a character-driven rule or immersive element that forces players to act within a role while completing the challenge."; break;
+      case "Speedrun": formattedPrompt = "Modify \"${prompt}\" by introducing a randomized element that slightly alters how the challenge plays out each time without making it unfair or frustrating."; break;
+      case "Randomized": formattedPrompt = "Rewrite \"${prompt}\" with a randomized twist that introduces unpredictable elements while maintaining the essence."; break;
+      case "Gamified": formattedPrompt = "Modify \"${prompt}\" by gamifying it, whether that be adding collectables, obstacles, or other game elements to the challenge."; break;
+      case "Duke University": formattedPrompt = "Modify \"${prompt}\" by incorporating an academic, sports, or campus-related element from Duke University that adds a fun layer to the challenge."; break;
+      case "Sabotage": formattedPrompt = "Modify \"${prompt}\" by adding a fair sabotage mechanic that allows competitors or AI to interfere with progress in an interesting way."; break;
+      case "Artificial": formattedPrompt = "Rewrite \"${prompt}\" with an AI-driven twist that incorporates machine learning, adaptive opponents, or smart mechanics while maintaining the essence."; break;
+      case "Courage": formattedPrompt = "Modify \"${prompt}\" by adding an element that forces players to take a risk, make a bold choice, or push past fear in a controlled way."; break;
+      case "Masterful": formattedPrompt = "Rewrite \"${prompt}\" with a masterful twist that demands skill, precision, and elite performance while maintaining the essence."; break;
+      default: formattedPrompt = "Rewrite \"${prompt}\" with a creative twist related to the phrase \"${twist}\", ensuring a meaningful transformation, not just rewording. Introduce a slight, engaging change that enhances the challenge without making it unfair or inappropriate."; break;
     }
+    formattedPrompt += "Ensure the twist meaningfully alters the challenge while keeping it fair, safe, and fun. The twist should be engaging, family-friendly, and easy to complete in one day. Avoid excessive difficulty or anything that could be seen as unfair or inappropriate. The generated challenge must fit on one line.";
     print("Formatted prompt: ${formattedPrompt}");
     return formattedPrompt;
   }

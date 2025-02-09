@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:odyssey/levels.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:odyssey/gemini_service.dart'; // Import Gemini AI service
+import 'package:odyssey/gemini_service.dart';
 import 'dart:async';
 import 'dart:convert';
 
@@ -22,6 +22,7 @@ class LevelScreen extends StatefulWidget {
   @override
   LevelScreenState createState() => LevelScreenState();
 }
+
 class LevelScreenState extends State<LevelScreen> {
   String? _selectedTwist;
   String _finalChallenge = "";
@@ -43,7 +44,8 @@ class LevelScreenState extends State<LevelScreen> {
       _selectedTwist = prefs.getString(
           'selectedTwist_Chapter${widget.chapterNumber}_Level${widget.level}');
       _finalChallenge = prefs.getString(
-          'finalChallenge_Chapter${widget.chapterNumber}_Level${widget.level}') ?? widget.challenge;
+              'finalChallenge_Chapter${widget.chapterNumber}_Level${widget.level}') ??
+          widget.challenge;
       _questCompletedToday = _checkIfCompletedToday(prefs);
     });
 
@@ -53,9 +55,9 @@ class LevelScreenState extends State<LevelScreen> {
 
     if (savedTwists != null) {
       _twistsMap = Map<String, String>.from(jsonDecode(savedTwists));
-      print("Loaded twists from storage: $_twistsMap");
+      print("✅ Loaded twists from storage: $_twistsMap");
       setState(() {
-        _isLoading = false; // Stop loading since we have stored twists
+        _isLoading = false;
       });
     } else if (widget.twists) {
       await _fetchTwists(); // No stored twists, fetch new ones
@@ -69,7 +71,7 @@ class LevelScreenState extends State<LevelScreen> {
   // Fetch twisted challenges from AI and store them
   Future<void> _fetchTwists() async {
     _twistsMap = await TextProcessor.twistIt(widget.challenge);
-    print("Generated new twists: $_twistsMap");
+    print("🎭 Generated new twists: $_twistsMap");
 
     // Save twists in SharedPreferences
     final prefs = await SharedPreferences.getInstance();
@@ -107,6 +109,43 @@ class LevelScreenState extends State<LevelScreen> {
     return lastCompletedDate == today;
   }
 
+  // Save quest completion and update progress
+  Future<void> _completeQuest() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    // Save today's date as last completed quest date
+    String today = DateTime.now().toIso8601String().substring(0, 10);
+    await prefs.setString('lastQuestDate', today);
+
+    // Unlock next level in the same chapter
+    int unlockedLevel =
+        prefs.getInt('unlockedLevel_${widget.chapterNumber}') ?? 1;
+    if (widget.level == unlockedLevel) {
+      await prefs.setInt(
+          'unlockedLevel_${widget.chapterNumber}', widget.level + 1);
+    }
+
+    setState(() {
+      _questCompletedToday = true;
+    });
+
+    // Show success message
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("🎉 Quest completed! Next level unlocked.")),
+    );
+
+    // Delay then return to LevelsScreen
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              LevelsScreen(chapterNumber: widget.chapterNumber),
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,7 +174,7 @@ class LevelScreenState extends State<LevelScreen> {
                     child: Column(
                       children: [
                         Text(
-                          "Challenge for Level ${widget.level}",
+                          "🎯 Challenge for Level ${widget.level}",
                           style: const TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -145,7 +184,7 @@ class LevelScreenState extends State<LevelScreen> {
                         ),
                         const SizedBox(height: 15),
                         Text(
-                          _finalChallenge, // ✅ Now loads the selected challenge
+                          _finalChallenge, // ✅ Ensures it displays the correct challenge
                           style: const TextStyle(
                             fontSize: 18,
                             color: Colors.black54,
@@ -162,7 +201,7 @@ class LevelScreenState extends State<LevelScreen> {
                 // If twists are enabled, let user pick one
                 if (widget.twists && _selectedTwist == null) ...[
                   const Text(
-                    "Choose a Twist!",
+                    "🎭 Choose a Twist!",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
@@ -187,12 +226,12 @@ class LevelScreenState extends State<LevelScreen> {
                   ),
                 ],
 
-                // Show "Complete Quest" button if a twist is chosen or not required
+                // Show "Complete Quest" button
                 if (_selectedTwist != null || !widget.twists)
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: _completeQuest, // ✅ Button now works properly
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 40, vertical: 15),
@@ -202,7 +241,7 @@ class LevelScreenState extends State<LevelScreen> {
                         ),
                       ),
                       child: const Text(
-                        "Complete Quest",
+                        "✅ Complete Quest",
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,

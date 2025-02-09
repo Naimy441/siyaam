@@ -1,8 +1,10 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'level.dart';
-import 'package:odyssey/constants.dart'; // Import structured chapter data
+import 'package:odyssey/constants.dart';
+import 'package:confetti/confetti.dart';
 
 class LevelsScreen extends StatefulWidget {
   final int chapterNumber;
@@ -16,11 +18,26 @@ class LevelsScreen extends StatefulWidget {
 class LevelsScreenState extends State<LevelsScreen> {
   int _unlockedLevel = 1;
   bool _questCompletedToday = false;
+  late ConfettiController _confettiController;
 
   @override
   void initState() {
     super.initState();
+    _confettiController = ConfettiController(duration: const Duration(seconds: 3));
     _loadProgress();
+
+    // If chapterNumber > 1, trigger confetti rain
+    if (widget.chapterNumber > 1) {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        _confettiController.play();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _confettiController.dispose();
+    super.dispose();
   }
 
   Future<void> _loadProgress() async {
@@ -199,6 +216,22 @@ Widget _buildDialogButton({
             ),
           ),
 
+          // Confetti rain from top if chapterNumber > 1
+            if (widget.chapterNumber > 1)
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: ConfettiWidget(
+                    confettiController: _confettiController,
+                    blastDirection: -pi / 2, // Downward rain effect
+                    emissionFrequency: 0.2, // More particles per second
+                    numberOfParticles: 15,
+                    gravity: 0.01, // Slow falling effect
+                    shouldLoop: false,
+                  ),
+                ),
+              ),
+              
             // Blurred Glass Panel
             Center(
               child: ClipRRect(

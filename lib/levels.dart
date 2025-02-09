@@ -195,7 +195,7 @@ Widget _buildDialogButton({
         extendBodyBehindAppBar: true, // Make background extend to the top
         appBar: AppBar(
           title: Text(
-            "Chapter ${widget.chapterNumber}",
+            "Chapter ${widget.chapterNumber}\n${getChapterInfo(widget.chapterNumber)['theme']}",
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 24,

@@ -14,7 +14,7 @@ class ChapterScreen extends StatefulWidget {
 }
 
 class _ChapterScreenState extends State<ChapterScreen> with SingleTickerProviderStateMixin {
-  late Map<String, String> chapterInfo;
+  late Map<String, dynamic> chapterInfo;
   late AnimationController _animationController;
   late Animation<Offset> _animation;
   bool _showSkipButton = true;

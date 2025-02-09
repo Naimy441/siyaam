@@ -74,7 +74,8 @@ flutter:
     - assets/waves.gif
     - assets/logo.png
     - assets/floating_cat.mp3
-    - assets/child_drawing.png
+    - assets/level_background.png
+    - assets/level_selector_background.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

@@ -167,7 +167,7 @@ Widget build(BuildContext context) {
 
           Positioned.fill(
             child: Image.asset(
-              "assets/child_drawing.png",
+              "assets/level_background.png",
               fit: BoxFit.cover,
             ),
           ),

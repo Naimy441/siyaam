@@ -178,10 +178,10 @@ Widget _buildDialogButton({
         extendBodyBehindAppBar: true, // Make background extend to the top
         appBar: AppBar(
           title: Text(
-            "Chapter ${widget.chapterNumber} - Select a Quest",
+            "Chapter ${widget.chapterNumber}",
             style: TextStyle(
               fontWeight: FontWeight.w600,
-              fontSize: 18,
+              fontSize: 24,
               color: Colors.black87, // Light mode-friendly text
             ),
           ),
@@ -193,18 +193,25 @@ Widget _buildDialogButton({
         body: Stack(
           children: [
             // Background Gradient (Soft Light Blue)
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.blue.shade100, // Soft sky blue
-                    Colors.blue.shade50, // Lightest blue near white
-                  ],
-                ),
-              ),
+            // Container(
+            //   decoration: BoxDecoration(
+            //     gradient: LinearGradient(
+            //       begin: Alignment.topCenter,
+            //       end: Alignment.bottomCenter,
+            //       colors: [
+            //         Colors.blue.shade100, // Soft sky blue
+            //         Colors.blue.shade50, // Lightest blue near white
+            //       ],
+            //     ),
+            //   ),
+            // ),
+
+          Positioned.fill(
+            child: Image.asset(
+              "assets/level_selector_background.png",
+              fit: BoxFit.cover,
             ),
+          ),
 
             // Blurred Glass Panel
             Center(
@@ -216,7 +223,7 @@ Widget _buildDialogButton({
                     width: 320,
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.3),
+                      color: Colors.white.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(color: Colors.white.withOpacity(0.2)),
                       boxShadow: [

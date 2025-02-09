@@ -16,6 +16,7 @@ void main() async {
 
   // Loops background music
   final AudioPlayer audioPlayer = AudioPlayer();
+  await audioPlayer.stop();
   audioPlayer.setReleaseMode(ReleaseMode.loop); 
   audioPlayer.play(AssetSource('floating_cat.mp3'));
 

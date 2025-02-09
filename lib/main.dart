@@ -8,8 +8,8 @@ void main() async {
   int storedChapter = await getStoredChapter();
 
   // Uncomment to clear user local storage
-  // final prefs = await SharedPreferences.getInstance();
-  // await prefs.clear();
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.clear();
 
   await dotenv.load(fileName: ".env"); 
 
@@ -56,13 +56,20 @@ class HomeScreen extends StatelessWidget {
       body: Stack(
         children: [
           // Background Gradient
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Colors.deepPurple, Colors.orangeAccent],
-              ),
+          // Container(
+          //   decoration: const BoxDecoration(
+          //     gradient: LinearGradient(
+          //       begin: Alignment.topCenter,
+          //       end: Alignment.bottomCenter,
+          //       colors: [Colors.deepPurple, Colors.orangeAccent],
+          //     ),
+          //   ),
+          // ),
+
+          Positioned.fill(
+            child: Image.asset(
+              "assets/Title Page v2.gif",
+              fit: BoxFit.cover, // Ensures the GIF covers the entire background
             ),
           ),
 

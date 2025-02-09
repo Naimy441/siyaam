@@ -2,9 +2,10 @@
 class Chapter {
   final String theme;
   final String description;
+  final List<String> story;
   final Map<int, List<String>> challenges; // Day -> List of 5 quests
 
-  Chapter({required this.theme, required this.description, required this.challenges});
+  Chapter({required this.theme, required this.description, required this.story, required this.challenges});
 }
 
 // Define the structured data
@@ -12,6 +13,11 @@ final Map<int, Chapter> chapters = {
   1: Chapter(
     theme: "Education",
     description: "Learn and Spread Awareness",
+    story: [
+      "The first spark was small—a shared fact, a passing conversation, a meme that made someone pause. But knowledge rippled outward, stretching beyond a single voice, beyond a single moment.",
+      "Like seeds carried by the wind, ideas took root in unexpected places—classrooms, coffee shops, quiet reflections. Awareness deepened, choices sharpened, and a shift began.",
+      "There were no grand gestures, just the quiet hum of understanding passing from one person to another. And before our eyes, a movement took shape. The world began to listen."
+    ],
     challenges: {
       1: [
         "Share a sustainability fact or meme – Post a fun or thought-provoking sustainability fact or meme on social media or share it with a friend.",
@@ -25,6 +31,11 @@ final Map<int, Chapter> chapters = {
   2: Chapter(
     theme: "Reduce Waste",
     description: "Minimize Trash and Maximize Reuse",
+    story: [
+      "It’s not always about tasks, but about a shift in perspective.",
+      "Waste was no longer waste—it was a resource. Light was no longer automatic—it was intentional. Every step became a conscious act of care.",
+      "One day, you paused before tossing something away. You questioned before buying. You noticed the world around you—truly noticed. And in that moment, you realized: Sustainability isn't a checklist. It's a way of seeing."
+    ],
     challenges: {
       1: [
         "Give an old item new life – Turn an old sock into a sock puppet, repurpose a glass jar, or find another creative way to upcycle an item you would normally throw away.",
@@ -38,6 +49,11 @@ final Map<int, Chapter> chapters = {
   3: Chapter(
     theme: "Conserve Energy & Water", 
     description: "Use Resources Wisely",
+    story: [
+      "At first, the changes were small—a plastic bottle repurposed, a footprint lightened. The steady hum of wasted energy faded, replaced by mindful choices.",
+      "Like a river shaping the land, each decision made a difference. Shorter showers saved unseen gallons, unplugged devices silenced the silent drain, and sunlight replaced artificial glow.",
+      "Little by little, the world responded. Waste turned to intention, excess to balance. And in that quiet shift, the earth exhaled—lighter, freer, and more alive."
+    ],
     challenges: {
       1: [
         "Let the sun do the work – Use only natural light during daylight hours.",
@@ -51,6 +67,11 @@ final Map<int, Chapter> chapters = {
   4: Chapter(
     theme: "Conscious Consumption",
     description: "Make Thoughtful Choices",
+    story: [
+      "The earth noticed the shift—a plastic bag refused, a reusable bottle filled, a habit formed. Waste less, choose wisely—each act a quiet vow to the planet.",
+      "Like a river shaping the land, small choices shaped tomorrow. Sunlight replaced artificial glow, nourishing both space and spirit. A plant-based meal, a repurposed item—proof that new wasn’t always better.",
+      "Mindfulness took root, one decision at a time. And in that shift, abundance was redefined—not in excess, but in sustainability, in care, in lasting impact."
+    ],
     challenges: {
       1: [
         "Swap a disposable item for a reusable one – Replace a single-use plastic item (water bottle, coffee cup, grocery bag, etc.) with a reusable alternative.",
@@ -64,6 +85,11 @@ final Map<int, Chapter> chapters = {
   5: Chapter(
     theme: "Sustainable Transportation",
     description: "Move Greener",
+    story: [
+      "From the first step, the earth took notice. Engines idled less. Footsteps replaced exhaust. A journey once measured in miles became an opportunity to move with purpose.",
+      "Like a river carving a path, each decision—no matter how small—shaped the landscape of tomorrow. A walk that once seemed too far became a moment to breathe. A bus ride carried not just people, but the promise of fewer emissions. A shared trip meant less congestion, less pollution, more connection.",
+      "In these choices, movement became more than just getting from one place to another—it became a statement, a shift toward a cleaner, quieter world. And before our eyes, the roads cleared, the air lightened, and the journey itself became part of the solution."
+    ],
     challenges: {
       1: [
         "Take a walking challenge – Walk to your destination for the day instead of driving or taking a bus.",
@@ -77,6 +103,11 @@ final Map<int, Chapter> chapters = {
   6: Chapter(
     theme: "Advocacy and Volunteering",
     description: "Take Action for the Planet",
+    story: [
+      "It started with a single act—a petition signed, a cleanup joined, a voice raised. One action became many, momentum building with every hand willing to help.",
+      "A park restored, a law challenged, a conversation that sparked change. Letters reached leaders, demanding a future where nature thrived. Small efforts wove together, forming something greater than any one person.",
+      "And before our eyes, the world listened—because we refused to stay silent."
+    ],
     challenges: {
       1: [
         "Sign a climate action petition – Add your name to a petition supporting environmental policy changes.",
@@ -108,11 +139,12 @@ String getChallenge(int chapter, int level) {
 }
 
 // Function to retrieve chapter info
-Map<String, String> getChapterInfo(int chapterNumber) {
+Map<String, dynamic> getChapterInfo(int chapterNumber) {
   if (chapters.containsKey(chapterNumber)) {
     return {
       "theme": chapters[chapterNumber]!.theme,
-      "description": chapters[chapterNumber]!.description
+      "description": chapters[chapterNumber]!.description,
+      "story": chapters[chapterNumber]!.story
     };
   }
   return {"theme": "Not Found", "description": "No chapter available."};

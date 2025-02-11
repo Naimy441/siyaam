@@ -14,11 +14,11 @@ final Map<int, Chapter> chapters = {
     theme: "Knowledge & Reflection",
     description: "Strengthening Faith Through Learning",
     story: [
-      "Sustainability isn’t just about saving the environment, it’s about ensuring that future generations have access to clean air, water, and resources.",
-      "Did you know that if everyone lived like the average American, we would need five Earths to sustain us?", 
-      "Our current lifestyle is outpacing what the planet can handle, but small, mindful changes can help.",
-      "Over the next few days, you'll be challenged to rethink the impact of your daily habits.",
-      "From tracking your carbon footprint to identifying wasteful patterns, each task will bring you closer to a more sustainable lifestyle."
+      "📖 Islamic Story: The First Revelation",
+      "One night, in the Cave of Hira, the Angel Jibreel (AS) appeared to Prophet Muhammad ﷺ, commanding him to “Read!” (Iqra). Though he was unlettered, he was chosen to receive the divine message that would change the world. The first revealed words were:",
+      "“Read in the name of your Lord who created. Created man from a clot. Read, and your Lord is the Most Generous.” (Qur’an 96:1-3)",
+      "This event highlights the importance of seeking knowledge in Islam. The Prophet ﷺ emphasized this by saying: “Seeking knowledge is an obligation upon every Muslim.” (Ibn Majah)",
+      "📌 Reflection: Just as the Prophet ﷺ was instructed to seek knowledge, we too must prioritize learning—whether through Qur’an, Hadith, or personal reflection.",
     ],
     challenges: {
       1: [
@@ -34,10 +34,11 @@ final Map<int, Chapter> chapters = {
     theme: "Gratitude & Contentment",
     description: "Finding Joy in What You Have",
     story: [
-      "Every year, the world produces over 2 billion tons of waste. In the U.S. alone, 30 to 40% of food goes to waste while millions face food insecurity.", 
-      "Single-use plastics, excessive packaging, and fast fashion only add to the problem.",
-      "Your challenge: Cut down on waste at home and on the go. You'll be tasked with eliminating single-use plastics, repurposing old items, and even finding creative ways to reduce food waste.", 
-      "Each action will help conserve resources, reduce pollution, and keep unnecessary waste out of landfills."
+      "🌿 Islamic Story: The Patience of Prophet Ayyub (AS)",
+      "Prophet Ayyub (AS) was once wealthy, blessed with health, family, and prosperity. But he was tested with severe illness, loss of wealth, and isolation. Yet, despite his hardships, he never complained. Instead, he remained patient and grateful, saying:",
+      "“Indeed, adversity has touched me, and You are the Most Merciful of the merciful.” (Qur’an 21:83)",
+      "Because of his unwavering gratitude and patience, Allah restored his health and doubled his blessings.",
+      "📌 Reflection: Gratitude is not about how much we have, but how we perceive our blessings. Ramadan teaches us to appreciate even the smallest things—water, food, family, and health."
     ],
     challenges: {
       1: [
@@ -53,11 +54,11 @@ final Map<int, Chapter> chapters = {
     theme: "Charity & Community", 
     description: "Giving for the Sake of Allah",
     story: [
-      "Leaving a phone charger plugged in might not seem like a big deal, but phantom energy use (electricity consumed by plugged-in devices not in use) costs Americans nearly \$19 billion annually."
-      "Meanwhile, a single leaky faucet can waste a gallon of water a day.",
-      
-      "Your challenge: Reduce unnecessary energy and water consumption. You'll be tasked with unplugging unused electronics, adjusting your thermostat, taking shorter showers, and spotting energy-wasting habits at home.",
-      "By conserving these resources, you’ll help lower emissions, protect water supplies, and even save money on your utility bills."
+      "💧 Islamic Story: Uthman (RA) and the Well of Ruma",
+      "During a severe drought in Madinah, a wealthy merchant owned the only well, charging people for water. Prophet Muhammad ﷺ called upon the believers:",
+      "“Whoever buys this well and shares its water with others will have Jannah in return.”",
+      "Uthman ibn Affan (RA) purchased the well and made it free for all, securing his place in Paradise through charity.",
+      "📌 Reflection: Giving is not just about money—it includes time, kindness, and even a smile. During Ramadan, our smallest acts of charity can have a big impact.",
     ],
     challenges: {
       1: [
@@ -73,9 +74,10 @@ final Map<int, Chapter> chapters = {
     theme: "Self-Discipline & Patience",
     description: "Building Inner Strength",
     story: [
-      "The fast fashion industry produces 10% of the world's carbon emissions. That’s more than all international flights and maritime shipping combined. Meanwhile, an estimated 85% of textiles end up in landfills each year.", 
-      "Your challenge: Be intentional with your purchases. You'll be tasked with supporting ethical brands, choosing durable and eco-friendly alternatives, and resisting impulse buys.",
-      "By making smarter shopping decisions, you’ll reduce waste, cut down on pollution, and help shift industries toward more sustainable practices."
+      "🕌 Islamic Story: How Fasting Was Prescribed",
+      "Before fasting was made obligatory, the early Muslims would only fast on Ashura (the 10th of Muharram). But in the second year after the Hijrah, Allah revealed:",
+      "Fasting trains us in patience, discipline, and gratitude, helping us break bad habits and grow spiritually.",
+      "📌 Reflection: Ramadan is a school of discipline—from controlling our anger to resisting temptations, every fast brings spiritual strength.",
     ],
     challenges: {
       1: [
@@ -91,10 +93,10 @@ final Map<int, Chapter> chapters = {
     theme: "Simplicity & Mindfulness",
     description: "Living a Purpose-Driven Life",
     story: [
-      "Transportation is responsible for nearly 1/4 of global CO₂ emissions, with cars contributing the most. A short one-mile car trip emits nearly 400 grams of CO₂, while walking or biking has zero emissions.",
-      "Even switching to public transit can cut your carbon footprint by half.",
-      "Your challenge: Reduce your transportation impact. You'll be tasked with walking or biking instead of driving, carpooling with friends, and exploring public transit options.",
-      "Every small shift adds up, lowering emissions, reducing traffic congestion, and improving air quality in your community."
+      "🍃 Islamic Story: The Minimalist Lifestyle of Prophet Muhammad ﷺ",
+      "Despite being the leader of the Muslims, Prophet Muhammad ﷺ lived simply. His home was small, his mattress was rough, and some days he had nothing to eat except dates and water. When Umar (RA) saw the marks of a rough mat on his back, he wept. But the Prophet ﷺ replied:",
+      "“What do I have to do with this world? My example is like a traveler who rests under a tree for a short while and then moves on.” (Tirmidhi)",
+      "📌 Reflection: Happiness is not in material things but in contentment. Ramadan teaches us to let go of excess and live with purpose.",
 
     ],
     challenges: {
@@ -111,10 +113,13 @@ final Map<int, Chapter> chapters = {
     theme: "Tawakkul & Transformation",
     description: "Trusting Allah & Looking Ahead",
     story: [
-      "Only about 100 companies are responsible for over 70% of global emissions. Change happens when individuals advocate for better policies and corporate accountability.", 
-      "Studies show that community cleanups, petitions, and sustainability initiatives can significantly reduce pollution and encourage greener practices.",
-      "Your challenge: Take sustainability beyond your personal habits. You’ll be tasked with joining or organizing a cleanup, spreading awareness about sustainability issues, and contacting local leaders about environmental initiatives.",
-      "The most impactful change happens when people work together—your voice and actions matter."
+      "🛤 Islamic Story: The Hijrah & Tawakkul",
+      "When the Prophet ﷺ and Abu Bakr (RA) fled Makkah to escape persecution, they hid in a cave as Quraysh forces searched for them. Abu Bakr (RA) whispered in fear:",
+      "“O Messenger of Allah, if they look beneath their feet, they will see us!”",
+      "The Prophet ﷺ replied with full trust in Allah:",
+      "“Do not be afraid, for Allah is with us.” (Qur’an 9:40)",
+      "Against all odds, they made it to Madinah safely, marking the beginning of a new era for Islam.",
+      "📌 Reflection: Ramadan is about trusting Allah and embracing change. As the month ends, we must continue our journey beyond Ramadan with renewed faith.",
 
     ],
     challenges: {

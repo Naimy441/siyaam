@@ -10,16 +10,16 @@ void main() async {
   int storedChapter = await getStoredChapter();
 
   // Uncomment to clear user local storage
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.clear();
+  // final prefs = await SharedPreferences.getInstance();
+  // await prefs.clear();
 
   await dotenv.load(fileName: ".env"); 
 
-  // Loops background music
-  final AudioPlayer audioPlayer = AudioPlayer();
-  await audioPlayer.stop();
-  audioPlayer.setReleaseMode(ReleaseMode.loop); 
-  audioPlayer.play(AssetSource('tranquility.mp3'));
+  // No background music
+  // final AudioPlayer audioPlayer = AudioPlayer();
+  // await audioPlayer.stop();
+  // audioPlayer.setReleaseMode(ReleaseMode.loop); 
+  // audioPlayer.play(AssetSource('tranquility.mp3'));
 
   runApp(SiyaamApp(initialChapter: storedChapter));
 }
@@ -153,12 +153,12 @@ class IntroductionScreenState extends State<IntroductionScreen> {
   int _currentStep = 0;
 
   final List<String> _introTexts = [
-    "🌱 Welcome to Siyaam!\nA 30-day challenge to embrace sustainability and eco-conscious living.",
-    "📖 Siyaam unfolds across six immersive chapters, each diving into a different sustainability theme.",
+    "🌱 Welcome to Siyaam!\nA 30-day challenge to embrace Islamic values and God-conscious living.",
+    "📖 Siyaam unfolds across six immersive chapters, each diving into a different spiritual theme.",
     "🛤 Each day is a Quest, leading you through small but powerful actions to make an impact.",
     "🔄 Every step matters – your efforts build upon the previous, creating lasting habits.",
-    "🤖 A special AI-powered twist awaits you after Chapter 1!",
-    "🚀 Get ready for an interactive, gamified journey towards a greener future!"
+    "🤖 Special AI-powered twists await you after completing Chapter 1!",
+    "🚀 Get ready for an interactive, gamified journey towards a better future!"
   ];
 
   void _nextStep() async {

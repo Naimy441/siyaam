@@ -156,11 +156,17 @@ Widget build(BuildContext context) {
       appBar: AppBar(
         title: Text(
           "Chapter ${widget.chapterNumber} - Quest ${widget.level}",
-          style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
+          style: const TextStyle(color: Color.fromARGB(221, 255, 255, 255), fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
+      leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        )
       ),
       body: Stack(
         children: [
@@ -222,11 +228,11 @@ Widget build(BuildContext context) {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: BackdropFilter(
-                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                               child: Scratcher(
                                 brushSize: 50,
                                 threshold: 50,
-                                color: Colors.blue.shade200,
+                                color: const Color.fromARGB(255, 247, 201, 84),
                                 onChange: (value) {
                                   setState(() {
                                     _scratchProgress = value;

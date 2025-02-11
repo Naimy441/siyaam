@@ -199,7 +199,7 @@ Widget _buildDialogButton({
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 24,
-              color: Colors.black87, // Light mode-friendly text
+              color: const Color.fromARGB(221, 255, 255, 255), // Light mode-friendly text
             ),
           ),
           centerTitle: true,
@@ -237,7 +237,7 @@ Widget _buildDialogButton({
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                   child: Container(
                     width: 320,
                     padding: const EdgeInsets.all(20),
@@ -257,12 +257,12 @@ Widget _buildDialogButton({
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text(
-                          "Complete quests to unlock new adventures!",
+                        Text(
+                          "Complete a quest to unlock tomorrow's challenge!",
                           style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 18,
+                            color: const Color.fromARGB(255, 0, 0, 0),
+                            fontWeight: FontWeight.w600,
                           ),
                           textAlign: TextAlign.center,
                         ),

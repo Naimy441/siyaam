@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'level.dart';
-import 'package:odyssey/constants.dart';
+import 'package:siyaam/constants.dart';
 import 'package:confetti/confetti.dart';
 
 class LevelsScreen extends StatefulWidget {

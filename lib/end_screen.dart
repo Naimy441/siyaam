@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
-import 'package:odyssey/main.dart'; // Import Main Screen
+import 'package:siyaam/main.dart'; // Import Main Screen
 
 class EndScreen extends StatefulWidget {
   const EndScreen({super.key});
@@ -78,7 +78,7 @@ class EndScreenState extends State<EndScreen> {
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   child: Text(
-                    "You've completed the Odyssey Challenge! 🌍 "
+                    "You've completed the Siyaam Challenge! 🌍 "
                     "Take a moment to reflect on your journey and "
                     "continue making sustainable choices every day. 💚",
                     style: TextStyle(

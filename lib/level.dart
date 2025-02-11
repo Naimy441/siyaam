@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:odyssey/end_screen.dart';
-import 'package:odyssey/gemini_service.dart';
-import 'package:odyssey/levels.dart';
+import 'package:siyaam/end_screen.dart';
+import 'package:siyaam/gemini_service.dart';
+import 'package:siyaam/levels.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:scratcher/scratcher.dart';
 import 'dart:async';

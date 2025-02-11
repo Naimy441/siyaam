@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:odyssey/levels.dart';
-import 'package:odyssey/constants.dart';
+import 'package:siyaam/levels.dart';
+import 'package:siyaam/constants.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class ChapterScreen extends StatefulWidget {

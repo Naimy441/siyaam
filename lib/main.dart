@@ -21,7 +21,7 @@ void main() async {
   audioPlayer.setReleaseMode(ReleaseMode.loop); 
   audioPlayer.play(AssetSource('tranquility.mp3'));
 
-  runApp(OdysseyApp(initialChapter: storedChapter));
+  runApp(SiyaamApp(initialChapter: storedChapter));
 }
 
 Future<int> getStoredChapter() async {
@@ -29,16 +29,16 @@ Future<int> getStoredChapter() async {
   return prefs.getInt('chapterNumber') ?? 0; // Default to 0 if not set
 }
 
-class OdysseyApp extends StatelessWidget {
+class SiyaamApp extends StatelessWidget {
   final int initialChapter;
 
-  const OdysseyApp({super.key, required this.initialChapter});
+  const SiyaamApp({super.key, required this.initialChapter});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Odyssey',
+      title: 'Siyaam',
       theme: ThemeData.light(),
       home: getInitialScreen(initialChapter),
     );
@@ -78,7 +78,7 @@ class HomeScreen extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.1, // Adjust height dynamically
                 ),
                 Text(
-                  "ODYSSEY",
+                  "SIYAAM",
                   style: GoogleFonts.aBeeZee(  // Use camelCase for Google Fonts
                     fontSize: 50,
                     fontWeight: FontWeight.bold,
@@ -153,8 +153,8 @@ class IntroductionScreenState extends State<IntroductionScreen> {
   int _currentStep = 0;
 
   final List<String> _introTexts = [
-    "🌱 Welcome to Odyssey!\nA 30-day challenge to embrace sustainability and eco-conscious living.",
-    "📖 Odyssey unfolds across six immersive chapters, each diving into a different sustainability theme.",
+    "🌱 Welcome to Siyaam!\nA 30-day challenge to embrace sustainability and eco-conscious living.",
+    "📖 Siyaam unfolds across six immersive chapters, each diving into a different sustainability theme.",
     "🛤 Each day is a Quest, leading you through small but powerful actions to make an impact.",
     "🔄 Every step matters – your efforts build upon the previous, creating lasting habits.",
     "🤖 A special AI-powered twist awaits you after Chapter 1!",

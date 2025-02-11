@@ -1,7 +1,7 @@
-# Odyssey: A 30-Day Sustainability Journey
-Odyssey is a gamified mobile application designed to encourage sustainable living through a series of interactive challenges and engaging storytelling.  Over 30 days, users progress through six chapters, each focusing on a different aspect of sustainability, completing daily quests to unlock new content and ultimately achieve a greener lifestyle.
+# Siyaam: A 30-Day Sustainability Journey
+Siyaam is a gamified mobile application designed to encourage spiritual living through a series of interactive challenges and engaging storytelling.  Over 30 days, users progress through six chapters, each focusing on a different aspect of Islam, completing daily quests to unlock new content and ultimately achieve a better lifestyle.
 
-By Abdullah Naim, Harouna Thiam, Adam Lele, and Yasser Meena
+By Abdullah Naim, Harouna Thiam, and Adam Lele
 
 ## Features
 * **Interactive Storytelling:** Immersive narratives within each chapter engage users and explain the importance of sustainable practices.
@@ -14,11 +14,11 @@ By Abdullah Naim, Harouna Thiam, Adam Lele, and Yasser Meena
 * **Background Music:** Ambient background music enhances user experience.
 
 ## Usage
-The app guides users through a series of chapters and daily quests.  Users interact with the app by reading stories, completing quests (which involve real-world actions), and choosing AI-generated twists for additional challenge. Upon completion of a chapter's quests, the user progresses to the next, eventually completing the 30-day Odyssey.
+The app guides users through a series of chapters and daily quests.  Users interact with the app by reading stories, completing quests (which involve real-world actions), and choosing AI-generated twists for additional challenge. Upon completion of a chapter's quests, the user progresses to the next, eventually completing the 30-day Siyaam.
 
 ## Installation
 1. **Clone the repository:** `git clone <repository_url>`
-2. **Navigate to the project directory:** `cd odyssey`
+2. **Navigate to the project directory:** `cd siyaam`
 3. **Install dependencies:** `flutter pub get`
 4. **Run the app:** `flutter run`
 

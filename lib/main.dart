@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:siyaam/reminder.dart';
 import 'chapter.dart';
 // import 'package:audioplayers/audioplayers.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -155,6 +156,7 @@ class IntroductionScreenState extends State<IntroductionScreen> {
     "🛤 Each day is a Quest, leading you through small but powerful actions to make an impact.",
     "🔄 Every step matters – your efforts build upon the previous, creating lasting habits.",
     "🤖 Special AI-powered twists await you after completing Chapter 1!",
+    "⏰ Set your intentions, and let the journey unfold.",
     "🚀 Get ready for an interactive, gamified journey towards a better future!"
   ];
 
@@ -171,7 +173,7 @@ class IntroductionScreenState extends State<IntroductionScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => ChapterScreen(chapterNumber: 1),
+          builder: (context) => ReminderScreen(),
         ),
       );
     }

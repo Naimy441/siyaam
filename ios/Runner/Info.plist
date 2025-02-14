@@ -47,5 +47,9 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>NSUserNotificationUsageDescription</key>
+		<string>App needs notification permissions to send you reminders about daily quests.</string>
+		<key>NSLocalNotificationUsageDescription</key>
+		<string>App needs notification permissions to send you reminders about daily quests.</string>
 	</dict>
 </plist>

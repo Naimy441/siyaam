@@ -9,7 +9,7 @@ class GeminiService {
 
   Future<String> getGeminiResponse(String prompt) async {
     try {
-      print("Sending request to Gemini API with prompt: $prompt");
+      // print("Sending request to Gemini API with prompt: $prompt");
       final response = await http.post(
         Uri.parse("$endpoint?key=$apiKey"),
         headers: {
@@ -26,23 +26,23 @@ class GeminiService {
         }),
       );
 
-      print("Received response: ${response.statusCode} - ${response.body}");
+      // print("Received response: ${response.statusCode} - ${response.body}");
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         if (data.containsKey('candidates') &&
             data['candidates'].isNotEmpty &&
             data['candidates'][0].containsKey('content')) {
-          print("Extracted content: ${data['candidates'][0]['content']}");
+          // print("Extracted content: ${data['candidates'][0]['content']}");
           return data['candidates'][0]['content']['parts'][0]['text'];
         }
-        print("No valid response received from Gemini.");
+        // print("No valid response received from Gemini.");
         return "No valid response received from Gemini.";
       } else {
         return "Error: ${response.statusCode} - ${response.body}";
       }
     } catch (e) {
-      print("Error occurred: $e");
+      // print("Error occurred: $e");
       return "Error: $e";
     }
   }
@@ -58,25 +58,25 @@ class TextProcessor {
   ];
 
   static String processText(String prompt) {
-    print("Processing text: $prompt");
+    // print("Processing text: $prompt");
     String processed = prompt.trim();
     if (processed.isNotEmpty) {
       processed = processed[0].toUpperCase() + processed.substring(1);
     }
-    print("Processed input: $processed");
+    // print("Processed input: $processed");
     return "Processed Input: $processed";
   }
 
   static int getRandomNumber(int min, int max) {
     final random = Random();
     int randomNumber = min + random.nextInt(max - min + 1);
-    print("Generated random number: $randomNumber");
+    // print("Generated random number: $randomNumber");
     return randomNumber;
   }
 
   static String getRandomTwist() {
     int randomIndex = getRandomNumber(0, twists.length - 1);
-    print("Selected twist: ${twists[randomIndex]}");
+    // print("Selected twist: ${twists[randomIndex]}");
     return twists[randomIndex];
   }
 
@@ -100,12 +100,12 @@ class TextProcessor {
       default: formattedPrompt = "Rewrite \"$prompt\" with a creative twist related to the phrase \"$twist\", ensuring a meaningful transformation, not just rewording. Introduce a slight, engaging change that enhances the challenge without making it unfair or inappropriate."; break;
     }
     formattedPrompt += "Ensure the twist meaningfully alters the challenge while keeping it fair, safe, and fun. The twist should be engaging, family-friendly, legal, and easy to complete in one day. Avoid excessive difficulty or anything that could be seen as unfair or inappropriate. The generated challenge must fit on one line.";
-    print("Formatted prompt: $formattedPrompt");
+    // print("Formatted prompt: $formattedPrompt");
     return formattedPrompt;
   }
 
   static Future<Map<String, String>> twistIt(String prompt) async {
-    print("Twisting the prompt: $prompt");
+    // print("Twisting the prompt: $prompt");
     Set<String> seen = <String>{};
     List<String> selectedTwists = [];
 
@@ -118,7 +118,7 @@ class TextProcessor {
       selectedTwists.add(twist);
     }
 
-    print("Selected twists: $selectedTwists");
+    // print("Selected twists: $selectedTwists");
 
     Map<String, String> retMap = {
       selectedTwists[0]: "",
@@ -130,9 +130,9 @@ class TextProcessor {
 
     for (int i = 0; i < 3; i++) {
       String formattedPrompt = promptify(selectedTwists[i], prompt);
-      print("Sending formatted prompt to Gemini API: $formattedPrompt");
+      // print("Sending formatted prompt to Gemini API: $formattedPrompt");
       String response = await gemini.getGeminiResponse(formattedPrompt);
-      print("Received response for twist [${selectedTwists[i]}]: $response");
+      // print("Received response for twist [${selectedTwists[i]}]: $response");
       retMap[selectedTwists[i]] = response;
     }
 

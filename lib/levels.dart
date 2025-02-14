@@ -26,12 +26,9 @@ class LevelsScreenState extends State<LevelsScreen> {
     _confettiController = ConfettiController(duration: const Duration(seconds: 3));
     _loadProgress();
 
-    // If chapterNumber > 1, trigger confetti rain
-    if (widget.chapterNumber > 1) {
       Future.delayed(const Duration(milliseconds: 500), () {
         _confettiController.play();
       });
-    }
   }
 
   @override
@@ -195,7 +192,7 @@ Widget _buildDialogButton({
         extendBodyBehindAppBar: true, // Make background extend to the top
         appBar: AppBar(
           title: Text(
-            "Chapter ${widget.chapterNumber}\n${getChapterInfo(widget.chapterNumber)['theme']}",
+            "Chapter ${widget.chapterNumber}",
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 24,
@@ -258,7 +255,7 @@ Widget _buildDialogButton({
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          "Complete a quest to unlock tomorrow's challenge!",
+                          "${getChapterInfo(widget.chapterNumber)['theme']}",
                           style: TextStyle(
                             fontSize: 18,
                             color: const Color.fromARGB(255, 0, 0, 0),

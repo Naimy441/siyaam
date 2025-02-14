@@ -10,10 +10,10 @@ class ChapterScreen extends StatefulWidget {
   const ChapterScreen({super.key, required this.chapterNumber});
 
   @override
-  _ChapterScreenState createState() => _ChapterScreenState();
+  ChapterScreenState createState() => ChapterScreenState();
 }
 
-class _ChapterScreenState extends State<ChapterScreen> with SingleTickerProviderStateMixin {
+class ChapterScreenState extends State<ChapterScreen> with SingleTickerProviderStateMixin {
   late Map<String, dynamic> chapterInfo;
   late AnimationController _animationController;
   late Animation<Offset> _animation;
@@ -94,7 +94,7 @@ class _ChapterScreenState extends State<ChapterScreen> with SingleTickerProvider
               child: SlideTransition(
                 position: _animation,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 100),
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 100, bottom: 20),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -110,19 +110,23 @@ class _ChapterScreenState extends State<ChapterScreen> with SingleTickerProvider
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 20),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: (chapterInfo["story"] as List<String>).map((line) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Text(
-                            line,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              color: Color.fromARGB(255, 255, 255, 255),
-                            ),
-                            textAlign: TextAlign.start,
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: (chapterInfo["story"] as List<String>).map((line) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Text(
+                                line,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                ),
+                                textAlign: TextAlign.start,
+                              ),
+                            )).toList(),
                           ),
-                        )).toList(),
+                        ),
                       ),
                     ],
                   ),
@@ -156,7 +160,7 @@ class _ChapterScreenState extends State<ChapterScreen> with SingleTickerProvider
                       ],
                     ),
                     child: const Text(
-                      'Skip',
+                      'Continue',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,

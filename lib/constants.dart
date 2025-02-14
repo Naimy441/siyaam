@@ -44,7 +44,7 @@ final Map<int, Chapter> chapters = {
       1: [
         "List 10 things you’re grateful for today.",
         "Avoid complaining for an entire day.",
-        "Cook a meal with minimal waste.",
+        "Discover and share a hadith with someone at iftar today.",
         "Donate an item you no longer use.",
         "Perform a good deed for a family member without them knowing.",
       ],

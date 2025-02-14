@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'chapter.dart';
-import 'package:audioplayers/audioplayers.dart';
+// import 'package:audioplayers/audioplayers.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
@@ -10,8 +10,8 @@ void main() async {
   int storedChapter = await getStoredChapter();
 
   // Uncomment to clear user local storage
-  // final prefs = await SharedPreferences.getInstance();
-  // await prefs.clear();
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.clear();
 
   await dotenv.load(fileName: ".env"); 
 
@@ -65,7 +65,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.asset(
-              "assets/Title Page v2.gif",
+              "assets/siyaam_home.png",
               fit: BoxFit.cover, // Ensures the GIF covers the entire background
             ),
           ),
@@ -75,7 +75,7 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.1, // Adjust height dynamically
+                  height: MediaQuery.of(context).size.height * 0.19, // Adjust height dynamically
                 ),
                 Text(
                   "SIYAAM",
@@ -83,27 +83,24 @@ class HomeScreen extends StatelessWidget {
                     fontSize: 50,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 3,
-                    color: const Color.fromARGB(255, 0, 0, 0),
+                    color: const Color.fromARGB(255, 255, 255, 255),
 
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.01, // Adjust height dynamically
                 ),
 
                 // Subtitle
                 Text(
-                  "Your Journey to Sustainability",
+                  "Your Journey in Islam",
                   style: GoogleFonts.aBeeZee(  // Use camelCase for Google Fonts
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 3,
-                    color: const Color.fromARGB(255, 0, 0, 0),
+                    color: const Color.fromARGB(255, 255, 255, 255),
    
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.65, // Adjust height dynamically
+                  height: MediaQuery.of(context).size.height * 0.47, // Adjust height dynamically
                 ),
 
                 // Start Button
@@ -118,7 +115,7 @@ class HomeScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 50, vertical: 15),
-                    backgroundColor: const Color.fromARGB(255, 216, 243, 255),
+                    backgroundColor: Color.fromARGB(255, 247, 201, 84),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -128,7 +125,7 @@ class HomeScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 1, 1, 1),
+                      color: Color.fromARGB(255, 0, 0, 0),
                     ),
                   ),
                 ),

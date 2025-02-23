@@ -363,6 +363,10 @@ class LevelsScreenState extends State<LevelsScreen> {
                         CarouselSlider(
                           items: [
                             _buildCarouselItem(
+                                "Verse of the Day\n\n${quranAndDuaList[_unlockedLevel - 1]["quran"]!}"),
+                            _buildCarouselItem(
+                                "Verse Translation\n\n${quranAndDuaList[_unlockedLevel - 1]["interpretation"]!}"),
+                            _buildCarouselItem(
                                 "Dua of the Day\n\n${quranAndDuaList[_unlockedLevel - 1]["dua"]!}"),
                             _buildCarouselItem(
                                 "Dua Transliteration\n\n${quranAndDuaList[_unlockedLevel - 1]["transliteration"]!}"),

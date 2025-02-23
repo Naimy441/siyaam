@@ -1,12 +1,14 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:siyaam/end_screen.dart';
-import 'package:siyaam/gemini_service.dart';
 import 'package:siyaam/levels.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:scratcher/scratcher.dart';
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
+
+import 'constants.dart';
 
 class LevelScreen extends StatefulWidget {
   final int chapterNumber;
@@ -34,6 +36,7 @@ class LevelScreenState extends State<LevelScreen> {
   bool isScratched = false;
   double scratchProgress = 0; // Tracks how much is scratched
   Map<String, String> twistsMap = {};
+  final Random _random = Random(); // Use a single Random instance globally
 
   @override
   void initState() {
@@ -57,11 +60,13 @@ class LevelScreenState extends State<LevelScreen> {
         'twistsMap_Chapter${widget.chapterNumber}_Level${widget.level}');
 
     if (savedTwists != null) {
-      twistsMap = Map<String, String>.from(jsonDecode(savedTwists));
+      // ✅ Ensure twistsMap updates immediately if saved data exists
       setState(() {
+        twistsMap = Map<String, String>.from(jsonDecode(savedTwists));
         isLoading = false;
       });
     } else if (widget.twists) {
+      // ✅ Fetch twists and update UI in setState
       await _fetchTwists();
     } else {
       setState(() {
@@ -70,15 +75,40 @@ class LevelScreenState extends State<LevelScreen> {
     }
   }
 
+  Map<String, String> getRandomTwists(Map<String, String> twists,
+      {Set<String>? exclude}) {
+    if (twists.length <= 3) {
+      return Map.from(twists); // Return all if there are 3 or fewer
+    }
+
+    List<String> keys = twists.keys.toList(); // Get all twist keys
+
+    // Remove already used twists (if any)
+    if (exclude != null) {
+      keys.removeWhere((key) => exclude.contains(key));
+    }
+
+    // Shuffle the list using a dynamic seed
+    keys.shuffle(Random(DateTime.now().microsecondsSinceEpoch));
+
+    // Ensure at least 3 random twists are picked
+    return {for (var key in keys.take(3)) key: twists[key]!};
+  }
+
   Future<void> _fetchTwists() async {
-    twistsMap = await TextProcessor.twistIt(widget.challenge);
     final prefs = await SharedPreferences.getInstance();
+    print(widget.challenge);
+    final fetchedTwists = getRandomTwists(twists[widget.challenge]!);
+
+    // Save twists in SharedPreferences
     await prefs.setString(
         'twistsMap_Chapter${widget.chapterNumber}_Level${widget.level}',
-        jsonEncode(twistsMap));
+        jsonEncode(fetchedTwists));
 
+    // ✅ Update UI in setState
     setState(() {
-      isLoading = false;
+      twistsMap = fetchedTwists;
+      isLoading = false; // UI should update immediately
     });
   }
 

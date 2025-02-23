@@ -78,9 +78,7 @@ class EndScreenState extends State<EndScreen> {
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   child: Text(
-                    "You've completed the Siyaam Challenge! 🌍 "
-                    "Take a moment to reflect on your journey and "
-                    "continue making sustainable choices every day. 💚",
+"🎉 You’ve completed the Siyaam Challenge!\nYour journey doesn’t end here—it’s just the beginning. 🚀✨\nTake a moment to reflect on your growth 🌱, embrace the lessons learned 📖, and continue making meaningful changes every day. 💡💖\nKeep striving, keep evolving, and let this be the start of a lifelong transformation! 🌟🤲",
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.white70,
@@ -107,7 +105,7 @@ class EndScreenState extends State<EndScreen> {
                     ),
                   ),
                   child: const Text(
-                    "Restart Journey 🔄",
+                    "See you next year! 🚀",
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ),

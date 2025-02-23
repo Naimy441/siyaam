@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'level.dart';
 import 'package:siyaam/constants.dart';
 import 'package:confetti/confetti.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class LevelsScreen extends StatefulWidget {
   final int chapterNumber;
@@ -19,16 +20,18 @@ class LevelsScreenState extends State<LevelsScreen> {
   int _unlockedLevel = 1;
   bool _questCompletedToday = false;
   late ConfettiController _confettiController;
+  int _carouselIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _confettiController = ConfettiController(duration: const Duration(seconds: 3));
+    _confettiController =
+        ConfettiController(duration: const Duration(seconds: 3));
     _loadProgress();
 
-      Future.delayed(const Duration(milliseconds: 500), () {
-        _confettiController.play();
-      });
+    Future.delayed(const Duration(milliseconds: 500), () {
+      _confettiController.play();
+    });
   }
 
   @override
@@ -40,7 +43,8 @@ class LevelsScreenState extends State<LevelsScreen> {
   Future<void> _loadProgress() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _unlockedLevel = prefs.getInt('unlockedLevel_${widget.chapterNumber}') ?? 1;
+      _unlockedLevel =
+          prefs.getInt('unlockedLevel_${widget.chapterNumber}') ?? 1;
       _questCompletedToday = _checkIfCompletedToday(prefs);
     });
   }
@@ -59,7 +63,7 @@ class LevelsScreenState extends State<LevelsScreen> {
 
     String challenge = getChallenge(widget.chapterNumber, level);
     bool isTwist = widget.chapterNumber != 1; // Enable twists after Chapter 1
-    
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -74,116 +78,118 @@ class LevelsScreenState extends State<LevelsScreen> {
   }
 
   Future<bool> _showOverrideDialog() async {
-  return await showDialog(
-        context: context,
-        builder: (context) => Dialog(
-          elevation: 0,
-          backgroundColor: Colors.transparent, // Glass effect
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Soft blur effect
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.3), // Glass effect
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.white.withOpacity(0.2)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.blue.shade100.withOpacity(0.4),
-                      blurRadius: 15,
-                      spreadRadius: 1,
-                      offset: const Offset(2, 4),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text(
-                      "Already Completed a Quest Today",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
+    return await showDialog(
+          context: context,
+          builder: (context) => Dialog(
+            elevation: 0,
+            backgroundColor: Colors.transparent, // Glass effect
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                    sigmaX: 10, sigmaY: 10), // Soft blur effect
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.3), // Glass effect
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white.withOpacity(0.2)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.blue.shade100.withOpacity(0.4),
+                        blurRadius: 15,
+                        spreadRadius: 1,
+                        offset: const Offset(2, 4),
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 12),
-                    const Text(
-                      "Are you sure you want to do another quest today?",
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black54,
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        "Already Completed a Quest Today",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 20),
-                    
-                    // Buttons
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildDialogButton(
-                          text: "Cancel",
-                          color: Colors.grey.shade300,
-                          textColor: Colors.black87,
-                          onTap: () => Navigator.pop(context, false),
+                      const SizedBox(height: 12),
+                      const Text(
+                        "Are you sure you want to do another quest today?",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black54,
                         ),
-                        _buildDialogButton(
-                          text: "Yes, Continue",
-                          color: Colors.blue.shade600,
-                          textColor: Colors.white,
-                          onTap: () => Navigator.pop(context, true),
-                        ),
-                      ],
-                    ),
-                  ],
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 20),
+
+                      // Buttons
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _buildDialogButton(
+                            text: "Cancel",
+                            color: Colors.grey.shade300,
+                            textColor: Colors.black87,
+                            onTap: () => Navigator.pop(context, false),
+                          ),
+                          _buildDialogButton(
+                            text: "Yes, Continue",
+                            color: Colors.blue.shade600,
+                            textColor: Colors.white,
+                            onTap: () => Navigator.pop(context, true),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ) ??
-      false;
-}
+        ) ??
+        false;
+  }
 
 // Custom Modern Dialog Button
-Widget _buildDialogButton({
-  required String text,
-  required Color color,
-  required Color textColor,
-  required VoidCallback onTap,
-}) {
-  return GestureDetector(
-    onTap: onTap,
-    child: AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 5,
-            spreadRadius: 1,
-            offset: const Offset(2, 2),
+  Widget _buildDialogButton({
+    required String text,
+    required Color color,
+    required Color textColor,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 5,
+              spreadRadius: 1,
+              offset: const Offset(2, 2),
+            ),
+          ],
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: textColor,
           ),
-        ],
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: textColor,
         ),
       ),
-    ),
-  );
-}
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -196,7 +202,8 @@ Widget _buildDialogButton({
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 24,
-              color: const Color.fromARGB(221, 255, 255, 255), // Light mode-friendly text
+              color: const Color.fromARGB(
+                  221, 255, 255, 255), // Light mode-friendly text
             ),
           ),
           centerTitle: true,
@@ -206,14 +213,14 @@ Widget _buildDialogButton({
         ),
         body: Stack(
           children: [
-          Positioned.fill(
-            child: Image.asset(
-              "assets/level_selector_background.png",
-              fit: BoxFit.cover,
+            Positioned.fill(
+              child: Image.asset(
+                "assets/level_selector_background.png",
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
 
-          // Confetti rain from top if chapterNumber >= 1
+            // Confetti rain from top if chapterNumber >= 1
             if (widget.chapterNumber >= 1)
               Positioned.fill(
                 child: Align(
@@ -228,7 +235,7 @@ Widget _buildDialogButton({
                   ),
                 ),
               ),
-              
+
             // Blurred Glass Panel
             Center(
               child: ClipRRect(
@@ -274,23 +281,33 @@ Widget _buildDialogButton({
                             bool isUnlocked = level <= _unlockedLevel;
 
                             return GestureDetector(
-                              onTap: isUnlocked ? () => _handleQuestSelection(level) : null,
+                              onTap: isUnlocked
+                                  ? () => _handleQuestSelection(level)
+                                  : null,
                               child: AnimatedContainer(
                                 duration: const Duration(milliseconds: 300),
                                 width: 90,
                                 height: 90,
                                 decoration: BoxDecoration(
                                   color: isUnlocked
-                                      ? Colors.white.withOpacity(0.8) // Glass effect
+                                      ? Colors.white
+                                          .withOpacity(0.8) // Glass effect
                                       : Colors.white.withOpacity(0.6),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
-                                    color: isUnlocked ? Colors.blue.shade200 : Colors.blue.shade50,
+                                    color: isUnlocked
+                                        ? Colors.blue.shade200
+                                        : Colors.blue.shade50,
                                     width: 1.2,
                                   ),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: (level >= _unlockedLevel) ? Colors.blue.shade300.withOpacity(0.5) : const Color.fromARGB(255, 8, 178, 25).withOpacity(0.3),
+                                      color: (level >= _unlockedLevel)
+                                          ? Colors.blue.shade300
+                                              .withOpacity(0.5)
+                                          : const Color.fromARGB(
+                                                  255, 8, 178, 25)
+                                              .withOpacity(0.3),
                                       blurRadius: 10,
                                       spreadRadius: 1,
                                       offset: const Offset(3, 3),
@@ -300,41 +317,66 @@ Widget _buildDialogButton({
                                 child: Center(
                                   child: isUnlocked
                                       ? Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
                                             if (level == _unlockedLevel)
-                                             Icon(Icons.play_circle_fill,
-                                                color: Colors.blue.shade600, size: 30),
+                                              Icon(Icons.play_circle_fill,
+                                                  color: Colors.blue.shade600,
+                                                  size: 30),
                                             if (level < _unlockedLevel)
-                                             Icon(Icons.play_circle_fill,
-                                                color: const Color.fromARGB(255, 8, 178, 25), size: 30),
+                                              Icon(Icons.play_circle_fill,
+                                                  color: const Color.fromARGB(
+                                                      255, 8, 178, 25),
+                                                  size: 30),
                                             const SizedBox(height: 5),
                                             if (level == _unlockedLevel)
-                                            Text(
-                                              "Quest $level",
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.blue.shade900,
+                                              Text(
+                                                "Quest $level",
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.blue.shade900,
+                                                ),
                                               ),
-                                            ),
                                             if (level < _unlockedLevel)
-                                            Text(
-                                              "Quest $level",
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                                color: const Color.fromARGB(255, 8, 178, 25),
+                                              Text(
+                                                "Quest $level",
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: const Color.fromARGB(
+                                                      255, 8, 178, 25),
+                                                ),
                                               ),
-                                            ),
                                           ],
                                         )
                                       : Icon(Icons.lock,
-                                          color: Colors.blueGrey.shade300, size: 28),
+                                          color: Colors.blueGrey.shade300,
+                                          size: 28),
                                 ),
                               ),
                             );
                           }),
+                        ),
+                        SizedBox(height: 40),
+                        CarouselSlider(
+                          items: [
+                            _buildCarouselItem(
+                                "Verse of the Day:\n${quranAndDuaList[_unlockedLevel - 1]["quran"]!}"),
+                            _buildCarouselItem(
+                                "Translation:\n${quranAndDuaList[_unlockedLevel - 1]["translation"]!}"),
+                            _buildCarouselItem(
+                                "Dua for the Day:\n${quranAndDuaList[_unlockedLevel - 1]["dua"]!}"),
+                          ],
+                          options: CarouselOptions(
+                            height: 150,
+                            autoPlay: true,
+                            enlargeCenterPage: true,
+                            autoPlayInterval: Duration(seconds: 5),
+                            pauseAutoPlayOnTouch: true,
+                            pauseAutoPlayOnManualNavigate: true,
+                          ),
                         ),
                       ],
                     ),
@@ -348,3 +390,34 @@ Widget _buildDialogButton({
     );
   }
 }
+
+Widget _buildCarouselItem(String text) {
+  return Container(
+    padding: const EdgeInsets.all(15),
+    decoration: BoxDecoration(
+      color: Colors.white.withOpacity(0.8),
+      borderRadius: BorderRadius.circular(15),
+      border: Border.all(color: Colors.blue.shade200),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.blue.shade100.withOpacity(0.4),
+          blurRadius: 10,
+          spreadRadius: 1,
+        ),
+      ],
+    ),
+    child: ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: 200, // Adjust the height limit as needed
+      ),
+      child: SingleChildScrollView(
+        child: Text(
+          text,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ),
+  );
+}
+

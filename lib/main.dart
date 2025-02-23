@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,11 +44,15 @@ class SiyaamApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DateTime countDownDate = DateTime(2025, 2, 1);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Siyaam',
       theme: ThemeData.light(),
-      home: getInitialScreen(initialChapter),
+      home: DateTime.now().isBefore(countDownDate)
+          ? CountdownScreen(targetDate: countDownDate)
+          : getInitialScreen(initialChapter),
     );
   }
 
@@ -292,4 +299,149 @@ class IntroductionScreenState extends State<IntroductionScreen> {
       ),
     );
   }
+}
+
+class CountdownScreen extends StatefulWidget {
+  final DateTime targetDate;
+
+  const CountdownScreen({super.key, required this.targetDate});
+
+  @override
+  CountdownScreenState createState() => CountdownScreenState();
+}
+
+class CountdownScreenState extends State<CountdownScreen> {
+  late Duration _remainingTime;
+  late Timer _timer;
+  late ConfettiController _confettiController;
+
+  @override
+  void initState() {
+    super.initState();
+    _remainingTime = widget.targetDate.difference(DateTime.now());
+    _startCountdown();
+
+    // Confetti Controller for normal confetti rain from the top
+    _confettiController = ConfettiController(duration: const Duration(seconds: 30));
+    _confettiController.play();
+  }
+
+  void _startCountdown() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        _remainingTime = widget.targetDate.difference(DateTime.now());
+        if (_remainingTime.isNegative) {
+          _timer.cancel();
+          _confettiController.stop();
+          _navigateToMain();
+        }
+      });
+    });
+  }
+
+  void _navigateToMain() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomeScreen(),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _confettiController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    String formattedTime = _formatDuration(_remainingTime);
+
+    return Scaffold(
+      body: Stack(
+        children: [
+          // Background Image
+          Positioned.fill(
+            child: Image.asset(
+              "assets/level_selector_background.png",
+              fit: BoxFit.cover,
+            ),
+          ),
+
+          // Confetti Rain from Top
+         Align(
+            alignment: Alignment.topCenter,
+            child: ConfettiWidget(
+              confettiController: _confettiController,
+              blastDirection: 3.14 / 2, // Directly downward
+              emissionFrequency: 0.1, // Higher for smoother rain effect
+              numberOfParticles: 10, // Consistent flow
+              gravity: 0.3, // Natural falling motion
+              maxBlastForce: 5, // Gentle, steady rain effect
+              minBlastForce: 2, // Prevents bursts
+              shouldLoop: true, // Ensures continuous confetti
+              particleDrag: 0.05, // Slight slow-down for realism
+            ),
+          ),
+
+          // Centered Countdown Content
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Title Text
+                const Text(
+                  "Countdown to Launch 🚀",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    shadows: [
+                      Shadow(blurRadius: 10, color: Colors.black, offset: Offset(2, 2)),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 20),
+
+                // Countdown Timer Container (Static size)
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.black.withOpacity(0.6),
+                  ),
+                  child: Text(
+                    formattedTime,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 50,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white, // Fixed white color
+                      shadows: [
+                        Shadow(blurRadius: 15, color: Colors.black, offset: Offset(2, 2)),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _formatDuration(Duration duration) {
+    int days = duration.inDays;
+    int hours = duration.inHours.remainder(24);
+    int minutes = duration.inMinutes.remainder(60);
+    int seconds = duration.inSeconds.remainder(60);
+    
+    return "$days days\n${_twoDigits(hours)}:${_twoDigits(minutes)}:${_twoDigits(seconds)}";
+  }
+
+  String _twoDigits(int n) => n.toString().padLeft(2, '0');
 }

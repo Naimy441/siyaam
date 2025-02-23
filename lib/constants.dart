@@ -167,154 +167,154 @@ final List<String> notifications = [
 
 final List<Map<String, String>> quranAndDuaList = [
 {
-        "dua": "Allahumma Ijal 'Amalee kullahou saulihaa, waj'alhu li-Wajhika khaalisan, wa la taj'al li-ahadin feehi shay'an.",
+        "transliteration": "Allahumma Ijal 'Amalee kullahou saulihaa, waj'alhu li-Wajhika khaalisan, wa la taj'al li-ahadin feehi shay'an.",
         "translation": "O Allah, make all my work righteous, and make it purely for seeking Your Face, and do not make anything in it for someone (other than You).",
-        "quran": "اللَّهُمَّ اجْعَلْ عَمَلِي كُلَّهُ صَالِحًا، وَاجْعَلْهُ لِوَجْهِكَ خَالِصًا، وَلَا تَجْعَلْ لِأَحَدٍ فِيهِ شَيْئًا"
+        "dua": "اللَّهُمَّ اجْعَلْ عَمَلِي كُلَّهُ صَالِحًا، وَاجْعَلْهُ لِوَجْهِكَ خَالِصًا، وَلَا تَجْعَلْ لِأَحَدٍ فِيهِ شَيْئًا"
     },
     {
-        "dua": "Allahumma Ya Muqallib al Quloob thabbit Qulūbana 'alaa Deenik. Wa Ya Musarrifal-Qulūbi Sarrif Qulūbana 'alā Tā'atika.",
+        "transliteration": "Allahumma Ya Muqallib al Quloob thabbit Qulūbana 'alaa Deenik. Wa Ya Musarrifal-Qulūbi Sarrif Qulūbana 'alā Tā'atika.",
         "translation": "O Changer of the hearts, make our heart firm upon Your Religion. O Controller of the hearts, direct our hearts to Your obedience.",
-        "quran": "اللَّهُمَّ يا مُقَلِّبَ القُلُوبِ ثَبِّتْ قُلُوبَنَا على دِيْنِكَ، ويا مُصَرِّفَ القُلُوبِ صَرِّفْ قُلُوْبَنَا على طَاعَتِك"
+        "dua": "اللَّهُمَّ يا مُقَلِّبَ القُلُوبِ ثَبِّتْ قُلُوبَنَا على دِيْنِكَ، ويا مُصَرِّفَ القُلُوبِ صَرِّفْ قُلُوْبَنَا على طَاعَتِك"
     },
     {
-        "dua": "Allahumma tahhir qalbi minan nifaq, wa 'amali minar riya, wa lisani minal kadhib, wa 'ayni minal khiyana. Fa inaka t'alamu khainatal a'ayuni wa ma tukhfis sudur.",
+        "transliteration": "Allahumma tahhir qalbi minan nifaq, wa 'amali minar riya, wa lisani minal kadhib, wa 'ayni minal khiyana. Fa inaka t'alamu khainatal a'ayuni wa ma tukhfis sudur.",
         "translation": "O Allah, purify my heart from hypocrisy, my actions from showing off, my tongue from lies, and my eyes from deception (evil glances). For surely, You are fully aware of the deception of the eyes and all that the chest conceals.",
-        "quran": "اللَّهُمَّ طَهِّرْ قَلْبِي مِنَ النِّفَاقِ وَعَمَلِي مِنَ الرِّيَاءِ وَلِسَانِي مِنَ الْكَذِبِ وَعَيْنِي مِنَ الْخِيَانَةِ، فَإِنَّكَ تَعْلَمُ خَائِنَةَ الأَعْيُنِ وَمَا تُخْفِي الصُّدُورُ"
+        "dua": "اللَّهُمَّ طَهِّرْ قَلْبِي مِنَ النِّفَاقِ وَعَمَلِي مِنَ الرِّيَاءِ وَلِسَانِي مِنَ الْكَذِبِ وَعَيْنِي مِنَ الْخِيَانَةِ، فَإِنَّكَ تَعْلَمُ خَائِنَةَ الأَعْيُنِ وَمَا تُخْفِي الصُّدُورُ"
     },
     {
-        "dua": "Allahumma inni as'aluka 'Ilman naafi'an, wa rizqan tayyiban, wa 'amalan mutaqabbalan.",
+        "transliteration": "Allahumma inni as'aluka 'Ilman naafi'an, wa rizqan tayyiban, wa 'amalan mutaqabbalan.",
         "translation": "O Allah! I ask You for knowledge that is of benefit, a good provision and deeds that will be accepted.",
-        "quran": "اَللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَ رِزْقًا طَيَّبًا، وَعَمَلاً مُتَقَبَّلاً"
+        "dua": "اَللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَ رِزْقًا طَيَّبًا، وَعَمَلاً مُتَقَبَّلاً"
     },
     {
-        "dua": "Allahumma inni as'alukal-huda, wat-tuqa, wal-'afafa, wal-ghina.",
+        "transliteration": "Allahumma inni as'alukal-huda, wat-tuqa, wal-'afafa, wal-ghina.",
         "translation": "O Allah! I beseech You for guidance, piety, chastity, and contentment.",
-        "quran": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى"
+        "dua": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى"
     },
     {
-        "dua": "Allahumma, 'aati nafsi taqwaaha, wa zakkihaa Anta khairu man zakkaahaa, Anta waliyyuhaa wa maulaaha.",
+        "transliteration": "Allahumma, 'aati nafsi taqwaaha, wa zakkihaa Anta khairu man zakkaahaa, Anta waliyyuhaa wa maulaaha.",
         "translation": "O Allah! Grant my soul its piety and purify it, for You are the Best to purify it. You are its Protector and Guardian.",
-        "quran": "اللَّهُمَّ آتِ نَفْسِي تَقْوَاهَا وَزَكِّهَا أَنْتَ خَيْرُ مَنْ زَكَّاهَا أَنْتَ وَلِيُّهَا وَمَوْلَاهَا"
+        "dua": "اللَّهُمَّ آتِ نَفْسِي تَقْوَاهَا وَزَكِّهَا أَنْتَ خَيْرُ مَنْ زَكَّاهَا أَنْتَ وَلِيُّهَا وَمَوْلَاهَا"
     },
     {
-        "dua": "Allahumma ihdinaa, wahdi binaa, waj 'alnaa sababan limanihtadaa.",
+        "transliteration": "Allahumma ihdinaa, wahdi binaa, waj 'alnaa sababan limanihtadaa.",
         "translation": "O Allah! Guide us, guide others through us, and make us a means/cause for all those who are rightly guided.",
-        "quran": "اللَّهُمَّ اهْدِناَ واهْدِ بِناَ واجْعَلناَ سَبَباً لِمَنِ اهتَدى"
+        "dua": "اللَّهُمَّ اهْدِناَ واهْدِ بِناَ واجْعَلناَ سَبَباً لِمَنِ اهتَدى"
     },
     {
-        "dua": "Allahumma 'afini fi badani, Allahumma afini fi sam'i, Allahumma 'afini fi basari, Allahumma inni a'udhu bika min al-kufri wa-l-faqr, Allahumma inni a'udhu bika min 'adhabi-l-qabr, la 'ilahi illa Ant.",
+        "transliteration": "Allahumma 'afini fi badani, Allahumma afini fi sam'i, Allahumma 'afini fi basari, Allahumma inni a'udhu bika min al-kufri wa-l-faqr, Allahumma inni a'udhu bika min 'adhabi-l-qabr, la 'ilahi illa Ant.",
         "translation": "O Allah, give me health in my body, O Allah, give me health in my hearing, Allah, give me health in my sight. O Allah, I seek your protection in You from disbelief and poverty. O Allah, I seek protection in You from punishment in the grave. There is no god but You.",
-        "quran": "اَللَّهُمَّ عَافِنِي فِي بَدَنِي، اَللَّهُمَّ عَافِنِي فِي سَمْعِي، اَللَّهُمَّ عَافِنِي فِي بَصَرِي، اَللَّهُمَ إنِّي أَعُوذَ بِكَ مِنْ الكُفْرِ وَالفَقْرِ، اَللَّهُمَ إنِّي أَعُوذَ بِكَ مِنْ عَذَابِ القَبْرِ، لَآ إِلَهَ إِلَّا أَنْتَ"
+        "dua": "اَللَّهُمَّ عَافِنِي فِي بَدَنِي، اَللَّهُمَّ عَافِنِي فِي سَمْعِي، اَللَّهُمَّ عَافِنِي فِي بَصَرِي، اَللَّهُمَ إنِّي أَعُوذَ بِكَ مِنْ الكُفْرِ وَالفَقْرِ، اَللَّهُمَ إنِّي أَعُوذَ بِكَ مِنْ عَذَابِ القَبْرِ، لَآ إِلَهَ إِلَّا أَنْتَ"
     },
     {
-        "dua": "Allahumma inni as`aluka hubbaka wa hubba man yuhibbuka wal amalal ladzi yuballighuni hubbaka. Allahumaj 'al hubbaka ahabba ilayya min nafsi wa ahli wa minal ma'il barid.",
+        "transliteration": "Allahumma inni as`aluka hubbaka wa hubba man yuhibbuka wal amalal ladzi yuballighuni hubbaka. Allahumaj 'al hubbaka ahabba ilayya min nafsi wa ahli wa minal ma'il barid.",
         "translation": "Oh Allah, I ask You for Your love and the love of those who love You, and I ask You for the actions that will lead me to Your love. Oh Allah make Your love more beloved to me than myself, my family, and the cold water.",
-        "quran": "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُبَّكَ وَحُبَّ مَنْ يُحِبُّكَ وَالْعَمَلَ الَّذِيْ يُبَلِّغُنِي حُبَّكَ اللَّهُمَّ اجْعَلْ حُبَّكَ أََحَبَّ إِلَيَّ مِنْ نَفْسِيْ وَأَهْلِيْ وَمِنَ الْمَاءِ الْبَارِدِ"
+        "dua": "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُبَّكَ وَحُبَّ مَنْ يُحِبُّكَ وَالْعَمَلَ الَّذِيْ يُبَلِّغُنِي حُبَّكَ اللَّهُمَّ اجْعَلْ حُبَّكَ أََحَبَّ إِلَيَّ مِنْ نَفْسِيْ وَأَهْلِيْ وَمِنَ الْمَاءِ الْبَارِدِ"
     },
     {
-        "dua": "Rabbana hablana min azwajina wadhurriyyatina qurrata a'yunin wajaalna lilmuttaqeena imamaa.",
+        "transliteration": "Rabbana hablana min azwajina wadhurriyyatina qurrata a'yunin wajaalna lilmuttaqeena imamaa.",
         "translation": "Our Lord! Bless us with ˹pious˺ spouses and offspring who will be the joy of our hearts, and make us models for the righteous.",
-        "quran": "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَٰجِنَا وَذُرِّيَّـٰتِنَا قُرَّةَ أَعْيُنٍۢ وَٱجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا"
+        "dua": "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَٰجِنَا وَذُرِّيَّـٰتِنَا قُرَّةَ أَعْيُنٍۢ وَٱجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا"
     },
     {
-        "dua": "Rabbana atina fid dunya hasanatan wa fil Aakhirati hasanatan waqina 'adhaban-nar.",
+        "transliteration": "Rabbana atina fid dunya hasanatan wa fil Aakhirati hasanatan waqina 'adhaban-nar.",
         "translation": "Our Lord, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire.",
-        "quran": "رَبَّنَآ ءَاتِنَا فِى ٱلدُّنْيَا حَسَنَةًۭ وَفِى ٱلـَٔاخِرَةِ حَسَنَةًۭ وَقِنَا عَذَابَ ٱلنَّارِ"
+        "dua": "رَبَّنَآ ءَاتِنَا فِى ٱلدُّنْيَا حَسَنَةًۭ وَفِى ٱلـَٔاخِرَةِ حَسَنَةًۭ وَقِنَا عَذَابَ ٱلنَّارِ"
     },
     {
-        "dua": "Allahumma Ya Mua'allima Adama wa Ibraahima 'Allimnaa. Wa Ya Mufah-hima Sulayman Fah-himnaa.",
+        "transliteration": "Allahumma Ya Mua'allima Adama wa Ibraahima 'Allimnaa. Wa Ya Mufah-hima Sulayman Fah-himnaa.",
         "translation": "O Allah, O the One Who taught Adam and Abraham, teach us. O the One Who granted Solomon understanding, grant us understanding.",
-        "quran": "اللهمّ يا مُعَلِّم آدم و إبراهيم، عَلِّمْنَا، ويا مُفَهِّم سُلَيْمَان، فهمنا"
+        "dua": "اللهمّ يا مُعَلِّم آدم و إبراهيم، عَلِّمْنَا، ويا مُفَهِّم سُلَيْمَان، فهمنا"
     },
     {
-        "dua": "Allahumma ij'alna min ahlil-Qur'ani alladhīna hum ahluka wa khāṣṣataka, bi-raḥmatika yā arḥama ar-rāḥimīn.",
+        "transliteration": "Allahumma ij'alna min ahlil-Qur'ani alladhīna hum ahluka wa khāṣṣataka, bi-raḥmatika yā arḥama ar-rāḥimīn.",
         "translation": "O Allah! Make us among the people of the Quran who are Your special people, by Your mercy, O Most Merciful of the Merciful.",
-        "quran": "اللَّهُمَّ اجْعَلْنَا مِنْ أَهْلِ الْقُرْآنِ الَّذِينَ هُمْ أَهْلُكَ وَخَاصَّتَكَ بِرَحْمَتِكَ يَا أَرْحَمَ الرَّاحِمِينَ"
+        "dua": "اللَّهُمَّ اجْعَلْنَا مِنْ أَهْلِ الْقُرْآنِ الَّذِينَ هُمْ أَهْلُكَ وَخَاصَّتَكَ بِرَحْمَتِكَ يَا أَرْحَمَ الرَّاحِمِينَ"
     },
     {
-        "dua": "Yā ḥayyu yā qayyūmu bi-raḥmatika astaghīthu aṣliḥ lī sha'nī kullahu walā takilnī ilā nafsī ṭarfata 'aynin.",
+        "transliteration": "Yā ḥayyu yā qayyūmu bi-raḥmatika astaghīthu aṣliḥ lī sha'nī kullahu walā takilnī ilā nafsī ṭarfata 'aynin.",
         "translation": "O Ever Living One, O Sustainer of all, by Your mercy I call on You to set right all my affairs. Do not place me in charge of my soul even for the blinking of an eye.",
-        "quran": "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ"
+        "dua": "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ"
     },
     {
-        "dua": "Allahumma ij'al awwala yawmina hadha salahan, wa awsatahu falahan, wa akhirahu najahan, wa na'udhu bika min yawmi awwaluhu faza'u, wa awsatuhu jaza'un, wa akhiruhu waja'un.",
+        "transliteration": "Allahumma ij'al awwala yawmina hadha salahan, wa awsatahu falahan, wa akhirahu najahan, wa na'udhu bika min yawmi awwaluhu faza'u, wa awsatuhu jaza'un, wa akhiruhu waja'un.",
         "translation": "O Allah, make the beginning of our day righteous, its middle successful, and its end victorious. We seek refuge in You from the distress of its beginning, the anxiety of its middle, and the pain of its end.",
-        "quran": "اللَّهُمَّ اجْعَلْ أَوَّلَ يَوْمِنا هذَا صَلاحًا، وَأَوْسَطَهُ فَلاحًا، وَآخِرَهُ نَجاحًا، وَنعُوذُ بِكَ مِنْ يَوْم أَوَّلُهُ فَزَعُ، وَأَوْسَطُهُ جَزَعٌ، وَآخِرُهُ وَجَعٌ"
+        "dua": "اللَّهُمَّ اجْعَلْ أَوَّلَ يَوْمِنا هذَا صَلاحًا، وَأَوْسَطَهُ فَلاحًا، وَآخِرَهُ نَجاحًا، وَنعُوذُ بِكَ مِنْ يَوْم أَوَّلُهُ فَزَعُ، وَأَوْسَطُهُ جَزَعٌ، وَآخِرُهُ وَجَعٌ"
     },
     {
-        "dua": "Allahumma Taqabbal minna siyamana fi ramadan, wa qiyamana wa rukoo'ana wa sujoodana bi Rahmatika Ya Arhamar Rahimeen.",
+        "transliteration": "Allahumma Taqabbal minna siyamana fi ramadan, wa qiyamana wa rukoo'ana wa sujoodana bi Rahmatika Ya Arhamar Rahimeen.",
         "translation": "O Allah, accept from us our fasts in Ramadan and our Qiyam (nightly prayers) and our bowing and prostrations by Your grace, O You Who is the Most Gracious.",
-        "quran": "اللَّهُمَّ تَقَبَّل مِنَّا صِيَامَنَا فِي رَمَضَان وَقِيَامَنا وَ رُكُوعنا وسُجُودنا بِرَحْمَتِكَ يا أَرْحَمَ الرَّاحِمِيْن"
+        "dua": "اللَّهُمَّ تَقَبَّل مِنَّا صِيَامَنَا فِي رَمَضَان وَقِيَامَنا وَ رُكُوعنا وسُجُودنا بِرَحْمَتِكَ يا أَرْحَمَ الرَّاحِمِيْن"
     },
     {
-        "dua": "A'udhu bi kalimaatil-lahit- tammati, min kulli shaitanin wa haammah, wa min kulli 'aynin laammah.",
+        "transliteration": "A'udhu bi kalimaatil-lahit- tammati, min kulli shaitanin wa haammah, wa min kulli 'aynin laammah.",
         "translation": "I seek refuge in the Perfect Words of Allah, from every devil and every poisonous pests, and from every evil eye.",
-        "quran": "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّةِ مِنْ كُلِّ شَيْطَانٍ وَهَامَّةٍ وَمِنْ كُلِّ عَيْنٍ لاَمَّةٍ"
+        "dua": "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّةِ مِنْ كُلِّ شَيْطَانٍ وَهَامَّةٍ وَمِنْ كُلِّ عَيْنٍ لاَمَّةٍ"
     },
     {
-        "dua": "Allahumma waffiqni lima tuhibbu wa tarda min al-qawl wal-amal wan-niyyah wal-huda, innaka 'ala kulli shay'in qadeer.",
+        "transliteration": "Allahumma waffiqni lima tuhibbu wa tarda min al-qawl wal-amal wan-niyyah wal-huda, innaka 'ala kulli shay'in qadeer.",
         "translation": "O Allah, grant me success in what You love and are pleased with, of speech, action, intention, and guidance. Surely, You are capable of everything.",
-        "quran": "اللَّهُمَّ وَفِّقْنِي لِمَا تُحِبُّ وَتَرْضَى مِنَ الْقَوْلِ وَالْعَمَلِ وَالنِّيَّةِ وَالْهُدَى إِنَّكَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ"
+        "dua": "اللَّهُمَّ وَفِّقْنِي لِمَا تُحِبُّ وَتَرْضَى مِنَ الْقَوْلِ وَالْعَمَلِ وَالنِّيَّةِ وَالْهُدَى إِنَّكَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ"
     },
     {
-        "dua": "Allāhumma innī a'ūdhu bika an ushrika bika wa anā a'lam, wa astaghfiruka limā lā a'lam.",
+        "transliteration": "Allāhumma innī a'ūdhu bika an ushrika bika wa anā a'lam, wa astaghfiruka limā lā a'lam.",
         "translation": "O Allah, I seek refuge in You lest I associate anything with You knowingly, and I seek Your forgiveness for what I know not.",
-        "quran": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ أَنْ أُشْرِكَ بِكَ وَأَنَا أَعْلَمُ، وَأَسْتَغْفِرُكَ لِمَا لا أَعْلَمُ"
+        "dua": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ أَنْ أُشْرِكَ بِكَ وَأَنَا أَعْلَمُ، وَأَسْتَغْفِرُكَ لِمَا لا أَعْلَمُ"
     },
     {
-        "dua": "Allahumma inni a'udhu bika min munkaratil-akhlaqi, wal-a'mali, wal- ahwa'i.",
+        "transliteration": "Allahumma inni a'udhu bika min munkaratil-akhlaqi, wal-a'mali, wal- ahwa'i.",
         "translation": "O Allah! I seek refuge in You from undesirable manners, deeds, and aspirations.",
-        "quran": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِن منْكَرَاتِ الأَخلاقِ، والأعْمَالِ والأَهْواءِ"
+        "dua": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِن منْكَرَاتِ الأَخلاقِ، والأعْمَالِ والأَهْواءِ"
     },
     {
-        "dua": "Allaahumma innee as-aluka Ridaak wal Jannah wa A'udhu Bika min sakhatik wan-naar.",
+        "transliteration": "Allaahumma innee as-aluka Ridaak wal Jannah wa A'udhu Bika min sakhatik wan-naar.",
         "translation": "O Allah, I ask of Your pleasure and for Paradise, and I seek refuge from Your displeasure and from the Hellfire.",
-        "quran": "اللَّهُمَّ إِنِّي أَسْأَلُكَ رِضَاكَ وَالجَنَّةَ، وَأَعُوذُ بِكَ مِنْ سَخَطِكَ وَالنَّارِ"
+        "dua": "اللَّهُمَّ إِنِّي أَسْأَلُكَ رِضَاكَ وَالجَنَّةَ، وَأَعُوذُ بِكَ مِنْ سَخَطِكَ وَالنَّارِ"
     },
     {
-        "dua": "Rabbanaghfirli wali waalidayyah wa lil mumineena yawmah yaqoomul hisaab.",
+        "transliteration": "Rabbanaghfirli wali waalidayyah wa lil mumineena yawmah yaqoomul hisaab.",
         "translation": "Our Lord! Forgive me, my parents, and the believers on the Day when the judgment will come to pass.",
-        "quran": "رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ"
+        "dua": "رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ"
     },
     {
-        "dua": "Allāhumma innā naʿūdhu bika min fitnati-l-qawli kamā naʿūdhu bika min fitnati-l-ʿamali, wa-naʿūdhu bika min at-takallufi limā lā nuḥsin kamā naʿūdhu bika min al-ʿujbi bimā nuḥsin.",
+        "transliteration": "Allāhumma innā naʿūdhu bika min fitnati-l-qawli kamā naʿūdhu bika min fitnati-l-ʿamali, wa-naʿūdhu bika min at-takallufi limā lā nuḥsin kamā naʿūdhu bika min al-ʿujbi bimā nuḥsin.",
         "translation": "O Allah, we seek refuge in You from the temptation of words as we seek refuge from the temptation of deeds. And we seek refuge from taking up what we are not good at as we seek refuge from being arrogant of what we are good at.",
-        "quran": "اللَّهُمَّ إِنَّا نَعُوذُ بِكَ مِن فِتْنَةِ القَوْلِ كَمَا نَعُوذُ بِكَ مِن فِتْنَةِ العَمَلِ، وَنَعُوذُ بِكَ مِنَ التَّكَلُّفِ لِمَا لَا نُحْسِنُ كَمَا نَعُوذُ بِكَ مِنَ العُجْبِ بِمَا نُحْسِنُ"
+        "dua": "اللَّهُمَّ إِنَّا نَعُوذُ بِكَ مِن فِتْنَةِ القَوْلِ كَمَا نَعُوذُ بِكَ مِن فِتْنَةِ العَمَلِ، وَنَعُوذُ بِكَ مِنَ التَّكَلُّفِ لِمَا لَا نُحْسِنُ كَمَا نَعُوذُ بِكَ مِنَ العُجْبِ بِمَا نُحْسِنُ"
     },
     {
-        "dua": "Allahumma anta waliyi fid-dunya wal akhirah. Tawaffanee musliman wa alhiqnee bis-saaliheen.",
+        "transliteration": "Allahumma anta waliyi fid-dunya wal akhirah. Tawaffanee musliman wa alhiqnee bis-saaliheen.",
         "translation": "O' Allah, You are my Protector in this world and in the Hereafter. Cause me to die a Muslim and join me with the righteous.",
-        "quran": "اللهم أَنْتَ وَلِيِّي فِي الدُّنْيَا وَالْآخِرَةِ ۖ تَوَفَّنِي مُسْلِمًا وَأَلْحِقْنِي بِالصَّالِحِينَ"
+        "dua": "اللهم أَنْتَ وَلِيِّي فِي الدُّنْيَا وَالْآخِرَةِ ۖ تَوَفَّنِي مُسْلِمًا وَأَلْحِقْنِي بِالصَّالِحِينَ"
     },
     {
-        "dua": "Allahumma usturna fawqa al-ard, wa tahta al-ard, wa yawm al-'ardhi 'alayk.",
+        "transliteration": "Allahumma usturna fawqa al-ard, wa tahta al-ard, wa yawm al-'ardhi 'alayk.",
         "translation": "O Allah, conceal (our faults and shortcomings) & protect us while we are on Earth & when we are beneath the Earth & on the Day our deeds are presented to You.",
-        "quran": "اللَّهُمَّ اسْتُرْنَا فَوْقَ الأرض، وَتَحْتَ الأرض، وَيَوْمَ الْعَرْضِ عَلَيْكَ"
+        "dua": "اللَّهُمَّ اسْتُرْنَا فَوْقَ الأرض، وَتَحْتَ الأرض، وَيَوْمَ الْعَرْضِ عَلَيْكَ"
     },
     {
-        "dua": "Allahumma inni as'aluka elman naafi'an, wa rizqan waasi'an tayyiban, wa 'amalan mutaqabbalan.",
+        "transliteration": "Allahumma inni as'aluka elman naafi'an, wa rizqan waasi'an tayyiban, wa 'amalan mutaqabbalan.",
         "translation": "O Allah, I ask You for beneficial knowledge, abundant and pure sustenance, and accepted deeds.",
-        "quran": "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا وَاسِعًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا"
+        "dua": "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا وَاسِعًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا"
     },
     {
-        "dua": "Allahumma Alimna ma yanfa unii, wan fa'ana bimaa allamtana warzuqna fahman wal ikhlas.",
+        "transliteration": "Allahumma Alimna ma yanfa unii, wan fa'ana bimaa allamtana warzuqna fahman wal ikhlas.",
         "translation": "O Allah, teach us what benefits us, and benefit us with what You have taught us, and grant us understanding and sincerity.",
-        "quran": "اللَّهُمَّ عَلِّمْنَا مَا يَنْفَعُنَا، وَانْفَعْنَا بِمَا عَلَّمْتَنَا، وَارْزُقْنَا فَهْمًا وَالإِخْلَاصَ"
+        "dua": "اللَّهُمَّ عَلِّمْنَا مَا يَنْفَعُنَا، وَانْفَعْنَا بِمَا عَلَّمْتَنَا، وَارْزُقْنَا فَهْمًا وَالإِخْلَاصَ"
     },
     {
-        "dua": "Allahumma aslih niyyatina wa dhuriyyaatinaa.",
+        "transliteration": "Allahumma aslih niyyatina wa dhuriyyaatinaa.",
         "translation": "O Allah, rectify our intentions and our offspring.",
-        "quran": "اللَّهُمَّ أَصْلِحْ نِيَّاتِنَا وَذُرِّيَّاتِنَا"
+        "dua": "اللَّهُمَّ أَصْلِحْ نِيَّاتِنَا وَذُرِّيَّاتِنَا"
     },
     {
-        "dua": "Allāhumma innā nas'aluka fi'lal-khayrāt, wa tarkal-munkarāt, wa ḥubba al-masākīn.",
+        "transliteration": "Allāhumma innā nas'aluka fi'lal-khayrāt, wa tarkal-munkarāt, wa ḥubba al-masākīn.",
         "translation": "O Allah, we ask You for the ability to do good deeds, to abstain from evil, and to love the poor.",
-        "quran": "اللَّهُمَّ إِنَّا نَسْأَلُكَ فِعْلَ الْخَيْرَاتِ، وَتَرْكَ الْمُنْكَرَاتِ، وَحُبَّ الْمَسَاكِينِ"
+        "dua": "اللَّهُمَّ إِنَّا نَسْأَلُكَ فِعْلَ الْخَيْرَاتِ، وَتَرْكَ الْمُنْكَرَاتِ، وَحُبَّ الْمَسَاكِينِ"
     },
     {
-        "dua": "Allahumma inna nas'aluka husnal khaatimah, wa nauthbika min su'il khaatimah.",
+        "transliteration": "Allahumma inna nas'aluka husnal khaatimah, wa nauthbika min su'il khaatimah.",
         "translation": "O Allah, we ask You for a good ending, and we seek refuge in You from a bad ending.",
-        "quran": "اللَّهُمَّ إِنَّا نَسْأَلُكَ حُسْنَ الْخَاتِمَةِ، وَنَعُوذُ بِكَ مِنْ سُوءِ الْخَاتِمَةِ"
+        "dua": "اللَّهُمَّ إِنَّا نَسْأَلُكَ حُسْنَ الْخَاتِمَةِ، وَنَعُوذُ بِكَ مِنْ سُوءِ الْخَاتِمَةِ"
     }
 ];
 

@@ -249,15 +249,28 @@ class LevelScreenState extends State<LevelScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           // "Scratch Below" Label (Disappears after 50% Scratch)
+
                           AnimatedOpacity(
                             duration: const Duration(milliseconds: 500),
                             opacity: isScratched ? 0.0 : 1.0,
-                            child: const Text(
-                              "🔽 Scratch Below 🔽",
-                              style: TextStyle(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 20),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(
+                                    0.5), // Slightly dark background
+                                borderRadius: BorderRadius.circular(
+                                    10), // Rounded edges for a softer look
+                              ),
+                              child: const Text(
+                                "🔽 Scratch Below 🔽",
+                                style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.black54),
+                                  color:
+                                      Colors.white, // White text for contrast
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(height: 10),

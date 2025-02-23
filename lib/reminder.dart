@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,16 +15,15 @@ class ReminderScreen extends StatefulWidget {
   ReminderScreenState createState() => ReminderScreenState();
 }
 
-class ReminderScreenState extends State<ReminderScreen> with SingleTickerProviderStateMixin {
-  TimeOfDay _selectedTime = const TimeOfDay(hour: 8, minute: 0); // Default: 8:00 AM
-  final FlutterLocalNotificationsPlugin _notificationsPlugin = FlutterLocalNotificationsPlugin();
+class ReminderScreenState extends State<ReminderScreen>
+    with SingleTickerProviderStateMixin {
+  TimeOfDay _selectedTime =
+      const TimeOfDay(hour: 8, minute: 0); // Default: 8:00 AM
+  final FlutterLocalNotificationsPlugin _notificationsPlugin =
+      FlutterLocalNotificationsPlugin();
   late AnimationController _controller;
-  
-  static const List<TimeOfDay> _allowedTimes = [
-    TimeOfDay(hour: 8, minute: 0),
-    TimeOfDay(hour: 12, minute: 0),
-    TimeOfDay(hour: 17, minute: 0),
-  ];
+
+final List<int> _allowedHours = List.generate(18, (index) => index); // 12 AM to 5 PM
 
   @override
   void initState() {
@@ -41,7 +41,8 @@ class ReminderScreenState extends State<ReminderScreen> with SingleTickerProvide
     const AndroidInitializationSettings androidSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    final DarwinInitializationSettings iosSettings = DarwinInitializationSettings(
+    final DarwinInitializationSettings iosSettings =
+        DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestSoundPermission: true,
@@ -55,8 +56,9 @@ class ReminderScreenState extends State<ReminderScreen> with SingleTickerProvide
 
   Future<void> _requestPermissions() async {
     if (Platform.isIOS) {
-      final iosNotificationsPlugin = _notificationsPlugin
-          .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
+      final iosNotificationsPlugin =
+          _notificationsPlugin.resolvePlatformSpecificImplementation<
+              IOSFlutterLocalNotificationsPlugin>();
       await iosNotificationsPlugin?.requestPermissions(
         alert: true,
         badge: true,
@@ -83,25 +85,41 @@ class ReminderScreenState extends State<ReminderScreen> with SingleTickerProvide
     await _scheduleDailyNotification();
   }
 
+  int getDay() {
+    final DateTime now = DateTime.now();
+    final DateTime startDate = DateTime(2025, 3, 1);
+    final int difference = now.difference(startDate).inDays;
+    return difference + 1; // Add 1 to include the starting day
+  }
+
   Future<void> _scheduleDailyNotification() async {
     await _requestPermissions(); // Request permissions before scheduling
 
     final now = tz.TZDateTime.now(tz.local);
+    List<PendingNotificationRequest> pendingNotifications = [];
 
     for (int i = 0; i < 30; i++) {
       final notificationTime = tz.TZDateTime(
         tz.local,
         now.year,
         now.month,
-        now.day + i,
+        now.day,
         _selectedTime.hour,
         _selectedTime.minute,
-      );
+      ).add(Duration(days: i)); // Ensures proper month/year transitions
+
+      // Ensure notifications list exists
+      final String notificationMessage =
+          notifications[i % notifications.length];
+
+      // Log scheduling request
+      print(
+          "Requesting Notification $i -> Expected Date: ${notificationTime.toLocal()} | Message: \"$notificationMessage\"");
 
       await _notificationsPlugin.zonedSchedule(
         i, // Unique ID for each notification
         'Daily Quest Reminder',
-        notifications[i % notifications.length], // Use notification message from the list
+        notificationMessage, // Get message from list
         notificationTime,
         const NotificationDetails(
           android: AndroidNotificationDetails(
@@ -112,11 +130,23 @@ class ReminderScreenState extends State<ReminderScreen> with SingleTickerProvide
           ),
           iOS: DarwinNotificationDetails(),
         ),
-        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
         matchDateTimeComponents: DateTimeComponents.time,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
       );
+    }
+
+    // Retrieve the actual scheduled notifications
+    await Future.delayed(
+        Duration(seconds: 2)); // Small delay to ensure scheduling is processed
+    pendingNotifications =
+        await _notificationsPlugin.pendingNotificationRequests();
+
+    print("\n--- Confirmed Scheduled Notifications ---");
+    for (var notification in pendingNotifications) {
+      print(
+          "ID: ${notification.id} | Title: ${notification.title} | Body: ${notification.body}");
     }
   }
 
@@ -149,7 +179,10 @@ class ReminderScreenState extends State<ReminderScreen> with SingleTickerProvide
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Color.fromARGB(255, 134, 211, 250), Color.fromARGB(255, 203, 121, 248)],
+                colors: [
+                  Color.fromARGB(255, 134, 211, 250),
+                  Color.fromARGB(255, 203, 121, 248)
+                ],
               ),
             ),
           ),
@@ -181,33 +214,29 @@ class ReminderScreenState extends State<ReminderScreen> with SingleTickerProvide
                         color: Colors.white.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Column(
-                        children: _allowedTimes.map((time) {
-                          return ListTile(
-                            title: Text(
-                              time.format(context),
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: _selectedTime == time
-                                    ? Colors.white
-                                    : Colors.white70,
-                              ),
-                            ),
-                            trailing: _selectedTime == time
-                                ? const Icon(Icons.check_circle, color: Colors.white)
-                                : null,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            onTap: () {
-                              setState(() {
-                                _selectedTime = time;
-                              });
-                            },
-                          );
-                        }).toList(),
-                      ),
+                      child: SizedBox(
+  height: 150, // Adjust height for better UX
+  child: CupertinoPicker(
+    scrollController: FixedExtentScrollController(
+      initialItem: _selectedTime.hour,
+    ),
+    itemExtent: 40, // Height of each item
+    backgroundColor: Colors.transparent,
+    onSelectedItemChanged: (index) {
+      setState(() {
+        _selectedTime = TimeOfDay(hour: _allowedHours[index], minute: 0);
+      });
+    },
+    children: _allowedHours.map((hour) {
+      return Center(
+        child: Text(
+          TimeOfDay(hour: hour, minute: 0).format(context),
+          style: const TextStyle(fontSize: 22, color: Colors.white),
+        ),
+      );
+    }).toList(),
+  ),
+),
                     ),
                     const SizedBox(height: 40),
 
@@ -218,7 +247,8 @@ class ReminderScreenState extends State<ReminderScreen> with SingleTickerProvide
                         ElevatedButton(
                           onPressed: _skipNotification,
                           style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 15),
                             backgroundColor: Colors.green.shade600,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
@@ -233,11 +263,11 @@ class ReminderScreenState extends State<ReminderScreen> with SingleTickerProvide
                             ),
                           ),
                         ),
-
                         ElevatedButton(
                           onPressed: _confirmNotification,
                           style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 15),
                             backgroundColor: Colors.blue.shade600,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),

@@ -52,8 +52,7 @@ class TextProcessor {
   GeminiService gemini = GeminiService();
 
   static List<String> twists = [
-    "Funny", "Community", "Creative", "Devious", "Genius", "Roleplay", "Speedrun",
-    "Randomized", "Gamified", "Shakespeare", "Duke University", "Sabotage", "Artificial",
+    "Funny", "Community", "Creative", "Genius", "Roleplay", "Gamified", "Shakespeare", 
     "Intelligence", "Courage", "Masterful"
   ];
 

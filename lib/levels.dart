@@ -213,8 +213,8 @@ Widget _buildDialogButton({
             ),
           ),
 
-          // Confetti rain from top if chapterNumber > 1
-            if (widget.chapterNumber > 1)
+          // Confetti rain from top if chapterNumber >= 1
+            if (widget.chapterNumber >= 1)
               Positioned.fill(
                 child: Align(
                   alignment: Alignment.center,
@@ -290,7 +290,7 @@ Widget _buildDialogButton({
                                   ),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.blue.shade300.withOpacity(0.2),
+                                      color: (level >= _unlockedLevel) ? Colors.blue.shade300.withOpacity(0.5) : const Color.fromARGB(255, 8, 178, 25).withOpacity(0.3),
                                       blurRadius: 10,
                                       spreadRadius: 1,
                                       offset: const Offset(3, 3),
@@ -302,15 +302,29 @@ Widget _buildDialogButton({
                                       ? Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            Icon(Icons.play_circle_fill,
+                                            if (level == _unlockedLevel)
+                                             Icon(Icons.play_circle_fill,
                                                 color: Colors.blue.shade600, size: 30),
+                                            if (level < _unlockedLevel)
+                                             Icon(Icons.play_circle_fill,
+                                                color: const Color.fromARGB(255, 8, 178, 25), size: 30),
                                             const SizedBox(height: 5),
+                                            if (level == _unlockedLevel)
                                             Text(
                                               "Quest $level",
                                               style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.blue.shade900,
+                                              ),
+                                            ),
+                                            if (level < _unlockedLevel)
+                                            Text(
+                                              "Quest $level",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color.fromARGB(255, 8, 178, 25),
                                               ),
                                             ),
                                           ],

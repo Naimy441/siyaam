@@ -22,11 +22,11 @@ final Map<int, Chapter> chapters = {
     ],
     challenges: {
       1: [
+        "Write down a personal dua for Ramadan.",
         "Read and reflect on one verse of the Quran.",
         "Learn a new hadith and share it with someone.",
         "Memorize a short surah or dua.",
         "Listen to an Islamic podcast or lecture.",
-        "Write down a personal dua for Ramadan."
       ],
     },
   ),
@@ -42,11 +42,11 @@ final Map<int, Chapter> chapters = {
     ],
     challenges: {
       1: [
-        "List 10 things you’re grateful for today.",
+        "List 3 things you’re grateful for today.",
         "Avoid complaining for an entire day.",
-        "Discover and share a hadith with someone at iftar today.",
-        "Donate an item you no longer use.",
-        "Perform a good deed for a family member without them knowing.",
+        "Extend your sajdah (prostration) in prayer by a minute.",
+        "Make dhikr 100 times today (SubhanAllah, Alhamdulillah, Allahu Akbar).",
+        "Perform a good deed for a family member or friend without them knowing.",
       ],
     },
   ),
@@ -62,11 +62,11 @@ final Map<int, Chapter> chapters = {
     ],
     challenges: {
       1: [
-        "Give any amount in Sadaqah today.",
+        "Donate something (money, an item, a smile, or a compliment).",
         "Volunteer your time to help someone.",
         "Share a meal with someone in need.",
         "Reconnect with a friend or relative you haven’t spoken to in a while.",
-        "Encourage someone else to give charity.",
+        "Participate in an event or spend time at the mosque.",
       ],
     },
   ),
@@ -75,9 +75,10 @@ final Map<int, Chapter> chapters = {
     description: "Building Inner Strength",
     story: [
       "🕌 Islamic Story: How Fasting Was Prescribed",
-      "Before fasting was made obligatory, the early Muslims would only fast on Ashura (the 10th of Muharram). But in the second year after the Hijrah, Allah revealed:",
-      "Fasting trains us in patience, discipline, and gratitude, helping us break bad habits and grow spiritually.",
-      "📌 Reflection: Ramadan is a school of discipline—from controlling our anger to resisting temptations, every fast brings spiritual strength.",
+      "Before fasting in Ramadan became obligatory, early Muslims only fasted on Ashura (the 10th of Muharram). However, in the second year after the Hijrah, Allah revealed the command to fast during Ramadan, saying:",
+      "“O you who have believed, fasting has been prescribed for you as it was prescribed for those before you, so that you may attain Taqwa (God-consciousness).” (Qur’an 2:183)",
+      "Fasting is more than just abstaining from food—it is a training ground for self-discipline, patience, and gratitude. It helps us break bad habits, control our desires, and grow spiritually.",
+      "📌 Reflection: Ramadan is a school of discipline. From controlling anger to resisting temptations, every fast strengthens our soul. As the month ends, we must carry this self-discipline into our daily lives. 🌙✨"
     ],
     challenges: {
       1: [
@@ -85,7 +86,7 @@ final Map<int, Chapter> chapters = {
         "Control your temper and respond to frustration with kindness.",
         "Forgive someone today.",
         "Make dua for the forgiveness of the Ummah",
-        "Make dhikr 100 times today (SubhanAllah, Alhamdulillah, Allahu Akbar).",
+        "Strive to pray at least one prayer in congregation.",
       ],
     },
   ),
@@ -95,7 +96,7 @@ final Map<int, Chapter> chapters = {
     story: [
       "🍃 Islamic Story: The Minimalist Lifestyle of Prophet Muhammad ﷺ",
       "Despite being the leader of the Muslims, Prophet Muhammad ﷺ lived simply. His home was small, his mattress was rough, and some days he had nothing to eat except dates and water. When Umar (RA) saw the marks of a rough mat on his back, he wept. But the Prophet ﷺ replied:",
-      "“What do I have to do with this world? My example is like a traveler who rests under a tree for a short while and then moves on.” (Tirmidhi)",
+      "“What do I have to do with the world! I am not in the world but as a rider seeking shade under a tree, then he catches his breath and leaves it” (Tirmidhi).",
       "📌 Reflection: Happiness is not in material things but in contentment. Ramadan teaches us to let go of excess and live with purpose.",
 
     ],
@@ -113,20 +114,17 @@ final Map<int, Chapter> chapters = {
     theme: "Tawakkul & Transformation",
     description: "Trusting Allah & Looking Ahead",
     story: [
-      "🛤 Islamic Story: The Hijrah & Tawakkul",
-      "When the Prophet ﷺ and Abu Bakr (RA) fled Makkah to escape persecution, they hid in a cave as Quraysh forces searched for them. Abu Bakr (RA) whispered in fear:",
-      "“O Messenger of Allah, if they look beneath their feet, they will see us!”",
-      "The Prophet ﷺ replied with full trust in Allah:",
-      "“Do not be afraid, for Allah is with us.” (Qur’an 9:40)",
-      "Against all odds, they made it to Madinah safely, marking the beginning of a new era for Islam.",
-      "📌 Reflection: Ramadan is about trusting Allah and embracing change. As the month ends, we must continue our journey beyond Ramadan with renewed faith.",
-
+      "🛤 Islamic Story: The Tawakkul of Musa’s Mother",
+      "When Musa (AS) was born, Pharaoh had ordered the killing of all newborn Israelite boys. His mother was filled with fear, yet Allah inspired her with a command:",
+      "“Suckle him, and when you fear for him, cast him into the river and do not fear nor grieve. Indeed, We will return him to you and make him one of the messengers.” (Qur’an 28:7)",
+      "With complete Tawakkul (trust in Allah), she placed her baby into the dangerous waters of the Nile, not knowing what would happen. Yet, Allah’s promise was true—Musa (AS) was not only saved but was returned to his mother and later became a Prophet.",
+      "📌 Reflection: Just as Musa’s mother let go and trusted Allah in her most difficult moment, we must carry this trust beyond Ramadan. Life will have uncertainties, but Allah’s plan is always greater than our fears. Trust in Him, take action, and He will guide your path. 🌊✨",
     ],
     challenges: {
       1: [
+        "Intimately learn one name of Allah and try to apply it.",
+        "Deeply explore the story of a prophet you resonate with.",
         "Make a list of personal habits you want to continue after Ramadan.",
-        "Spend 10 minutes making sincere dua for others.",
-        "Pray two extra rak’ahs of nafl prayer.",
         "Set a goal for after Ramadan and plan how to achieve it.",
         "Reflect on what you’ve learned this Ramadan and share one insight.",
       ],

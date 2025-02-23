@@ -47,6 +47,8 @@ dependencies:
   flutter_local_notifications: ^18.0.1
   timezone: ^0.10.0
   carousel_slider: ^5.0.0
+  firebase_core: ^3.12.0
+  firebase_remote_config: ^5.4.1
 
 dev_dependencies:
   flutter_test:
@@ -73,13 +75,11 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - .env
     - assets/siyaam_home.png
     - assets/logo.png
     - assets/level_background.png
     - assets/level_selector_background.png
     - assets/nasheed1.mp3
-    - assets/nasheed2.mp3
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -1,32 +1,30 @@
 import 'dart:async';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:siyaam/reminder.dart';
 import 'chapter.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-// Chapter screens should show after the quest
-// Confetti on first chapter
-// Quests become green on completion
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await Firebase.initializeApp();
+  } catch (e) {
+    print("Firebase Initialization Error: $e");
+  }
   int storedChapter = await getStoredChapter();
 
   // Uncomment to clear user local storage
   final prefs = await SharedPreferences.getInstance();
   await prefs.clear();
 
-  await dotenv.load(fileName: ".env"); 
-
-  // No background music
   final AudioPlayer audioPlayer = AudioPlayer();
   await audioPlayer.stop();
-  audioPlayer.setReleaseMode(ReleaseMode.loop); 
+  audioPlayer.setReleaseMode(ReleaseMode.loop);
   audioPlayer.play(AssetSource('nasheed1.mp3'));
 
   runApp(SiyaamApp(initialChapter: storedChapter));
@@ -37,22 +35,73 @@ Future<int> getStoredChapter() async {
   return prefs.getInt('chapterNumber') ?? 0; // Default to 0 if not set
 }
 
-class SiyaamApp extends StatelessWidget {
+class SiyaamApp extends StatefulWidget {
   final int initialChapter;
 
   const SiyaamApp({super.key, required this.initialChapter});
 
   @override
+  SiyaamAppState createState() => SiyaamAppState();
+}
+
+class SiyaamAppState extends State<SiyaamApp> {
+  late FirebaseRemoteConfig _remoteConfig;
+  bool _bypassCountdown = false;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeRemoteConfig();
+  }
+
+  Future<void> _initializeRemoteConfig() async {
+    _remoteConfig = FirebaseRemoteConfig.instance;
+
+// Set default values to avoid issues if Firebase fails
+    await _remoteConfig.setDefaults({
+      "bypassCountdown": false, // Default value
+    });
+
+    await _remoteConfig.setConfigSettings(RemoteConfigSettings(
+      fetchTimeout: const Duration(seconds: 10),
+      minimumFetchInterval: const Duration(hours: 1),
+    ));
+
+    await _fetchConfig();
+  }
+
+  Future<void> _fetchConfig() async {
+    try {
+      await _remoteConfig.fetchAndActivate();
+      setState(() {
+        _bypassCountdown = _remoteConfig.getBool('bypassCountdown');
+        _isLoading = false;
+      });
+    } catch (e) {
+      print("Error fetching Remote Config: $e"); // Debugging
+      setState(() {
+        _isLoading = false; // Prevent infinite loading
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final DateTime countDownDate = DateTime(2025, 2, 1);
+    final DateTime countDownDate = DateTime(2025, 3, 1);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Siyaam',
       theme: ThemeData.light(),
-      home: DateTime.now().isBefore(countDownDate)
-          ? CountdownScreen(targetDate: countDownDate)
-          : getInitialScreen(initialChapter),
+      home: _isLoading
+          ? const Scaffold(
+              body: Center(
+                  child:
+                      CircularProgressIndicator())) // ✅ Ensure Scaffold is inside MaterialApp
+          : (_bypassCountdown || DateTime.now().isAfter(countDownDate))
+              ? getInitialScreen(widget.initialChapter)
+              : CountdownScreen(targetDate: countDownDate),
     );
   }
 
@@ -60,9 +109,7 @@ class SiyaamApp extends StatelessWidget {
     if (chapter == 0) {
       return const HomeScreen();
     } else {
-      return ChapterScreen(
-        chapterNumber: chapter,
-      );
+      return ChapterScreen(chapterNumber: chapter);
     }
   }
 }
@@ -87,32 +134,34 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.19, // Adjust height dynamically
+                  height: MediaQuery.of(context).size.height *
+                      0.19, // Adjust height dynamically
                 ),
                 Text(
                   "SIYAAM",
-                  style: GoogleFonts.aBeeZee(  // Use camelCase for Google Fonts
+                  style: GoogleFonts.aBeeZee(
+                    // Use camelCase for Google Fonts
                     fontSize: 50,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 3,
                     color: const Color.fromARGB(255, 255, 255, 255),
-
                   ),
                 ),
 
                 // Subtitle
                 Text(
                   "Your Journey in Islam",
-                  style: GoogleFonts.aBeeZee(  // Use camelCase for Google Fonts
+                  style: GoogleFonts.aBeeZee(
+                    // Use camelCase for Google Fonts
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 3,
                     color: const Color.fromARGB(255, 255, 255, 255),
-   
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.47, // Adjust height dynamically
+                  height: MediaQuery.of(context).size.height *
+                      0.47, // Adjust height dynamically
                 ),
 
                 // Start Button
@@ -201,7 +250,10 @@ class IntroductionScreenState extends State<IntroductionScreen> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Color.fromARGB(255, 134, 211, 250), Color.fromARGB(255, 203, 121, 248)],
+                colors: [
+                  Color.fromARGB(255, 134, 211, 250),
+                  Color.fromARGB(255, 203, 121, 248)
+                ],
               ),
             ),
           ),
@@ -322,7 +374,8 @@ class CountdownScreenState extends State<CountdownScreen> {
     _startCountdown();
 
     // Confetti Controller for normal confetti rain from the top
-    _confettiController = ConfettiController(duration: const Duration(seconds: 30));
+    _confettiController =
+        ConfettiController(duration: const Duration(seconds: 30));
     _confettiController.play();
   }
 
@@ -371,7 +424,7 @@ class CountdownScreenState extends State<CountdownScreen> {
           ),
 
           // Confetti Rain from Top
-         Align(
+          Align(
             alignment: Alignment.topCenter,
             child: ConfettiWidget(
               confettiController: _confettiController,
@@ -399,7 +452,10 @@ class CountdownScreenState extends State<CountdownScreen> {
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                     shadows: [
-                      Shadow(blurRadius: 10, color: Colors.black, offset: Offset(2, 2)),
+                      Shadow(
+                          blurRadius: 10,
+                          color: Colors.black,
+                          offset: Offset(2, 2)),
                     ],
                   ),
                 ),
@@ -408,7 +464,8 @@ class CountdownScreenState extends State<CountdownScreen> {
 
                 // Countdown Timer Container (Static size)
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.black.withOpacity(0.6),
@@ -421,7 +478,10 @@ class CountdownScreenState extends State<CountdownScreen> {
                       fontWeight: FontWeight.bold,
                       color: Colors.white, // Fixed white color
                       shadows: [
-                        Shadow(blurRadius: 15, color: Colors.black, offset: Offset(2, 2)),
+                        Shadow(
+                            blurRadius: 15,
+                            color: Colors.black,
+                            offset: Offset(2, 2)),
                       ],
                     ),
                   ),
@@ -439,7 +499,7 @@ class CountdownScreenState extends State<CountdownScreen> {
     int hours = duration.inHours.remainder(24);
     int minutes = duration.inMinutes.remainder(60);
     int seconds = duration.inSeconds.remainder(60);
-    
+
     return "$days days\n${_twoDigits(hours)}:${_twoDigits(minutes)}:${_twoDigits(seconds)}";
   }
 

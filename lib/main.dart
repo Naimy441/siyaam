@@ -1,12 +1,12 @@
 import 'dart:async';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:siyaam/reminder.dart';
 import 'chapter.dart';
-// import 'package:audioplayers/audioplayers.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // Chapter screens should show after the quest
@@ -24,10 +24,10 @@ void main() async {
   await dotenv.load(fileName: ".env"); 
 
   // No background music
-  // final AudioPlayer audioPlayer = AudioPlayer();
-  // await audioPlayer.stop();
-  // audioPlayer.setReleaseMode(ReleaseMode.loop); 
-  // audioPlayer.play(AssetSource('tranquility.mp3'));
+  final AudioPlayer audioPlayer = AudioPlayer();
+  await audioPlayer.stop();
+  audioPlayer.setReleaseMode(ReleaseMode.loop); 
+  audioPlayer.play(AssetSource('nasheed1.mp3'));
 
   runApp(SiyaamApp(initialChapter: storedChapter));
 }

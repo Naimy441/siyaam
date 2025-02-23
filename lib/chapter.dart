@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:siyaam/levels.dart';
 import 'package:siyaam/constants.dart';
-import 'package:audioplayers/audioplayers.dart';
+// import 'package:audioplayers/audioplayers.dart';
 
 class ChapterScreen extends StatefulWidget {
   final int chapterNumber;
@@ -19,7 +19,7 @@ class ChapterScreenState extends State<ChapterScreen> with SingleTickerProviderS
   late Animation<Offset> _animation;
   bool _showSkipButton = true;
   Timer? _fadeTimer;
-  final AudioPlayer _audioPlayer = AudioPlayer();
+  // final AudioPlayer _audioPlayer = AudioPlayer();
 
   @override
   void initState() {
@@ -61,7 +61,7 @@ class ChapterScreenState extends State<ChapterScreen> with SingleTickerProviderS
 
   @override
   void dispose() {
-    _audioPlayer.dispose();
+    // _audioPlayer.dispose();
     _fadeTimer?.cancel();
     _animationController.dispose();
     super.dispose();

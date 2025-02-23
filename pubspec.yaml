@@ -78,6 +78,8 @@ flutter:
     - assets/logo.png
     - assets/level_background.png
     - assets/level_selector_background.png
+    - assets/nasheed1.mp3
+    - assets/nasheed2.mp3
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

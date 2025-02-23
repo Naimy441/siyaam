@@ -84,7 +84,7 @@ class ReminderScreenState extends State<ReminderScreen> with SingleTickerProvide
 
   Future<void> _scheduleDailyNotification() async {
     await _requestPermissions(); // Request permissions before scheduling
-
+    
     final now = tz.TZDateTime.now(tz.local);
     final notificationTime = tz.TZDateTime(
       tz.local,

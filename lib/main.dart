@@ -6,6 +6,10 @@ import 'chapter.dart';
 // import 'package:audioplayers/audioplayers.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// Chapter screens should show after the quest
+// Confetti on first chapter
+// Quests become green on completion
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   int storedChapter = await getStoredChapter();

@@ -132,6 +132,39 @@ final Map<int, Chapter> chapters = {
   ),
 };
 
+final List<String> notifications = [
+  "🏆 Skipping today? Jannah isn’t gonna wait forever! Get your quest done!",
+  "🕊️ Jannah is knocking… but you’re ignoring the door? Complete today’s quest!",
+  "🌟 A Step Closer to Jannah—unless you’re okay staying behind? Open the app now!",
+  "🕊️ Every deed counts… except the ones you don’t do. Your challenge awaits!",
+  "🌙 Ramadan is a gift—are you really gonna leave it unopened? Complete your quest!", 
+  "🤲 Your effort is seen. But today, we’re seeing… nothing. 👀 Keep up with your challenge!", 
+  "🕌 Knock, and the Gates of Jannah open… but you’re just standing there? Get moving!", 
+  "💡 One good deed can change everything! Too bad procrastination isn’t one of them. Start now!", 
+  "📖 Let today be meaningful—unless scrolling endlessly is more fulfilling? Begin now!", 
+  "🏆 Win in both worlds! Or just keep losing to laziness, your call. Your mission is ready!",
+  "🔥 Don’t let this day go to waste! We know you’re not that busy. Open the app now!", 
+  "🌿 Grow closer to Allah! Or grow closer to another Netflix binge. Choose wisely. 🌙", 
+  "🌙 A new day, a new blessing! Unless you prefer last night’s leftovers? Start now!", 
+  "🕌 Your path to Jannah begins today! Or are you just sightseeing? Complete your quest!", 
+  "🤲 Allah loves those who strive… so what’s your excuse? Take that step today!", 
+  "💡 Ramadan is passing quickly… unlike your response time to this notification. Make it count!", 
+  "🏆 Your effort will never be lost! Can’t say the same for that missing motivation… Complete today’s task", 
+  "🌟 Earn rewards beyond measure! But hey, ignoring this works too. 🤷 Start now!", 
+  "📖 Another chance to grow closer to Allah… and another chance for you to ignore it? Don’t miss out!", 
+  "🌿 Good deeds multiply in Ramadan! Too bad your energy isn’t. Take action now!",
+  "🕊️ One step at a time… unless you’re standing still? Jannah is worth the effort!", 
+  "🔥 Shaytan is locked up… so what’s your excuse? Strengthen your faith today!", 
+  "🌙 Ramadan won’t last forever. Just like your willpower if you don’t act now. Your mission awaits!", 
+  "❤️ Allah sees your efforts! If only we could say the same for today’s… Stay consistent!", 
+  "🤍 A heart full of faith, a life full of light… but only if you actually do something. Complete your task!", 
+  "✨ Your soul needs nourishment too! But sure, keep feeding that procrastination. Strengthen your Iman now!", 
+  "📿 Make every moment of Ramadan count! Or just count how many times you ignored this. Your challenge is waiting!", 
+  "🌙 A blessed day awaits! But hey, no pressure, right? Complete today’s task!", 
+  "🏆 Don’t miss out on today’s rewards! Or do… but don’t blame us later. A small deed goes a long way!", 
+  "🤲 Jannah is within reach! Unlike your phone when you conveniently “forget” to check the app… Take action today!"
+];
+
 String getChallenge(int chapter, int level) {
   if (level < 1 || level > 5) {
     return "Invalid level. Please select a level between 1 and 5.";

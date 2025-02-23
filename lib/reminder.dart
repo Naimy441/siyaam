@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'chapter.dart';
+import 'constants.dart';
 
 class ReminderScreen extends StatefulWidget {
   const ReminderScreen({super.key});
@@ -84,36 +85,39 @@ class ReminderScreenState extends State<ReminderScreen> with SingleTickerProvide
 
   Future<void> _scheduleDailyNotification() async {
     await _requestPermissions(); // Request permissions before scheduling
-    
-    final now = tz.TZDateTime.now(tz.local);
-    final notificationTime = tz.TZDateTime(
-      tz.local,
-      now.year,
-      now.month,
-      now.day,
-      _selectedTime.hour,
-      _selectedTime.minute,
-    );
 
-    await _notificationsPlugin.zonedSchedule(
-      0,
-      'Daily Quest Reminder',
-      'It\'s time for your daily Siyaam challenge!',
-      notificationTime,
-      const NotificationDetails(
-        android: AndroidNotificationDetails(
-          'daily_reminder_channel',
-          'Daily Reminders',
-          importance: Importance.max,
-          priority: Priority.high,
+    final now = tz.TZDateTime.now(tz.local);
+
+    for (int i = 0; i < 30; i++) {
+      final notificationTime = tz.TZDateTime(
+        tz.local,
+        now.year,
+        now.month,
+        now.day + i,
+        _selectedTime.hour,
+        _selectedTime.minute,
+      );
+
+      await _notificationsPlugin.zonedSchedule(
+        i, // Unique ID for each notification
+        'Daily Quest Reminder',
+        notifications[i % notifications.length], // Use notification message from the list
+        notificationTime,
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'daily_reminder_channel',
+            'Daily Reminders',
+            importance: Importance.max,
+            priority: Priority.high,
+          ),
+          iOS: DarwinNotificationDetails(),
         ),
-        iOS: DarwinNotificationDetails(),
-      ),
-      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-      matchDateTimeComponents: DateTimeComponents.time,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-    );
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        matchDateTimeComponents: DateTimeComponents.time,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+      );
+    }
   }
 
   void _confirmNotification() async {

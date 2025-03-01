@@ -96,9 +96,9 @@ final List<int> _allowedHours = List.generate(18, (index) => index); // 12 AM to
     await _requestPermissions(); // Request permissions before scheduling
 
     final now = tz.TZDateTime.now(tz.local);
-    List<PendingNotificationRequest> pendingNotifications = [];
+    // List<PendingNotificationRequest> pendingNotifications = [];
 
-    for (int i = 0; i < 30; i++) {
+    for (int i = 0; i < 31 - getDay(); i++) {
       final notificationTime = tz.TZDateTime(
         tz.local,
         now.year,
@@ -113,8 +113,8 @@ final List<int> _allowedHours = List.generate(18, (index) => index); // 12 AM to
           notifications[i % notifications.length];
 
       // Log scheduling request
-      print(
-          "Requesting Notification $i -> Expected Date: ${notificationTime.toLocal()} | Message: \"$notificationMessage\"");
+      // print(
+      //     "Requesting Notification $i -> Expected Date: ${notificationTime.toLocal()} | Message: \"$notificationMessage\"");
 
       await _notificationsPlugin.zonedSchedule(
         i, // Unique ID for each notification
@@ -138,16 +138,16 @@ final List<int> _allowedHours = List.generate(18, (index) => index); // 12 AM to
     }
 
     // Retrieve the actual scheduled notifications
-    await Future.delayed(
-        Duration(seconds: 2)); // Small delay to ensure scheduling is processed
-    pendingNotifications =
-        await _notificationsPlugin.pendingNotificationRequests();
+    // await Future.delayed(
+    //     Duration(seconds: 2)); // Small delay to ensure scheduling is processed
+    // pendingNotifications =
+    //     await _notificationsPlugin.pendingNotificationRequests();
 
-    print("\n--- Confirmed Scheduled Notifications ---");
-    for (var notification in pendingNotifications) {
-      print(
-          "ID: ${notification.id} | Title: ${notification.title} | Body: ${notification.body}");
-    }
+    // print("\n--- Confirmed Scheduled Notifications ---");
+    // for (var notification in pendingNotifications) {
+    //   print(
+    //       "ID: ${notification.id} | Title: ${notification.title} | Body: ${notification.body}");
+    // }
   }
 
   void _confirmNotification() async {

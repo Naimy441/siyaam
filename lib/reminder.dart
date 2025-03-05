@@ -23,7 +23,7 @@ class ReminderScreenState extends State<ReminderScreen>
       FlutterLocalNotificationsPlugin();
   late AnimationController _controller;
 
-final List<int> _allowedHours = List.generate(18, (index) => index); // 12 AM to 5 PM
+final List<int> _allowedHours = List.generate(24, (index) => index); // 12 AM to 5 PM
 
   @override
   void initState() {

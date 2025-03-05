@@ -34,13 +34,6 @@ class LevelsScreenState extends State<LevelsScreen> {
     });
   }
 
-  int getDay() {
-    final DateTime now = DateTime.now();
-    final DateTime startDate = DateTime(2025, 3, 1);
-    final int difference = now.difference(startDate).inDays;
-    return difference + 1; // Add 1 to include the starting day
-  }
-
   @override
   void dispose() {
     _confettiController.dispose();
@@ -63,13 +56,6 @@ class LevelsScreenState extends State<LevelsScreen> {
   }
 
   Future<void> _handleQuestSelection(int level) async {
-    int currentDay = getDay();
-
-    if (level > currentDay) {
-    // Prevent selection of levels beyond the current day
-    return;
-  }
-
     if (_questCompletedToday) {
       bool confirmOverride = await _showOverrideDialog();
       if (!confirmOverride) return;
@@ -206,7 +192,6 @@ class LevelsScreenState extends State<LevelsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    int currentDay = getDay();
 
     return WillPopScope(
       onWillPop: () async => false, // Disable back button
@@ -295,10 +280,9 @@ class LevelsScreenState extends State<LevelsScreen> {
                           children: List.generate(5, (index) {
                             int level = index + 1;
                             bool isUnlocked = level <= _unlockedLevel;
-                            bool isAvailable = level <= currentDay;
 
                             return GestureDetector(
-                              onTap: isUnlocked && isAvailable
+                              onTap: isUnlocked
                                   ? () => _handleQuestSelection(level)
                                   : null,
                               child: AnimatedContainer(
@@ -306,13 +290,13 @@ class LevelsScreenState extends State<LevelsScreen> {
                                 width: 90,
                                 height: 90,
                                 decoration: BoxDecoration(
-                                  color: isUnlocked && isAvailable
+                                  color: isUnlocked
                                       ? Colors.white
                                           .withOpacity(0.8) // Glass effect
                                       : Colors.white.withOpacity(0.6),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
-                                    color: isUnlocked && isAvailable
+                                    color: isUnlocked
                                         ? Colors.blue.shade200
                                         : Colors.blue.shade50,
                                     width: 1.2,
@@ -332,7 +316,7 @@ class LevelsScreenState extends State<LevelsScreen> {
                                   ],
                                 ),
                                 child: Center(
-                                  child: isUnlocked && isAvailable
+                                  child: isUnlocked
                                       ? Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,

@@ -362,26 +362,21 @@ class LevelsScreenState extends State<LevelsScreen> {
                         ),
                         SizedBox(height: 40),
                         CarouselSlider(
-                          items: [
-                            _buildCarouselItem(
-                                "Verse of the Day\n\n${quranAndDuaList[_unlockedLevel - 1]["quran"]!}"),
-                            _buildCarouselItem(
-                                "Verse Translation\n\n${quranAndDuaList[_unlockedLevel - 1]["interpretation"]!}"),
-                            _buildCarouselItem(
-                                "Dua of the Day\n\n${quranAndDuaList[_unlockedLevel - 1]["dua"]!}"),
-                            _buildCarouselItem(
-                                "Dua Transliteration\n\n${quranAndDuaList[_unlockedLevel - 1]["transliteration"]!}"),
-                            _buildCarouselItem(
-                                "Dua Translation\n\n${quranAndDuaList[_unlockedLevel - 1]["translation"]!}"),
-                          ],
-                          options: CarouselOptions(
-                            height: 200,
-                            autoPlay: true,
-                            enlargeCenterPage: true,
-                            autoPlayInterval: Duration(seconds: 5),
-                            pauseAutoPlayOnTouch: true,
-                            pauseAutoPlayOnManualNavigate: true,
-                          ),
+                        items: [
+                          _buildCarouselItem(context, "Verse of the Day\n\n${quranAndDuaList[_unlockedLevel - 1]["quran"]!}", 35),
+                          _buildCarouselItem(context, "Verse Translation\n\n${quranAndDuaList[_unlockedLevel - 1]["interpretation"]!}", 25),
+                          _buildCarouselItem(context, "Dua of the Day\n\n${quranAndDuaList[_unlockedLevel - 1]["dua"]!}", 35),
+                          _buildCarouselItem(context, "Dua Transliteration\n\n${quranAndDuaList[_unlockedLevel - 1]["transliteration"]!}", 25),
+                          _buildCarouselItem(context, "Dua Translation\n\n${quranAndDuaList[_unlockedLevel - 1]["translation"]!}", 25),
+                        ],
+                        options: CarouselOptions(
+                          height: 200,
+                          autoPlay: true,
+                          enlargeCenterPage: true,
+                          autoPlayInterval: Duration(seconds: 5),
+                          pauseAutoPlayOnTouch: true,
+                          pauseAutoPlayOnManualNavigate: true,
+                        ),
                         ),
                       ],
                     ),
@@ -396,33 +391,69 @@ class LevelsScreenState extends State<LevelsScreen> {
   }
 }
 
-Widget _buildCarouselItem(String text) {
-  return Container(
-    padding: const EdgeInsets.all(15),
-    decoration: BoxDecoration(
-      color: Colors.white.withOpacity(0.8),
-      borderRadius: BorderRadius.circular(15),
-      border: Border.all(color: Colors.blue.shade200),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.blue.shade100.withOpacity(0.4),
-          blurRadius: 10,
-          spreadRadius: 1,
-        ),
-      ],
-    ),
-    child: ConstrainedBox(
-      constraints: BoxConstraints(
-        maxHeight: 200, // Adjust the height limit as needed
+Widget _buildCarouselItem(BuildContext context, String text, double fontSize) {
+  return GestureDetector(
+    onTap: () => _showFullScreenText(context, text, fontSize),
+    child: Container(
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.8),
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: Colors.blue.shade200),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blue.shade100.withOpacity(0.4),
+            blurRadius: 10,
+            spreadRadius: 1,
+          ),
+        ],
       ),
-      child: SingleChildScrollView(
-        child: Text(
-          text,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: 300, // Adjust the height limit as needed
+        ),
+        child: SingleChildScrollView(
+          child: Text(
+            text,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     ),
   );
 }
 
+void _showFullScreenText(BuildContext context, String text, double fontSize) {
+  showDialog(
+    context: context,
+    builder: (context) => Dialog(
+      insetPadding: EdgeInsets.symmetric(horizontal: 20), // Avoid stretching too wide
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min, // Shrink-wrap content
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Wrap ensures the text only takes necessary space
+            Wrap(
+              children: [
+                Text(
+                  text,
+                  style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("Close"),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}

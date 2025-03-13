@@ -141,7 +141,7 @@ class HomeScreen extends StatelessWidget {
                   "SIYAAM",
                   style: GoogleFonts.aBeeZee(
                     // Use camelCase for Google Fonts
-                    fontSize: 50,
+                    fontSize: MediaQuery.of(context).size.height * 0.065,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 3,
                     color: const Color.fromARGB(255, 255, 255, 255),
@@ -153,7 +153,7 @@ class HomeScreen extends StatelessWidget {
                   "Your Journey in Islam",
                   style: GoogleFonts.aBeeZee(
                     // Use camelCase for Google Fonts
-                    fontSize: 15,
+                    fontSize: MediaQuery.of(context).size.height * 0.02,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 3,
                     color: const Color.fromARGB(255, 255, 255, 255),
@@ -161,7 +161,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height *
-                      0.47, // Adjust height dynamically
+                      0.46, // Adjust height dynamically
                 ),
 
                 // Start Button
@@ -181,10 +181,10 @@ class HomeScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     "Start",
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: MediaQuery.of(context).size.height * 0.025,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 0, 0, 0),
                     ),

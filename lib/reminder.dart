@@ -96,44 +96,41 @@ final List<int> _allowedHours = List.generate(24, (index) => index); // 12 AM to
     await _requestPermissions(); // Request permissions before scheduling
 
     final now = tz.TZDateTime.now(tz.local);
+    tz.TZDateTime firstNotificationTime = tz.TZDateTime(
+      tz.local,
+      now.year,
+      now.month,
+      now.day,
+      _selectedTime.hour,
+      _selectedTime.minute,
+    );
+    if (firstNotificationTime.isBefore(now)) {
+      firstNotificationTime = firstNotificationTime.add(const Duration(days: 1));
+    }
     // List<PendingNotificationRequest> pendingNotifications = [];
-
-    for (int i = 0; i < 31 - getDay(); i++) {
-      final notificationTime = tz.TZDateTime(
-        tz.local,
-        now.year,
-        now.month,
-        now.day,
-        _selectedTime.hour,
-        _selectedTime.minute,
-      ).add(Duration(days: i)); // Ensures proper month/year transitions
-
-      // Ensure notifications list exists
+    int day = getDay();
+    for (int i = 0; i < 31 - day; i++) {
+      final notificationTime = firstNotificationTime.add(Duration(days: i));
       final String notificationMessage =
-          notifications[i % notifications.length];
-
-      // Log scheduling request
-      // print(
-      //     "Requesting Notification $i -> Expected Date: ${notificationTime.toLocal()} | Message: \"$notificationMessage\"");
+      notifications[i % notifications.length];
 
       await _notificationsPlugin.zonedSchedule(
         i, // Unique ID for each notification
         'Daily Quest Reminder',
-        notificationMessage, // Get message from list
+        notificationMessage,
         notificationTime,
         const NotificationDetails(
           android: AndroidNotificationDetails(
-            'daily_reminder_channel',
-            'Daily Reminders',
+            'daily_reminder_channel3',
+            'Daily Reminders3',
             importance: Importance.max,
             priority: Priority.high,
           ),
           iOS: DarwinNotificationDetails(),
         ),
         androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-        matchDateTimeComponents: DateTimeComponents.time,
         uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
+        UILocalNotificationDateInterpretation.absoluteTime,
       );
     }
 

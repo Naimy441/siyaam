@@ -6,6 +6,7 @@ import 'level.dart';
 import 'package:siyaam/constants.dart';
 import 'package:confetti/confetti.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'main.dart';
 
 class LevelsScreen extends StatefulWidget {
   final int chapterNumber;
@@ -20,6 +21,9 @@ class LevelsScreenState extends State<LevelsScreen> {
   int _unlockedLevel = 1;
   bool _questCompletedToday = false;
   late ConfettiController _confettiController;
+  final AudioManager audioManager = AudioManager();
+  bool _isMuted = false;
+
   int _carouselIndex = 0;
 
   @override
@@ -32,6 +36,25 @@ class LevelsScreenState extends State<LevelsScreen> {
     Future.delayed(const Duration(milliseconds: 500), () {
       _confettiController.play();
     });
+
+    _isMuted = audioManager.isMuted;
+  }
+
+  // Toggle audio playback when the mute button is pressed
+  void _toggleAudio() async {
+    if (_isMuted) {
+      // Unmute: start playing audio again
+      setState(() {
+        _isMuted = false;
+      });
+      await audioManager.playAudio();
+    } else {
+      // Mute: stop the audio playback
+      setState(() {
+        _isMuted = true;
+      });
+      await audioManager.stopAudio();
+    }
   }
 
   @override
@@ -125,7 +148,6 @@ class LevelsScreenState extends State<LevelsScreen> {
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 20),
-
                       // Buttons
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -154,7 +176,7 @@ class LevelsScreenState extends State<LevelsScreen> {
         false;
   }
 
-// Custom Modern Dialog Button
+  // Custom Modern Dialog Button
   Widget _buildDialogButton({
     required String text,
     required Color color,
@@ -192,7 +214,6 @@ class LevelsScreenState extends State<LevelsScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
       onWillPop: () async => false, // Disable back button
       child: Scaffold(
@@ -214,6 +235,7 @@ class LevelsScreenState extends State<LevelsScreen> {
         ),
         body: Stack(
           children: [
+            // Background Image
             Positioned.fill(
               child: Image.asset(
                 "assets/level_selector_background.png",
@@ -224,15 +246,17 @@ class LevelsScreenState extends State<LevelsScreen> {
             // Confetti rain from top if chapterNumber >= 1
             if (widget.chapterNumber >= 1)
               Positioned.fill(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: ConfettiWidget(
-                    confettiController: _confettiController,
-                    blastDirection: -pi / 2, // Downward rain effect
-                    emissionFrequency: 0.2, // More particles per second
-                    numberOfParticles: 15,
-                    gravity: 0.01, // Slow falling effect
-                    shouldLoop: false,
+                child: IgnorePointer(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: ConfettiWidget(
+                      confettiController: _confettiController,
+                      blastDirection: -pi / 2, // Downward rain effect
+                      emissionFrequency: 0.2, // More particles per second
+                      numberOfParticles: 15,
+                      gravity: 0.01, // Slow falling effect
+                      shouldLoop: false,
+                    ),
                   ),
                 ),
               ),
@@ -272,7 +296,6 @@ class LevelsScreenState extends State<LevelsScreen> {
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 20),
-
                         // Apple-style modern Quest buttons
                         Wrap(
                           spacing: 15,
@@ -280,7 +303,6 @@ class LevelsScreenState extends State<LevelsScreen> {
                           children: List.generate(5, (index) {
                             int level = index + 1;
                             bool isUnlocked = level <= _unlockedLevel;
-
                             return GestureDetector(
                               onTap: isUnlocked
                                   ? () => _handleQuestSelection(level)
@@ -291,8 +313,7 @@ class LevelsScreenState extends State<LevelsScreen> {
                                 height: 90,
                                 decoration: BoxDecoration(
                                   color: isUnlocked
-                                      ? Colors.white
-                                          .withOpacity(0.8) // Glass effect
+                                      ? Colors.white.withOpacity(0.8)
                                       : Colors.white.withOpacity(0.6),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
@@ -304,10 +325,8 @@ class LevelsScreenState extends State<LevelsScreen> {
                                   boxShadow: [
                                     BoxShadow(
                                       color: (level >= _unlockedLevel)
-                                          ? Colors.blue.shade300
-                                              .withOpacity(0.5)
-                                          : const Color.fromARGB(
-                                                  255, 8, 178, 25)
+                                          ? Colors.blue.shade300.withOpacity(0.5)
+                                          : const Color.fromARGB(255, 8, 178, 25)
                                               .withOpacity(0.3),
                                       blurRadius: 10,
                                       spreadRadius: 1,
@@ -360,27 +379,56 @@ class LevelsScreenState extends State<LevelsScreen> {
                             );
                           }),
                         ),
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                         CarouselSlider(
-                        items: [
-                          _buildCarouselItem(context, "Verse of the Day\n\n${quranAndDuaList[_unlockedLevel - 1]["quran"]!}", 35),
-                          _buildCarouselItem(context, "Verse Translation\n\n${quranAndDuaList[_unlockedLevel - 1]["interpretation"]!}", 25),
-                          _buildCarouselItem(context, "Dua of the Day\n\n${quranAndDuaList[_unlockedLevel - 1]["dua"]!}", 35),
-                          _buildCarouselItem(context, "Dua Transliteration\n\n${quranAndDuaList[_unlockedLevel - 1]["transliteration"]!}", 25),
-                          _buildCarouselItem(context, "Dua Translation\n\n${quranAndDuaList[_unlockedLevel - 1]["translation"]!}", 25),
-                        ],
-                        options: CarouselOptions(
-                          height: 200,
-                          autoPlay: true,
-                          enlargeCenterPage: true,
-                          autoPlayInterval: Duration(seconds: 5),
-                          pauseAutoPlayOnTouch: true,
-                          pauseAutoPlayOnManualNavigate: true,
-                        ),
+                          items: [
+                            _buildCarouselItem(
+                                context,
+                                "Verse of the Day\n\n${quranAndDuaList[_unlockedLevel - 1]["quran"]!}",
+                                35),
+                            _buildCarouselItem(
+                                context,
+                                "Verse Translation\n\n${quranAndDuaList[_unlockedLevel - 1]["interpretation"]!}",
+                                25),
+                            _buildCarouselItem(
+                                context,
+                                "Dua of the Day\n\n${quranAndDuaList[_unlockedLevel - 1]["dua"]!}",
+                                35),
+                            _buildCarouselItem(
+                                context,
+                                "Dua Transliteration\n\n${quranAndDuaList[_unlockedLevel - 1]["transliteration"]!}",
+                                25),
+                            _buildCarouselItem(
+                                context,
+                                "Dua Translation\n\n${quranAndDuaList[_unlockedLevel - 1]["translation"]!}",
+                                25),
+                          ],
+                          options: CarouselOptions(
+                            height: 200,
+                            autoPlay: true,
+                            enlargeCenterPage: true,
+                            autoPlayInterval: const Duration(seconds: 5),
+                            pauseAutoPlayOnTouch: true,
+                            pauseAutoPlayOnManualNavigate: true,
+                          ),
                         ),
                       ],
                     ),
                   ),
+                ),
+              ),
+            ),
+                        // Floating mute/unmute button at the top right
+            Positioned(
+              bottom: MediaQuery.of(context).padding.bottom,
+              right: 10,
+              child: FloatingActionButton(
+                backgroundColor: Colors.black.withOpacity(0.3),
+                onPressed: _toggleAudio,
+                elevation: 0,
+                child: Icon(
+                  _isMuted ? Icons.volume_off : Icons.volume_up,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -409,7 +457,7 @@ Widget _buildCarouselItem(BuildContext context, String text, double fontSize) {
         ],
       ),
       child: ConstrainedBox(
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
           maxHeight: 300, // Adjust the height limit as needed
         ),
         child: SingleChildScrollView(
@@ -428,20 +476,20 @@ void _showFullScreenText(BuildContext context, String text, double fontSize) {
   showDialog(
     context: context,
     builder: (context) => Dialog(
-      insetPadding: EdgeInsets.symmetric(horizontal: 20), // Avoid stretching too wide
+      insetPadding: const EdgeInsets.symmetric(horizontal: 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
-          mainAxisSize: MainAxisSize.min, // Shrink-wrap content
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Wrap ensures the text only takes necessary space
             Wrap(
               children: [
                 Text(
                   text,
-                  style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
               ],

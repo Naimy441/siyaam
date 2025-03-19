@@ -9,6 +9,31 @@ import 'chapter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
+class AudioManager {
+  static final AudioManager _instance = AudioManager._internal();
+  factory AudioManager() => _instance;
+  AudioManager._internal();
+
+  final AudioPlayer audioPlayer = AudioPlayer();
+  bool isMuted = false;
+
+  Future<void> init() async {
+    await audioPlayer.stop();
+    audioPlayer.setReleaseMode(ReleaseMode.loop);
+    await audioPlayer.play(AssetSource('nasheed1.mp3'));
+  }
+
+  Future<void> playAudio() async {
+    isMuted = false;
+    await audioPlayer.play(AssetSource('nasheed1.mp3'));
+  }
+
+  Future<void> stopAudio() async {
+    isMuted = true;
+    await audioPlayer.stop();
+  }
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
@@ -19,13 +44,11 @@ void main() async {
   int storedChapter = await getStoredChapter();
 
   // Uncomment to clear user local storage
-  // final prefs = await SharedPreferences.getInstance();
-  // await prefs.clear();
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.clear();
 
-  final AudioPlayer audioPlayer = AudioPlayer();
-  await audioPlayer.stop();
-  audioPlayer.setReleaseMode(ReleaseMode.loop);
-  audioPlayer.play(AssetSource('nasheed1.mp3'));
+  final AudioManager audioManager = AudioManager();
+  await audioManager.init();
 
   runApp(SiyaamApp(initialChapter: storedChapter));
 }
@@ -90,18 +113,22 @@ class SiyaamAppState extends State<SiyaamApp> {
   Widget build(BuildContext context) {
     final DateTime countDownDate = DateTime(2025, 3, 1);
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Siyaam',
-      theme: ThemeData.light(),
-      home: _isLoading
-          ? const Scaffold(
-              body: Center(
-                  child:
-                      CircularProgressIndicator())) // ✅ Ensure Scaffold is inside MaterialApp
-          : (_bypassCountdown || DateTime.now().isAfter(countDownDate))
-              ? getInitialScreen(widget.initialChapter)
-              : CountdownScreen(targetDate: countDownDate),
+    return MediaQuery(
+      data: MediaQuery.of(context)
+              .copyWith(textScaler: TextScaler.linear(1.0)),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Siyaam',
+        theme: ThemeData.light(),
+        home: _isLoading
+            ? const Scaffold(
+                body: Center(
+                    child:
+                        CircularProgressIndicator())) // ✅ Ensure Scaffold is inside MaterialApp
+            : (_bypassCountdown || DateTime.now().isAfter(countDownDate))
+                ? getInitialScreen(widget.initialChapter)
+                : CountdownScreen(targetDate: countDownDate),
+      ),
     );
   }
 

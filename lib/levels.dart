@@ -325,8 +325,10 @@ class LevelsScreenState extends State<LevelsScreen> {
                                   boxShadow: [
                                     BoxShadow(
                                       color: (level >= _unlockedLevel)
-                                          ? Colors.blue.shade300.withOpacity(0.5)
-                                          : const Color.fromARGB(255, 8, 178, 25)
+                                          ? Colors.blue.shade300
+                                              .withOpacity(0.5)
+                                          : const Color.fromARGB(
+                                                  255, 8, 178, 25)
                                               .withOpacity(0.3),
                                       blurRadius: 10,
                                       spreadRadius: 1,
@@ -418,7 +420,7 @@ class LevelsScreenState extends State<LevelsScreen> {
                 ),
               ),
             ),
-                        // Floating mute/unmute button at the top right
+            // Floating mute/unmute button at the top right
             Positioned(
               bottom: MediaQuery.of(context).padding.bottom,
               right: 10,
@@ -476,30 +478,48 @@ void _showFullScreenText(BuildContext context, String text, double fontSize) {
   showDialog(
     context: context,
     builder: (context) => Dialog(
+      backgroundColor: Colors.white,
       insetPadding: const EdgeInsets.symmetric(horizontal: 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Wrap(
-              children: [
-                Text(
-                  text,
-                  style:
-                      TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.8,
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                      fontSize: fontSize,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text("Close"),
-            ),
-          ],
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                style: ElevatedButton.styleFrom(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  backgroundColor: Colors.blue.shade600,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  elevation: 10,
+                ),
+                child: const Text(
+                  "Close",
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     ),

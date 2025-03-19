@@ -43,10 +43,6 @@ void main() async {
   }
   int storedChapter = await getStoredChapter();
 
-  // Uncomment to clear user local storage
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.clear();
-
   final AudioManager audioManager = AudioManager();
   await audioManager.init();
 

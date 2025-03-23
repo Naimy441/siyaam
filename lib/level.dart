@@ -8,6 +8,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
+import 'chapter.dart';
 import 'constants.dart';
 
 class LevelScreen extends StatefulWidget {
@@ -172,12 +173,21 @@ class LevelScreenState extends State<LevelScreen> {
       );
 
       Future.delayed(const Duration(milliseconds: 500), () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => LevelsScreen(chapterNumber: chapterNum),
-          ),
-        );
+        if (widget.level == 5) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChapterScreen(chapterNumber: chapterNum),
+            ),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LevelsScreen(chapterNumber: chapterNum),
+            ),
+          );
+        }
       });
     }
   }
